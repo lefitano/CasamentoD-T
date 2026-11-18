@@ -48,12 +48,17 @@ export interface Couple {
 export interface Venue {
   name: string
   address: string
-  startsAt: IsoDateTime
-  coordinates: Coordinates
+  /** Horário de início; vazio enquanto não estiver definido */
+  startsAt?: IsoDateTime
+  /** Coordenadas para os botões de rota; vazio enquanto o local não estiver definido */
+  coordinates?: Coordinates
 }
 
 export interface EventInfo {
-  /** Data e hora da cerimônia; base da contagem regressiva */
+  /**
+   * Data do casamento. Enquanto o horário não estiver definido, use meia-noite
+   * (ex.: '2027-02-23T00:00:00-03:00') e deixe `ceremony.startsAt` vazio.
+   */
   date: IsoDateTime
   ceremony: Venue
   reception: Venue
@@ -61,22 +66,22 @@ export interface EventInfo {
   notes: string[]
 }
 
-export interface StoryMilestone {
-  /** Texto livre exibido na linha do tempo, ex.: 'Março de 2018' */
-  when: string
-  title: string
-  description: string
-  image?: Image
-}
+/** Data sem horário, no formato AAAA-MM-DD, ex.: '2019-03-14' */
+export type IsoDate = string
 
-export interface GalleryPhoto extends Image {
-  /** Foto horizontal ou vertical; ajuda a montar a grade */
-  orientation: 'landscape' | 'portrait'
+/** Um momento da história dos noivos: data, foto e breve descrição. */
+export interface Moment {
+  /** Data específica do momento; vazio = a definir */
+  date?: IsoDate
+  title: string
+  /** Breve: até ~200 caracteres, para não ocupar demais a tela do celular */
+  description: string
+  photo?: Image
 }
 
 export interface RsvpConfig {
-  /** Último momento para confirmar; depois disso o formulário fecha */
-  deadline: IsoDateTime
+  /** Último momento para confirmar; depois disso o formulário fecha. Vazio = a definir */
+  deadline?: IsoDateTime
   intro: string
   privacyNotice: string
   successMessage: string
@@ -94,8 +99,7 @@ export interface Gift {
   paymentUrl?: string
 }
 
-export type SectionId =
-  'inicio' | 'historia' | 'momentos' | 'evento' | 'local' | 'confirmar' | 'presentes'
+export type SectionId = 'inicio' | 'historia' | 'evento' | 'local' | 'confirmar' | 'presentes'
 
 export interface NavItem {
   id: SectionId

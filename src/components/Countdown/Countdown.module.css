@@ -1,0 +1,37 @@
+/* Números separados por linhas finas, sem caixa ao redor */
+.countdown {
+  display: flex;
+  margin: 0;
+}
+
+.unit {
+  display: flex;
+  flex-direction: column-reverse; /* número em cima, rótulo embaixo (dt vem antes no HTML) */
+  align-items: flex-start;
+  min-width: 4.25rem;
+  padding-inline: var(--space-4);
+}
+
+.unit + .unit {
+  border-left: 1px solid var(--color-line);
+}
+
+.unit:first-child {
+  padding-left: 0;
+}
+
+.value {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums; /* números não "dançam" ao trocar */
+}
+
+.label {
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}

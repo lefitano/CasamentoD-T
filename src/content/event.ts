@@ -1,20 +1,19 @@
 import type { EventInfo } from './types'
 
-// PROVISÓRIO: data, locais e coordenadas fictícios até os noivos enviarem.
+/** Texto exibido no lugar de qualquer informação ainda não definida */
+export const TO_BE_DEFINED = 'A definir'
+
+// Data confirmada: 23/02/2027. Horários, locais, traje e observações: a definir.
 export const event: EventInfo = {
-  date: '2027-05-15T16:00:00-03:00',
+  date: '2027-02-23T00:00:00-03:00',
   ceremony: {
-    name: 'Local da cerimônia',
-    address: 'Endereço da cerimônia, número — Bairro, Cidade/UF',
-    startsAt: '2027-05-15T16:00:00-03:00',
-    coordinates: { lat: -23.55052, lng: -46.633308 },
+    name: TO_BE_DEFINED,
+    address: 'Endereço a definir',
   },
   reception: {
-    name: 'Local da recepção',
-    address: 'Endereço da recepção, número — Bairro, Cidade/UF',
-    startsAt: '2027-05-15T18:00:00-03:00',
-    coordinates: { lat: -23.55052, lng: -46.633308 },
+    name: TO_BE_DEFINED,
+    address: 'Endereço a definir',
   },
-  dressCode: 'Traje a definir',
-  notes: ['Informações sobre estacionamento', 'Outras observações do dia'],
+  dressCode: TO_BE_DEFINED,
+  notes: [],
 }

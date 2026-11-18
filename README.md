@@ -36,8 +36,8 @@ O site tem um menu que leva a cada seção. A ordem pode mudar conforme a refer�
 | ID   | Seção                 | O que o convidado faz ou vê                                                                            |
 | ---- | --------------------- | ------------------------------------------------------------------------------------------------------ |
 | RF01 | Home                  | Nomes dos noivos, monograma, data e chamada para confirmar presença                                    |
-| RF02 | Nossa história        | Marcos do relacionamento em linha do tempo, com fotos                                                  |
-| RF03 | Galeria               | Fotos dos noivos, otimizadas para celular                                                              |
+| RF02 | Nossa história        | Momentos do casal em linha do tempo: data específica, foto e breve descrição                           |
+| RF03 | ~~Galeria~~           | Unida à Nossa história a pedido da noiva: cada momento tem sua foto                                    |
 | RF04 | O grande dia          | Data, horários, endereços da cerimônia e da recepção e informações do dia (traje, estacionamento etc.) |
 | RF05 | Como chegar           | Mapa e botões "Abrir no Google Maps" e "Abrir no Waze", já com rota                                    |
 | RF06 | Confirme sua presença | Formulário de confirmação, com data limite visível                                                     |
@@ -156,7 +156,7 @@ Cinco fases em 15 dias, com duas aprovações dos noivos: o visual no dia 2 e a 
 1. ~~Criar o projeto com Vite, React e TypeScript, Oxlint e Prettier.~~ ✅
 2. ~~Montar a estrutura de pastas: um componente por seção em `src/sections/` e o conteúdo em `src/content/`.~~ ✅
 3. ~~Definir paleta, tipografia, espaçamentos e botões com área de toque grande.~~ ✅
-4. Cena 3D base (React Three Fiber), rolagem fluida (Lenis) e GSAP: protótipo da sensação imersiva.
+4. ~~Cena 3D base (React Three Fiber), rolagem fluida (Lenis) e GSAP.~~ ✅ Foto da Home viva (ondulação e dissolução líquida ao rolar) sobre um véu fosco e discreto.
 5. Home completa e seções encaixadas como capítulos sobre a cena, com o menu fixo.
 
 **Aprovação 1:** visual aprovado pelos noivos, apresentado em localhost por chamada no Google Meet.
@@ -165,7 +165,7 @@ A conexão com o Netlify fica para antes da Fase 3, porque cada build consome cr
 
 ### Fase 2 — Seções de conteúdo (dias 3–6)
 
-1. Home, Nossa história (linha do tempo), Galeria, O grande dia e Como chegar.
+1. Home, Nossa história (momentos com data, foto e descrição), O grande dia e Como chegar.
 2. Script que converte as fotos do Google Drive para WebP em vários tamanhos, com carregamento sob demanda.
 
 ### Fase 3 — Formulários e presentes (dias 7–9)
@@ -198,8 +198,9 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 - [x] Print de referência da Home (recebido em 18/11; usar como base, sem copiar)
 - [ ] Foto de fundo da Home: arquivo original em alta resolução; de preferência uma versão horizontal (computador) e uma vertical (celular)
 - [ ] Citação da Home: proposta por nós e aprovada pela noiva na primeira prévia
-- [ ] Textos da história e marcos do relacionamento, com datas
-- [ ] Data, horários e endereços da cerimônia e da recepção
+- [ ] Momentos da história: data específica, uma foto e uma descrição breve (até ~200 caracteres) de cada um
+- [x] Data do casamento: 23/02/2027
+- [ ] Horários e endereços da cerimônia e da recepção
 - [ ] Informações específicas do dia (traje, estacionamento, observações)
 - [ ] Data limite para confirmação de presença
 - [ ] E-mail que vai receber as notificações
@@ -224,6 +225,7 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 | 3D                      | Three.js com React Three Fiber, carregado depois do conteúdo |
 | Animações e rolagem     | GSAP + Lenis                                                 |
 | Fotos                   | Pasta no Google Drive compartilhada pelos noivos             |
+| Data do casamento       | 23/02/2027 (horários e locais a definir)                     |
 | Cronograma              | Início em 18/11/2026; entrega em 02/12/2026                  |
 | Prévias para os noivos  | Localhost por Google Meet; Netlify conectado antes da Fase 3 |
 
@@ -231,5 +233,4 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 
 - [ ] Escolher a solução de pagamento: links InfinitePay ou Mercado Pago Checkout Pro
 - [ ] Definir se o painel do Netlify basta ou se haverá painel próprio
-- [ ] Confirmar a data do casamento
 - [ ] Definir se haverá domínio próprio (ex.: nomedosnoivos.com.br)

@@ -1,20 +1,25 @@
 import { Button } from '@/components/Button/Button'
-import { couple } from '@/content'
+import { Monogram } from '@/components/Monogram/Monogram'
+import { couple, event } from '@/content'
+import { formatLongDate } from '@/lib/date'
 import { whatsappUrl } from '@/lib/whatsapp'
+import styles from './Footer.module.css'
 
-/** RF08 — Rodapé: mensagem final e contato pelo WhatsApp. */
+/** RF08 — Rodapé: mensagem final, contato pelo WhatsApp e monograma. */
 export function Footer() {
   return (
-    <footer>
-      <p>{couple.closingMessage}</p>
+    <footer className={styles.footer}>
+      <p className={styles.closing}>{couple.closingMessage}</p>
       <Button
         href={whatsappUrl(couple.whatsapp.phone, couple.whatsapp.message)}
         target="_blank"
         rel="noopener noreferrer"
+        variant="secondary"
       >
         Falar com os noivos no WhatsApp
       </Button>
-      <p>{couple.initials}</p>
+      <Monogram className={styles.monogram} />
+      <p className={styles.date}>{formatLongDate(event.date)}</p>
     </footer>
   )
 }

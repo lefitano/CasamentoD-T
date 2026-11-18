@@ -1,0 +1,32 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-32) var(--gutter) var(--space-16);
+  text-align: center;
+}
+
+.closing {
+  max-width: 24ch;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-xl);
+  line-height: var(--leading-snug);
+}
+
+.monogram {
+  margin-top: var(--space-12);
+  font-size: 3rem;
+}
+
+img.monogram {
+  height: 4.5rem;
+}
+
+.date {
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}

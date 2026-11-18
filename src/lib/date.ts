@@ -1,4 +1,4 @@
-import type { IsoDateTime } from '@/content'
+import type { IsoDate, IsoDateTime } from '@/content'
 
 /** Datas sempre exibidas no horário de Brasília, independentemente do fuso do aparelho. */
 const TIME_ZONE = 'America/Sao_Paulo'
@@ -60,4 +60,17 @@ export function getTimeRemaining(target: IsoDateTime, now: Date = new Date()): T
 
 export function isPast(iso: IsoDateTime, now: Date = new Date()): boolean {
   return new Date(iso).getTime() <= now.getTime()
+}
+
+/**
+ * Data sem horário ('2019-03-14') → '14 de março de 2019'.
+ * Formatada em UTC de propósito: sem isso, a meia-noite UTC viraria o dia anterior no Brasil.
+ */
+export function formatCalendarDate(isoDate: IsoDate): string {
+  return new Intl.DateTimeFormat(LOCALE, {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(`${isoDate}T00:00:00Z`))
 }

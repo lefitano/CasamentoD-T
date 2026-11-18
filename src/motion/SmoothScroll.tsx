@@ -3,6 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
+import { registerLenis } from './scrollLock'
 import { scrollState } from './scrollState'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -18,6 +19,7 @@ export function SmoothScroll() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const lenis = reduceMotion ? null : new Lenis({ autoRaf: false, anchors: true, lerp: 0.09 })
     lenis?.on('scroll', ScrollTrigger.update)
+    registerLenis(lenis)
 
     let lastY = window.scrollY
     const tick = (time: number) => {
@@ -36,6 +38,7 @@ export function SmoothScroll() {
 
     return () => {
       gsap.ticker.remove(tick)
+      registerLenis(null)
       lenis?.destroy()
     }
   }, [])

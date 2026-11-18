@@ -3,17 +3,20 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
+  max-width: 100%;
   min-height: var(--tap-min);
-  padding: 0 var(--space-8);
+  /* Recuo menor no celular; textos longos quebram linha em vez de estourar a tela */
+  padding: var(--space-3) var(--space-6);
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
   font-family: var(--font-body);
   font-size: var(--text-xs);
   font-weight: 600;
+  line-height: 1.4;
   letter-spacing: var(--tracking-wide);
+  text-align: center;
   text-transform: uppercase;
   text-decoration: none;
-  white-space: nowrap;
   transition:
     background-color var(--duration-fast) var(--ease-in-out),
     border-color var(--duration-fast) var(--ease-in-out),
@@ -36,11 +39,27 @@
   border-color: var(--color-line);
 }
 
+/* Marfim sólido: destaque máximo sobre a foto da Home */
+.button[data-variant='light'] {
+  background: var(--ivory-50);
+  color: var(--navy-900);
+}
+
+@media (min-width: 40rem) {
+  .button {
+    padding-inline: var(--space-8);
+  }
+}
+
 /* Hover só em aparelhos com mouse, para não "grudar" no toque do celular */
 @media (hover: hover) {
   .button[data-variant='primary']:hover {
     background: var(--steel-400);
     color: var(--navy-950);
+  }
+
+  .button[data-variant='light']:hover {
+    background: var(--ice-100);
   }
 
   .button[data-variant='secondary']:hover {
