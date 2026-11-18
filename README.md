@@ -152,7 +152,7 @@ Cinco fases em 15 dias, com duas aprovações dos noivos: o visual no dia 2 e a 
 ### Fase 1 — Setup e base (dias 1–2)
 
 1. ~~Criar o projeto com Vite, React e TypeScript, Oxlint e Prettier.~~ ✅
-2. Montar a estrutura de pastas: um componente por seção em `src/sections/` e o conteúdo em `src/content/`.
+2. ~~Montar a estrutura de pastas: um componente por seção em `src/sections/` e o conteúdo em `src/content/`.~~ ✅
 3. Definir paleta, tipografia, espaçamentos e botões com área de toque grande.
 4. Montar a página com as 8 seções em versão simples, o menu fixo e a rolagem até cada seção.
 
@@ -193,7 +193,8 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 - [ ] Fotos dos noivos e dos locais
 - [ ] Monograma do casamento (de preferência em SVG ou PNG com fundo transparente)
 - [x] Print de referência da Home (recebido em 18/11; usar como base, sem copiar)
-- [ ] Foto de fundo da Home
+- [ ] Foto de fundo da Home: arquivo original em alta resolução; de preferência uma versão horizontal (computador) e uma vertical (celular)
+- [ ] Citação da Home: proposta por nós e aprovada pela noiva na primeira prévia
 - [ ] Textos da história e marcos do relacionamento, com datas
 - [ ] Data, horários e endereços da cerimônia e da recepção
 - [ ] Informações específicas do dia (traje, estacionamento, observações)
