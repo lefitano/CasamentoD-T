@@ -25,6 +25,12 @@ export interface Couple {
   /** Iniciais usadas enquanto o monograma (imagem) não chega, ex.: 'D&T' */
   initials: string
   monogram?: Image
+  /** Foto de fundo da Home, em duas versões: horizontal (computador) e vertical (celular) */
+  heroImage: {
+    landscape: string
+    portrait: string
+    alt: string
+  }
   quote: {
     text: string
     /** Autor ou referência, ex.: 'Rute 1:16' */

@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import type { SectionId } from '@/content'
+import styles from './Section.module.css'
 
 interface SectionProps {
   id: SectionId
@@ -13,7 +14,7 @@ interface SectionProps {
 export function Section({ id, title, eyebrow, children }: SectionProps) {
   const titleId = `${id}-titulo`
   return (
-    <section id={id} aria-labelledby={titleId}>
+    <section id={id} aria-labelledby={titleId} className={styles.section}>
       {eyebrow && <p>{eyebrow}</p>}
       <h2 id={titleId}>{title}</h2>
       {children}

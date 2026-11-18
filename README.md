@@ -113,15 +113,15 @@ No MVP não há painel próprio; o Netlify atende:
 
 Site estático em React hospedado no Netlify, sem backend próprio: os formulários ficam no Netlify Forms e o pagamento em um serviço externo.
 
-| Camada                     | Tecnologia                                                                      | Papel                                                                  |
-| -------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| Front-end                  | React + Vite + TypeScript                                                       | Página única, um componente por seção                                  |
-| Animações                  | Lenis + GSAP ScrollTrigger ou Framer Motion (a definir durante a implementação) | Rolagem suave, parallax e profundidade                                 |
-| Hospedagem                 | Netlify                                                                         | Deploy contínuo a partir do GitHub, HTTPS                              |
-| Formulários                | Netlify Forms                                                                   | Confirmação de presença e registro de presentes, com e-mail aos noivos |
-| Pagamento                  | A definir (InfinitePay ou Mercado Pago)                                         | Página de pagamento externa e segura                                   |
-| Mapas                      | Links do Google Maps e do Waze                                                  | Rota aberta direto no aplicativo                                       |
-| Backend (só se necessário) | Netlify Functions (Node.js) + Supabase                                          | Webhook de pagamento ou painel próprio, caso entrem no escopo          |
+| Camada                     | Tecnologia                              | Papel                                                                  |
+| -------------------------- | --------------------------------------- | ---------------------------------------------------------------------- |
+| Front-end                  | React + Vite + TypeScript               | Página única, um componente por seção                                  |
+| Animações                  | GSAP (ScrollTrigger, SplitText) + Lenis | Rolagem suave, parallax e profundidade                                 |
+| Hospedagem                 | Netlify                                 | Deploy contínuo a partir do GitHub, HTTPS                              |
+| Formulários                | Netlify Forms                           | Confirmação de presença e registro de presentes, com e-mail aos noivos |
+| Pagamento                  | A definir (InfinitePay ou Mercado Pago) | Página de pagamento externa e segura                                   |
+| Mapas                      | Links do Google Maps e do Waze          | Rota aberta direto no aplicativo                                       |
+| Backend (só se necessário) | Netlify Functions (Node.js) + Supabase  | Webhook de pagamento ou painel próprio, caso entrem no escopo          |
 
 Todo o conteúdo dos noivos (textos, datas, endereços, cotas e links) fica em arquivos de dados em `src/content/`, separado dos componentes. Assim os textos provisórios são trocados pelos reais sem mexer no layout.
 
@@ -139,10 +139,12 @@ npm run format   # Prettier
 
 ## Identidade visual
 
-- **Cores:** azul em diversos tons; a paleta final em hexadecimal sai da referência da Home e do monograma.
-- **Tipografia (a validar):** serifada elegante nos títulos (Cormorant Garamond ou Playfair Display), sem serifa no texto (Inter ou Montserrat) e cursiva só nos nomes ou no monograma (Great Vibes ou Pinyon Script). Todas do Google Fonts, servidas pelo próprio site via Fontsource.
+- **Direção:** site imersivo, com rolagem fluida, fundo 3D contínuo e animações com profundidade no carregamento e no surgimento dos itens. Evitar o visual de template: nada de grade de cards e seções em faixas de cores alternadas.
+- **Cores (paleta B · Marinho clássico, tema escuro):** `#0A1222` fundo profundo, `#14213D` marinho, `#2E4A7D` azul real (botões), `#6C8EBF` azul aço (destaques), `#E6EEF7` gelo, `#FBFAF7` marfim (texto). Definidas em `src/styles/tokens.css`.
+- **Tipografia:** Playfair Display nos títulos, Montserrat no texto e Great Vibes como cursiva de detalhe. Servidas pelo próprio site via Fontsource.
+- **Monograma:** o monograma dos noivos (a receber) substitui o "D&T" em texto.
 - **Referência da Home (recebida):** foto em tela cheia com os noivos, menu discreto em caixa alta, data em destaque, nomes em serifada grande, citação em itálico, contagem regressiva e dois botões ("Confirmar presença" e "Ver informações"). Serve de base, não para copiar.
-- **Rolagem com profundidade:** parallax e camadas. Three.js só se a referência exigir 3D real, por causa do peso no celular e do prazo.
+- **Rolagem com profundidade:** cena 3D contínua (Three.js) atrás do conteúdo; a câmera percorre a cena conforme a rolagem e cada seção é um "capítulo". Versão estática para aparelhos fracos e para quem desativa movimento.
 - **Animações de fundo:** elementos sutis (formas, brilhos ou ornamentos) que não disputem atenção com o conteúdo.
 
 ## Fluxo de implementação
@@ -153,8 +155,9 @@ Cinco fases em 15 dias, com duas aprovações dos noivos: o visual no dia 2 e a 
 
 1. ~~Criar o projeto com Vite, React e TypeScript, Oxlint e Prettier.~~ ✅
 2. ~~Montar a estrutura de pastas: um componente por seção em `src/sections/` e o conteúdo em `src/content/`.~~ ✅
-3. Definir paleta, tipografia, espaçamentos e botões com área de toque grande.
-4. Montar a página com as 8 seções em versão simples, o menu fixo e a rolagem até cada seção.
+3. ~~Definir paleta, tipografia, espaçamentos e botões com área de toque grande.~~ ✅
+4. Cena 3D base (React Three Fiber), rolagem fluida (Lenis) e GSAP: protótipo da sensação imersiva.
+5. Home completa e seções encaixadas como capítulos sobre a cena, com o menu fixo.
 
 **Aprovação 1:** visual aprovado pelos noivos, apresentado em localhost por chamada no Google Meet.
 
@@ -175,8 +178,8 @@ Se a opção de pagamento for o Mercado Pago, esta fase precisa de mais dias, qu
 
 ### Fase 4 — Animações e polimento (dias 10–12)
 
-1. Rolagem suave, parallax e animações de fundo.
-2. Suporte a `prefers-reduced-motion` e ajustes de desempenho no celular.
+1. Refinamento da cena 3D, das transições entre capítulos e das animações de entrada.
+2. Ajustes de desempenho no celular, versão simplificada para aparelhos fracos e `prefers-reduced-motion`.
 
 **Aprovação 2:** revisão completa pelos noivos.
 
@@ -216,6 +219,10 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 | Front-end               | React + Vite + TypeScript                                    |
 | Estilização             | CSS Modules + variáveis CSS                                  |
 | Fontes                  | Servidas pelo próprio site (Fontsource)                      |
+| Paleta                  | B · Marinho clássico, tema escuro imersivo                   |
+| Tipografia              | Playfair Display + Montserrat + Great Vibes                  |
+| 3D                      | Three.js com React Three Fiber, carregado depois do conteúdo |
+| Animações e rolagem     | GSAP + Lenis                                                 |
 | Fotos                   | Pasta no Google Drive compartilhada pelos noivos             |
 | Cronograma              | Início em 18/11/2026; entrega em 02/12/2026                  |
 | Prévias para os noivos  | Localhost por Google Meet; Netlify conectado antes da Fase 3 |
@@ -224,7 +231,5 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 
 - [ ] Escolher a solução de pagamento: links InfinitePay ou Mercado Pago Checkout Pro
 - [ ] Definir se o painel do Netlify basta ou se haverá painel próprio
-- [ ] Fechar a paleta de azuis e a tipografia
-- [ ] Escolher a biblioteca de animação (GSAP ScrollTrigger ou Framer Motion)
 - [ ] Confirmar a data do casamento
 - [ ] Definir se haverá domínio próprio (ex.: nomedosnoivos.com.br)

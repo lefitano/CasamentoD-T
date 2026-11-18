@@ -1,0 +1,5 @@
+/* Conteúdo sempre acima do fundo 3D */
+.app {
+  position: relative;
+  z-index: var(--z-content);
+}

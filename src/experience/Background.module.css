@@ -1,0 +1,28 @@
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-background);
+  pointer-events: none;
+}
+
+/* Versão estática: imita a cena (véu azul embaixo, brilhos difusos) */
+.fallback {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 35% at 50% 85%, rgb(46 74 125 / 0.55), transparent 70%),
+    radial-gradient(ellipse 40% 25% at 20% 30%, rgb(108 142 191 / 0.18), transparent 70%),
+    radial-gradient(ellipse 35% 20% at 80% 20%, rgb(230 238 247 / 0.08), transparent 70%),
+    linear-gradient(180deg, var(--navy-950) 0%, var(--navy-900) 100%);
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--duration-slow) var(--ease-in-out);
+}
+
+.canvas[data-ready='true'] {
+  opacity: 1;
+}

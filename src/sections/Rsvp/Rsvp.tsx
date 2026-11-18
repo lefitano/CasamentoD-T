@@ -7,7 +7,7 @@ export function Rsvp() {
   const closed = isPast(rsvp.deadline)
 
   return (
-    <Section id="confirmar" eyebrow="RSVP" title="Confirme sua presença">
+    <Section id="confirmar" eyebrow="Convite" title="Confirme sua presença">
       {closed ? (
         <p>{rsvp.closedMessage}</p>
       ) : (

@@ -28,3 +28,6 @@ npm-debug.log*
 .DS_Store
 Thumbs.db
 *.sw?
+
+# Fotos provisórias de banco (não versionar)
+public/images/provisorio/
