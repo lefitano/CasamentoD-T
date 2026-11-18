@@ -1,0 +1,11 @@
+/* Estilos globais provisórios. Tokens de cor e tipografia entram na etapa 1.4. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}

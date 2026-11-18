@@ -4,13 +4,13 @@ Site de página única, pensado primeiro para o celular, que reúne tudo o que o
 
 A documentação completa está em [docs/Site de Casamento — Documentação do Projeto.pdf](docs/Site%20de%20Casamento%20—%20Documentação%20do%20Projeto.pdf). Em caso de conflito, o PDF vale; este README é atualizado sempre que uma pendência for decidida.
 
-| Item | Definição |
-| --- | --- |
-| Público | Convidados em geral: amigos, familiares e conhecidos |
-| Objetivo | Unificar informações do casamento, fotos e história dos noivos, detalhes do dia, confirmação de presença e lista de presentes |
-| Dispositivo principal | Celular (mobile first), com versão web responsiva |
-| Prazo | 15 dias a partir do início da implementação |
-| Responsável técnico | Leonardo |
+| Item                  | Definição                                                                                                                     |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Público               | Convidados em geral: amigos, familiares e conhecidos                                                                          |
+| Objetivo              | Unificar informações do casamento, fotos e história dos noivos, detalhes do dia, confirmação de presença e lista de presentes |
+| Dispositivo principal | Celular (mobile first), com versão web responsiva                                                                             |
+| Prazo                 | 15 dias a partir do início da implementação                                                                                   |
+| Responsável técnico   | Leonardo                                                                                                                      |
 
 ## Escopo do MVP
 
@@ -33,16 +33,16 @@ A documentação completa está em [docs/Site de Casamento — Documentação do
 
 O site tem um menu que leva a cada seção. A ordem pode mudar conforme a referência visual da noiva.
 
-| ID | Seção | O que o convidado faz ou vê |
-| --- | --- | --- |
-| RF01 | Home | Nomes dos noivos, monograma, data e chamada para confirmar presença |
-| RF02 | Nossa história | Marcos do relacionamento em linha do tempo, com fotos |
-| RF03 | Galeria | Fotos dos noivos, otimizadas para celular |
-| RF04 | O grande dia | Data, horários, endereços da cerimônia e da recepção e informações do dia (traje, estacionamento etc.) |
-| RF05 | Como chegar | Mapa e botões "Abrir no Google Maps" e "Abrir no Waze", já com rota |
-| RF06 | Confirme sua presença | Formulário de confirmação, com data limite visível |
-| RF07 | Lista de presentes | Cards de cotas com nome, imagem, valor e botão "Presentear" |
-| RF08 | Rodapé | Contato dos noivos por link de WhatsApp e mensagem final |
+| ID   | Seção                 | O que o convidado faz ou vê                                                                            |
+| ---- | --------------------- | ------------------------------------------------------------------------------------------------------ |
+| RF01 | Home                  | Nomes dos noivos, monograma, data e chamada para confirmar presença                                    |
+| RF02 | Nossa história        | Marcos do relacionamento em linha do tempo, com fotos                                                  |
+| RF03 | Galeria               | Fotos dos noivos, otimizadas para celular                                                              |
+| RF04 | O grande dia          | Data, horários, endereços da cerimônia e da recepção e informações do dia (traje, estacionamento etc.) |
+| RF05 | Como chegar           | Mapa e botões "Abrir no Google Maps" e "Abrir no Waze", já com rota                                    |
+| RF06 | Confirme sua presença | Formulário de confirmação, com data limite visível                                                     |
+| RF07 | Lista de presentes    | Cards de cotas com nome, imagem, valor e botão "Presentear"                                            |
+| RF08 | Rodapé                | Contato dos noivos por link de WhatsApp e mensagem final                                               |
 
 Os links de rota abrem direto no aplicativo quando o convidado está no celular:
 
@@ -53,14 +53,14 @@ Os links de rota abrem direto no aplicativo quando o convidado está no celular:
 
 Formulário aberto no Netlify Forms, sem lista pré-cadastrada de convidados. Cada resposta gera um e-mail para os noivos.
 
-| Campo | Tipo | Obrigatório |
-| --- | --- | --- |
-| Nome completo | Texto | Sim |
-| Telefone (WhatsApp) | Telefone | Sim |
-| Vai comparecer? | Sim / Não | Sim |
-| Quantidade de pessoas | Número | Sim, se for comparecer |
-| Nomes dos acompanhantes | Texto | Não |
-| Recado para os noivos | Texto longo | Não |
+| Campo                   | Tipo        | Obrigatório            |
+| ----------------------- | ----------- | ---------------------- |
+| Nome completo           | Texto       | Sim                    |
+| Telefone (WhatsApp)     | Telefone    | Sim                    |
+| Vai comparecer?         | Sim / Não   | Sim                    |
+| Quantidade de pessoas   | Número      | Sim, se for comparecer |
+| Nomes dos acompanhantes | Texto       | Não                    |
+| Recado para os noivos   | Texto longo | Não                    |
 
 Regras:
 
@@ -81,47 +81,47 @@ Ao clicar em "Presentear", um modal pede nome e recado, envia o registro ao Netl
 
 A solução de pagamento ainda será escolhida:
 
-| Opção | Como funciona | Prós | Contras |
-| --- | --- | --- | --- |
+| Opção                      | Como funciona                                                      | Prós                                                                                         | Contras                                                                    |
+| -------------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | Links InfinitePay por cota | Os noivos criam um link no app para cada cota; o botão abre o link | Pix e cartão no mesmo link, Pix sem taxa, nenhum dado de cartão passa pelo site, sem backend | Valor fixo por cota, links criados manualmente, pagamento conferido no app |
-| Mercado Pago Checkout Pro | Uma função serverless cria o pagamento; um webhook confirma | Valor livre, registro automático de quem pagou | Exige backend e banco, mais dias de desenvolvimento, taxa também no Pix |
+| Mercado Pago Checkout Pro  | Uma função serverless cria o pagamento; um webhook confirma        | Valor livre, registro automático de quem pagou                                               | Exige backend e banco, mais dias de desenvolvimento, taxa também no Pix    |
 
 ### Área administrativa
 
 No MVP não há painel próprio; o Netlify atende:
 
-| Necessidade | Como fica atendida |
-| --- | --- |
-| Ver confirmações e recusas | E-mail a cada resposta e lista de envios no painel do Netlify |
-| Ver quem presenteou | E-mail a cada registro de presente, mais a conferência no app de pagamento |
-| Contar o total de pessoas | Exportar as respostas em CSV pelo Netlify |
-| Saber quem não respondeu | Manual, comparando com a lista dos noivos |
+| Necessidade                | Como fica atendida                                                         |
+| -------------------------- | -------------------------------------------------------------------------- |
+| Ver confirmações e recusas | E-mail a cada resposta e lista de envios no painel do Netlify              |
+| Ver quem presenteou        | E-mail a cada registro de presente, mais a conferência no app de pagamento |
+| Contar o total de pessoas  | Exportar as respostas em CSV pelo Netlify                                  |
+| Saber quem não respondeu   | Manual, comparando com a lista dos noivos                                  |
 
 ## Requisitos não funcionais
 
-| ID | Requisito | Detalhe |
-| --- | --- | --- |
-| RNF01 | Mobile first | Layout pensado a partir de telas de celular; adaptação para tablet e desktop |
-| RNF02 | Desempenho | Fotos em WebP, redimensionadas e com carregamento sob demanda (lazy loading) |
-| RNF03 | Animações leves | Animações fluidas no celular e respeito ao `prefers-reduced-motion` |
-| RNF04 | Segurança | HTTPS, proteção contra spam nos formulários, nenhum dado de cartão no site |
-| RNF05 | Privacidade (LGPD) | Coletar só os dados necessários; respostas visíveis apenas para os noivos |
-| RNF06 | Acessibilidade | Contraste adequado nos tons de azul, textos alternativos nas imagens, botões grandes para toque |
-| RNF07 | Compatibilidade | Navegadores atuais de Android e iOS (Chrome e Safari) |
+| ID    | Requisito          | Detalhe                                                                                         |
+| ----- | ------------------ | ----------------------------------------------------------------------------------------------- |
+| RNF01 | Mobile first       | Layout pensado a partir de telas de celular; adaptação para tablet e desktop                    |
+| RNF02 | Desempenho         | Fotos em WebP, redimensionadas e com carregamento sob demanda (lazy loading)                    |
+| RNF03 | Animações leves    | Animações fluidas no celular e respeito ao `prefers-reduced-motion`                             |
+| RNF04 | Segurança          | HTTPS, proteção contra spam nos formulários, nenhum dado de cartão no site                      |
+| RNF05 | Privacidade (LGPD) | Coletar só os dados necessários; respostas visíveis apenas para os noivos                       |
+| RNF06 | Acessibilidade     | Contraste adequado nos tons de azul, textos alternativos nas imagens, botões grandes para toque |
+| RNF07 | Compatibilidade    | Navegadores atuais de Android e iOS (Chrome e Safari)                                           |
 
 ## Stack e arquitetura
 
 Site estático em React hospedado no Netlify, sem backend próprio: os formulários ficam no Netlify Forms e o pagamento em um serviço externo.
 
-| Camada | Tecnologia | Papel |
-| --- | --- | --- |
-| Front-end | React + Vite + TypeScript | Página única, um componente por seção |
-| Animações | Lenis + GSAP ScrollTrigger ou Framer Motion (a definir durante a implementação) | Rolagem suave, parallax e profundidade |
-| Hospedagem | Netlify | Deploy contínuo a partir do GitHub, HTTPS |
-| Formulários | Netlify Forms | Confirmação de presença e registro de presentes, com e-mail aos noivos |
-| Pagamento | A definir (InfinitePay ou Mercado Pago) | Página de pagamento externa e segura |
-| Mapas | Links do Google Maps e do Waze | Rota aberta direto no aplicativo |
-| Backend (só se necessário) | Netlify Functions (Node.js) + Supabase | Webhook de pagamento ou painel próprio, caso entrem no escopo |
+| Camada                     | Tecnologia                                                                      | Papel                                                                  |
+| -------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Front-end                  | React + Vite + TypeScript                                                       | Página única, um componente por seção                                  |
+| Animações                  | Lenis + GSAP ScrollTrigger ou Framer Motion (a definir durante a implementação) | Rolagem suave, parallax e profundidade                                 |
+| Hospedagem                 | Netlify                                                                         | Deploy contínuo a partir do GitHub, HTTPS                              |
+| Formulários                | Netlify Forms                                                                   | Confirmação de presença e registro de presentes, com e-mail aos noivos |
+| Pagamento                  | A definir (InfinitePay ou Mercado Pago)                                         | Página de pagamento externa e segura                                   |
+| Mapas                      | Links do Google Maps e do Waze                                                  | Rota aberta direto no aplicativo                                       |
+| Backend (só se necessário) | Netlify Functions (Node.js) + Supabase                                          | Webhook de pagamento ou painel próprio, caso entrem no escopo          |
 
 Todo o conteúdo dos noivos (textos, datas, endereços, cotas e links) fica em arquivos de dados em `src/content/`, separado dos componentes. Assim os textos provisórios são trocados pelos reais sem mexer no layout.
 
@@ -191,14 +191,14 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 
 **Decisões tomadas**
 
-| Tema | Decisão |
-| --- | --- |
-| Confirmação de presença | Formulário aberto no Netlify Forms, com e-mail aos noivos |
-| Lista de convidados | Sem lista pré-cadastrada; acompanhamento manual pelos noivos |
-| Presentes | Cotas em dinheiro, com Pix e cartão de crédito |
-| Hospedagem | Netlify |
-| Front-end | React + Vite + TypeScript |
-| Fotos | Pasta no Google Drive compartilhada pelos noivos |
+| Tema                    | Decisão                                                      |
+| ----------------------- | ------------------------------------------------------------ |
+| Confirmação de presença | Formulário aberto no Netlify Forms, com e-mail aos noivos    |
+| Lista de convidados     | Sem lista pré-cadastrada; acompanhamento manual pelos noivos |
+| Presentes               | Cotas em dinheiro, com Pix e cartão de crédito               |
+| Hospedagem              | Netlify                                                      |
+| Front-end               | React + Vite + TypeScript                                    |
+| Fotos                   | Pasta no Google Drive compartilhada pelos noivos             |
 
 **Pendências**
 

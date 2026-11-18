@@ -1,2 +1,30 @@
 # Claude Code
 CLAUDE.md
+
+# Dependências e build
+node_modules
+dist
+dist-ssr
+*.local
+
+# Variáveis de ambiente
+.env
+.env.*
+!.env.example
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Netlify
+.netlify
+
+# Editor e sistema
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea
+.DS_Store
+Thumbs.db
+*.sw?
