@@ -14,7 +14,7 @@ A documentação completa está em [docs/Site de Casamento — Documentação do
 
 ## Escopo do MVP
 
-**Dentro do escopo**
+### Dentro do escopo
 
 - Página única com rolagem e seções animadas
 - História e fotos dos noivos
@@ -23,7 +23,7 @@ A documentação completa está em [docs/Site de Casamento — Documentação do
 - Confirmação de presença por formulário, com e-mail para os noivos
 - Lista de presentes em cotas em dinheiro, com Pix e cartão de crédito
 
-**Fora do escopo (por enquanto)**
+### Fora do escopo (por enquanto)
 
 - Lista de convidados pré-cadastrada e links individuais por convite
 - Envio automático de mensagens por WhatsApp
@@ -125,10 +125,23 @@ Site estático em React hospedado no Netlify, sem backend próprio: os formulár
 
 Todo o conteúdo dos noivos (textos, datas, endereços, cotas e links) fica em arquivos de dados em `src/content/`, separado dos componentes. Assim os textos provisórios são trocados pelos reais sem mexer no layout.
 
+## Como rodar
+
+Requer Node.js 24 ou superior.
+
+```bash
+npm install
+npm run dev      # servidor local; também mostra um endereço para abrir no celular (mesmo Wi-Fi)
+npm run build    # checagem de tipos + build de produção em dist/
+npm run lint     # Oxlint
+npm run format   # Prettier
+```
+
 ## Identidade visual
 
 - **Cores:** azul em diversos tons; a paleta final em hexadecimal sai da referência da Home e do monograma.
-- **Tipografia (a validar):** serifada elegante nos títulos (Cormorant Garamond ou Playfair Display), sem serifa no texto (Inter ou Montserrat) e cursiva só nos nomes ou no monograma (Great Vibes ou Pinyon Script). Todas no Google Fonts.
+- **Tipografia (a validar):** serifada elegante nos títulos (Cormorant Garamond ou Playfair Display), sem serifa no texto (Inter ou Montserrat) e cursiva só nos nomes ou no monograma (Great Vibes ou Pinyon Script). Todas do Google Fonts, servidas pelo próprio site via Fontsource.
+- **Referência da Home (recebida):** foto em tela cheia com os noivos, menu discreto em caixa alta, data em destaque, nomes em serifada grande, citação em itálico, contagem regressiva e dois botões ("Confirmar presença" e "Ver informações"). Serve de base, não para copiar.
 - **Rolagem com profundidade:** parallax e camadas. Three.js só se a referência exigir 3D real, por causa do peso no celular e do prazo.
 - **Animações de fundo:** elementos sutis (formas, brilhos ou ornamentos) que não disputem atenção com o conteúdo.
 
@@ -138,13 +151,14 @@ Cinco fases em 15 dias, com duas aprovações dos noivos: o visual no dia 2 e a 
 
 ### Fase 1 — Setup e base (dias 1–2)
 
-1. Criar o projeto com Vite, React e TypeScript e ligar o repositório do GitHub ao Netlify, com publicação a cada push.
+1. ~~Criar o projeto com Vite, React e TypeScript, Oxlint e Prettier.~~ ✅
 2. Montar a estrutura de pastas: um componente por seção em `src/sections/` e o conteúdo em `src/content/`.
 3. Definir paleta, tipografia, espaçamentos e botões com área de toque grande.
 4. Montar a página com as 8 seções em versão simples, o menu fixo e a rolagem até cada seção.
-5. Publicar uma prévia no Netlify.
 
-**Aprovação 1:** visual aprovado pelos noivos.
+**Aprovação 1:** visual aprovado pelos noivos, apresentado em localhost por chamada no Google Meet.
+
+A conexão com o Netlify fica para antes da Fase 3, porque cada build consome créditos do plano gratuito e o Netlify Forms só funciona com o site publicado.
 
 ### Fase 2 — Seções de conteúdo (dias 3–6)
 
@@ -178,7 +192,8 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 - [ ] Pasta no Google Drive compartilhada com o Leonardo
 - [ ] Fotos dos noivos e dos locais
 - [ ] Monograma do casamento (de preferência em SVG ou PNG com fundo transparente)
-- [ ] Print de referência da Home
+- [x] Print de referência da Home (recebido em 18/11; usar como base, sem copiar)
+- [ ] Foto de fundo da Home
 - [ ] Textos da história e marcos do relacionamento, com datas
 - [ ] Data, horários e endereços da cerimônia e da recepção
 - [ ] Informações específicas do dia (traje, estacionamento, observações)
@@ -189,7 +204,7 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 
 ## Decisões e pendências
 
-**Decisões tomadas**
+### Decisões tomadas
 
 | Tema                    | Decisão                                                      |
 | ----------------------- | ------------------------------------------------------------ |
@@ -198,14 +213,17 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 | Presentes               | Cotas em dinheiro, com Pix e cartão de crédito               |
 | Hospedagem              | Netlify                                                      |
 | Front-end               | React + Vite + TypeScript                                    |
+| Estilização             | CSS Modules + variáveis CSS                                  |
+| Fontes                  | Servidas pelo próprio site (Fontsource)                      |
 | Fotos                   | Pasta no Google Drive compartilhada pelos noivos             |
+| Cronograma              | Início em 18/11/2026; entrega em 02/12/2026                  |
+| Prévias para os noivos  | Localhost por Google Meet; Netlify conectado antes da Fase 3 |
 
-**Pendências**
+### Pendências
 
 - [ ] Escolher a solução de pagamento: links InfinitePay ou Mercado Pago Checkout Pro
 - [ ] Definir se o painel do Netlify basta ou se haverá painel próprio
-- [ ] Receber o print de referência da Home
 - [ ] Fechar a paleta de azuis e a tipografia
 - [ ] Escolher a biblioteca de animação (GSAP ScrollTrigger ou Framer Motion)
-- [ ] Confirmar a data do casamento e a data de início dos 15 dias
+- [ ] Confirmar a data do casamento
 - [ ] Definir se haverá domínio próprio (ex.: nomedosnoivos.com.br)
