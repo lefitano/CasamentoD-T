@@ -25,7 +25,7 @@ export function Event() {
   return (
     <Section id="evento" {...sectionTexts.event} title={formatLongDate(event.date)}>
       <p className={styles.weekday}>{formatWeekday(event.date)}</p>
-      <div className={styles.rows}>
+      <div className={styles.rows} data-reveal-children>
         <VenueRow label="Cerimônia" venue={event.ceremony} />
         <VenueRow label="Recepção" venue={event.reception} />
         <div className={styles.row}>

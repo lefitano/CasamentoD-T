@@ -2,7 +2,8 @@ import { useRef, useState } from 'react'
 import { Section } from '@/components/Section/Section'
 import { moments, sectionTexts, TO_BE_DEFINED, type Image } from '@/content'
 import { formatCalendarDate } from '@/lib/date'
-import { EASE_OUT, gsap, prefersReducedMotion, useGSAP } from '@/motion/gsap'
+import { edgeReveal, fadeSlide } from '@/motion/edgeReveal'
+import { gsap, prefersReducedMotion, useGSAP } from '@/motion/gsap'
 import styles from './Story.module.css'
 
 /** Foto do momento; se não houver arquivo ou ele falhar, mostra um quadro vazio discreto. */
@@ -19,28 +20,27 @@ function MomentPhoto({ photo }: { photo?: Image }) {
 export function Story() {
   const list = useRef<HTMLOListElement>(null)
 
-  // Cada momento entra ao rolar: a foto se revela de baixo para cima (máscara)
-  // enquanto a imagem "assenta" do leve zoom; o texto surge com fade.
+  // Cada momento acompanha a rolagem, nos dois sentidos: a foto se abre como uma cortina
+  // a partir da borda por onde entra (e se fecha pela borda por onde sai), saindo de um
+  // leve zoom; o texto sobe/desce um pouco e ganha opacidade.
   useGSAP(
     () => {
       if (prefersReducedMotion() || !list.current) return
       gsap.utils.toArray<HTMLElement>('[data-moment]', list.current).forEach((moment) => {
-        const frame = moment.querySelector('[data-frame]')
-        const image = moment.querySelector('img')
-        const text = moment.querySelector('[data-text]')
-        const timeline = gsap.timeline({
-          defaults: { ease: EASE_OUT },
-          scrollTrigger: { trigger: moment, start: 'top 85%', once: true },
+        const frame = moment.querySelector<HTMLElement>('[data-frame]')
+        const image = moment.querySelector<HTMLElement>('img')
+        const text = moment.querySelector<HTMLElement>('[data-text]')
+        const textEffect = text ? fadeSlide(text, 20) : null
+
+        edgeReveal(moment, (enter, exit) => {
+          if (frame) {
+            frame.style.clipPath = `inset(${(1 - exit) * 100}% 0% ${(1 - enter) * 100}% 0%)`
+          }
+          if (image) {
+            image.style.transform = `scale(${1 + 0.15 * (1 - Math.min(enter, exit))})`
+          }
+          textEffect?.(enter, exit)
         })
-        if (frame) {
-          timeline.fromTo(
-            frame,
-            { clipPath: 'inset(100% 0% 0% 0%)' },
-            { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3 },
-          )
-        }
-        if (image) timeline.from(image, { scale: 1.15, duration: 1.6 }, 0)
-        if (text) timeline.from(text, { autoAlpha: 0, y: 14, duration: 1 }, 0.25)
       })
     },
     { scope: list },

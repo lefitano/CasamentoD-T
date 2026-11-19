@@ -9,7 +9,7 @@ export function Gifts() {
   return (
     <Section id="presentes" eyebrow={sectionTexts.gifts.eyebrow} title={sectionTexts.gifts.title}>
       <p className={styles.intro}>{sectionTexts.gifts.intro}</p>
-      <ul role="list" className={styles.list}>
+      <ul role="list" className={styles.list} data-reveal-children>
         {gifts.map((gift) => (
           <li key={gift.id} className={styles.item}>
             <h3 className={styles.name}>{gift.name}</h3>

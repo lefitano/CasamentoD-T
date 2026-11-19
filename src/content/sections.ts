@@ -15,4 +15,5 @@ export const sectionTexts = {
     intro:
       'Sua presença é o nosso maior presente. Se quiser nos presentear, escolha uma cota abaixo.',
   },
+  footer: { whatsappCta: 'Falar com os noivos no WhatsApp' },
 } as const

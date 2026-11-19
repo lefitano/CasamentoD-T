@@ -40,7 +40,7 @@ function RouteRow({ label, venue }: { label: string; venue: Venue }) {
 export function Location() {
   return (
     <Section id="local" {...sectionTexts.location} align="center">
-      <div className={styles.rows}>
+      <div className={styles.rows} data-reveal-children>
         <RouteRow label="Cerimônia" venue={event.ceremony} />
         <RouteRow label="Recepção" venue={event.reception} />
       </div>

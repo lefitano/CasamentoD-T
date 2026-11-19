@@ -51,6 +51,11 @@
   height: 1px;
   margin-top: var(--space-6);
   background: var(--color-accent);
+  transform-origin: left center; /* o traço se estende a partir do início */
+}
+
+.section[data-align='center'] .rule {
+  transform-origin: center;
 }
 
 .content {
