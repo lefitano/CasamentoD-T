@@ -15,7 +15,7 @@ interface SectionProps {
 }
 
 /** Atraso de entrada entre linhas do título (fração do efeito) */
-const LINE_STAGGER = 0.15
+const LINE_STAGGER = 0.12
 
 /**
  * Moldura padrão dos capítulos: âncora do menu, abertura (linha pequena, título, traço)
@@ -46,7 +46,7 @@ export function Section({ id, title, eyebrow, align = 'start', children }: Secti
           const lineEnter = gsap.utils.clamp(0, 1, (enter - delay) / (1 - delay))
           gsap.set(line, {
             yPercent: (1 - lineEnter) * 105 - (1 - exit) * 105,
-            rotationX: (1 - lineEnter) * -25 + (1 - exit) * 25,
+            rotationX: (1 - lineEnter) * -12 + (1 - exit) * 12,
           })
         })
       }

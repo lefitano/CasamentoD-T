@@ -21,11 +21,12 @@
     background-color var(--duration-fast) var(--ease-in-out),
     border-color var(--duration-fast) var(--ease-in-out),
     color var(--duration-fast) var(--ease-in-out),
-    transform var(--duration-fast) var(--ease-in-out);
+    scale var(--duration-fast) var(--ease-in-out);
 }
 
+/* `scale` (e não `transform`): o transform fica livre para os efeitos de rolagem */
 .button:active {
-  transform: scale(0.98);
+  scale: 0.98;
 }
 
 .button[data-variant='primary'] {
