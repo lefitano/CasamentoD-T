@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { Button } from '@/components/Button/Button'
 import { Countdown } from '@/components/Countdown/Countdown'
 import { couple, event, sectionTexts } from '@/content'
@@ -10,6 +10,8 @@ import styles from './Hero.module.css'
 export function Hero() {
   const root = useRef<HTMLElement>(null)
   const names = useRef<HTMLHeadingElement>(null)
+  // Sem a foto (arquivo ausente ou falha), a Home fica com o fundo azul, sem ícone quebrado
+  const [photoFailed, setPhotoFailed] = useState(false)
 
   // Abertura (uma vez): nomes sobem linha a linha por trás de uma máscara;
   // o resto surge em sequência, subindo de leve e saindo do desfoque.
@@ -59,10 +61,17 @@ export function Hero() {
         Foto em HTML: aparece na hora e é a versão estática.
         Quando a cena 3D fica pronta, a versão viva (HeroPhoto) assume no mesmo lugar.
       */}
-      <picture className={styles.photo}>
-        <source media="(orientation: portrait)" srcSet={couple.heroImage.portrait} />
-        <img src={couple.heroImage.landscape} alt={couple.heroImage.alt} fetchPriority="high" />
-      </picture>
+      {!photoFailed && (
+        <picture className={styles.photo}>
+          <source media="(orientation: portrait)" srcSet={couple.heroImage.portrait} />
+          <img
+            src={couple.heroImage.landscape}
+            alt={couple.heroImage.alt}
+            fetchPriority="high"
+            onError={() => setPhotoFailed(true)}
+          />
+        </picture>
+      )}
 
       <div className={styles.content}>
         <div className={styles.top}>

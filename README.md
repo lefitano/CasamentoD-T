@@ -2,7 +2,7 @@
 
 Site de página única, pensado primeiro para o celular, que reúne tudo o que o convidado precisa saber sobre o casamento, permite confirmar presença e presentear os noivos.
 
-A documentação completa está em [docs/Site de Casamento — Documentação do Projeto.pdf](docs/Site%20de%20Casamento%20—%20Documentação%20do%20Projeto.pdf). Em caso de conflito, o PDF vale; este README é atualizado sempre que uma pendência for decidida.
+A documentação completa está em [docs/Site de Casamento — Documentação do Projeto.pdf](docs/Site%20de%20Casamento%20—%20Documentação%20do%20Projeto.pdf). O PDF é a documentação original; as decisões tomadas depois dele ficam registradas neste README (seção [Decisões e pendências](#decisões-e-pendências)) e prevalecem sobre o PDF, como a troca do Netlify pelo Vercel e da Netlify Forms pela planilha Google.
 
 | Item                  | Definição                                                                                                                     |
 | --------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -51,7 +51,7 @@ Os links de rota abrem direto no aplicativo quando o convidado está no celular:
 
 ### Confirmação de presença
 
-Formulário aberto no Netlify Forms, sem lista pré-cadastrada de convidados. Cada resposta gera um e-mail para os noivos.
+Formulário aberto, sem lista pré-cadastrada de convidados. Cada resposta é gravada numa planilha Google e gera um e-mail para os noivos (ver [Formulários e área administrativa](#formulários-e-área-administrativa)).
 
 | Campo                   | Tipo        | Obrigatório            |
 | ----------------------- | ----------- | ---------------------- |
@@ -65,9 +65,8 @@ Formulário aberto no Netlify Forms, sem lista pré-cadastrada de convidados. Ca
 Regras:
 
 - O telefone é obrigatório para identificar respostas repetidas.
-- A data limite aparece no site; depois dela o formulário fica fechado. Para bloquear envios de verdade, o formulário também deve ser desativado no painel do Netlify nesse dia.
-- Proteção contra spam com honeypot. O reCAPTCHA entra se aparecer spam (com chave própria, porque o reCAPTCHA nativo do Netlify não atende formulários enviados por JavaScript).
-- Um formulário HTML oculto no `index.html` permite que o Netlify detecte o formulário no build.
+- A data limite aparece no site; depois dela o formulário fica fechado. O script da planilha também recusa envios fora do prazo, então o bloqueio vale mesmo para quem tentar enviar por fora do site.
+- Proteção contra spam com um campo-armadilha invisível (honeypot), verificado no script. Se aparecer spam, entra uma verificação extra (ex.: reCAPTCHA ou Cloudflare Turnstile).
 - Após o envio, o convidado vê uma mensagem de agradecimento.
 - Um aviso curto ao lado do formulário explica para que o telefone é usado e que só os noivos veem as respostas (LGPD).
 
@@ -77,7 +76,7 @@ O acompanhamento de quem não respondeu é manual: perto do evento, os noivos re
 
 Cotas em dinheiro (ex.: "Jantar na lua de mel – R$ 150"), pagas com Pix ou cartão de crédito. Cada cota tem nome, imagem, valor e botão "Presentear".
 
-Ao clicar em "Presentear", um modal pede nome e recado, envia o registro ao Netlify Forms e, depois da confirmação do envio, redireciona para o pagamento na mesma aba. Os noivos recebem o registro por e-mail. O registro indica a intenção de presentear, não o pagamento confirmado.
+Ao clicar em "Presentear", um modal pede nome e recado, grava o registro na planilha (aba de presentes) e, depois da confirmação do envio, redireciona para o pagamento na mesma aba. Os noivos recebem o registro por e-mail. O registro indica a intenção de presentear, não o pagamento confirmado.
 
 A solução de pagamento ainda será escolhida:
 
@@ -86,16 +85,23 @@ A solução de pagamento ainda será escolhida:
 | Links InfinitePay por cota | Os noivos criam um link no app para cada cota; o botão abre o link | Pix e cartão no mesmo link, Pix sem taxa, nenhum dado de cartão passa pelo site, sem backend | Valor fixo por cota, links criados manualmente, pagamento conferido no app |
 | Mercado Pago Checkout Pro  | Uma função serverless cria o pagamento; um webhook confirma        | Valor livre, registro automático de quem pagou                                               | Exige backend e banco, mais dias de desenvolvimento, taxa também no Pix    |
 
-### Área administrativa
+### Formulários e área administrativa
 
-No MVP não há painel próprio; o Netlify atende:
+Não há painel próprio: a área administrativa é uma **planilha Google** compartilhada com os noivos.
 
-| Necessidade                | Como fica atendida                                                         |
-| -------------------------- | -------------------------------------------------------------------------- |
-| Ver confirmações e recusas | E-mail a cada resposta e lista de envios no painel do Netlify              |
-| Ver quem presenteou        | E-mail a cada registro de presente, mais a conferência no app de pagamento |
-| Contar o total de pessoas  | Exportar as respostas em CSV pelo Netlify                                  |
-| Saber quem não respondeu   | Manual, comparando com a lista dos noivos                                  |
+- **Conta:** uma conta Google do projeto, criada e mantida pelo Leonardo, dona da planilha e do script. Os avisos por e-mail saem em nome dela.
+- **Como funciona:** os formulários do site enviam para um script do Google (Apps Script) ligado à planilha, que grava a resposta e envia o e-mail de aviso. Funciona em qualquer hospedagem.
+- **Acesso dos noivos:** editores da planilha, com os próprios e-mails, sem precisar de senha. Os avisos vão para os e-mails pessoais deles.
+- **Proteção:** a aba de respostas é travada (só o script escreve nela); os noivos têm uma coluna livre para anotações e uma aba de resumo com os totais.
+- **Limite:** cerca de 100 e-mails por dia numa conta Google comum, suficiente para um casamento.
+- **Depois do casamento:** transferir a planilha para os noivos ou apagar os dados dos convidados (LGPD).
+
+| Necessidade                | Como fica atendida                                                                  |
+| -------------------------- | ----------------------------------------------------------------------------------- |
+| Ver confirmações e recusas | E-mail a cada resposta e a lista completa na planilha                               |
+| Ver quem presenteou        | E-mail a cada registro e a aba de presentes, mais a conferência no app de pagamento |
+| Contar o total de pessoas  | Aba de resumo, calculada automaticamente                                            |
+| Saber quem não respondeu   | Manual, comparando com a lista dos noivos (coluna de anotações)                     |
 
 ## Requisitos não funcionais
 
@@ -111,17 +117,17 @@ No MVP não há painel próprio; o Netlify atende:
 
 ## Stack e arquitetura
 
-Site estático em React hospedado no Netlify, sem backend próprio: os formulários ficam no Netlify Forms e o pagamento em um serviço externo.
+Site estático em React hospedado no Vercel, sem backend próprio: os formulários gravam numa planilha Google (via Apps Script) e o pagamento fica num serviço externo.
 
 | Camada                     | Tecnologia                              | Papel                                                                  |
 | -------------------------- | --------------------------------------- | ---------------------------------------------------------------------- |
 | Front-end                  | React + Vite + TypeScript               | Página única, um componente por seção                                  |
 | Animações                  | GSAP (ScrollTrigger, SplitText) + Lenis | Rolagem suave, parallax e profundidade                                 |
-| Hospedagem                 | Netlify                                 | Deploy contínuo a partir do GitHub, HTTPS                              |
-| Formulários                | Netlify Forms                           | Confirmação de presença e registro de presentes, com e-mail aos noivos |
+| Hospedagem                 | Vercel (plano Hobby, gratuito)          | Deploy contínuo a partir do GitHub, HTTPS, prévia por branch           |
+| Formulários                | Planilha Google + Apps Script           | Confirmação de presença e registro de presentes, com e-mail aos noivos |
 | Pagamento                  | A definir (InfinitePay ou Mercado Pago) | Página de pagamento externa e segura                                   |
 | Mapas                      | Links do Google Maps e do Waze          | Rota aberta direto no aplicativo                                       |
-| Backend (só se necessário) | Netlify Functions (Node.js) + Supabase  | Webhook de pagamento ou painel próprio, caso entrem no escopo          |
+| Backend (só se necessário) | Vercel Functions (Node.js)              | Webhook de pagamento, caso o Mercado Pago seja escolhido               |
 
 Todo o conteúdo dos noivos (textos, datas, endereços, cotas e links) fica em arquivos de dados em `src/content/`, separado dos componentes. Assim os textos provisórios são trocados pelos reais sem mexer no layout.
 
@@ -136,6 +142,15 @@ npm run build    # checagem de tipos + build de produção em dist/
 npm run lint     # Oxlint
 npm run format   # Prettier
 ```
+
+No VS Code, instale a extensão recomendada **TypeScript (Native Preview)**: ela faz o editor usar o TypeScript 7 do projeto (o mesmo do build). Sem ela, o editor marca como erro opções que o build aceita, como `erasableSyntaxOnly`.
+
+## Publicação (Vercel)
+
+- **Branches:** o trabalho do dia a dia vai na `dev`; cada push gera um link de prévia. A `main` é o site principal e só recebe merges nos marcos (aprovações, revisões, entrega).
+- **Configuração:** o Vercel reconhece o Vite sozinho (`npm run build`, pasta `dist`); Node 24 definido em `package.json` (`engines`).
+- **`vercel.json`:** cache longo para os arquivos de `assets/` e o cabeçalho `X-Robots-Tag: noindex`, que impede o Google de indexar o site antes da entrega. **Remover o `noindex` na publicação oficial.**
+- **Fotos provisórias:** ficam fora do Git (`public/images/provisorio/`); no Vercel o site aparece sem elas, com o fundo azul na Home e quadros vazios nos momentos.
 
 ## Identidade visual
 
@@ -161,7 +176,7 @@ Cinco fases em 15 dias, com duas aprovações dos noivos: o visual no dia 2 e a 
 
 **Aprovação 1:** visual aprovado pelos noivos, apresentado em localhost por chamada no Google Meet.
 
-A conexão com o Netlify fica para antes da Fase 3, porque cada build consome créditos do plano gratuito e o Netlify Forms só funciona com o site publicado.
+Hospedagem no Vercel: o plano gratuito não consome créditos por publicação, então o repositório pode ser conectado já, com prévias por branch para mostrar aos noivos.
 
 ### Fase 2 — Seções de conteúdo (dias 3–6)
 
@@ -171,8 +186,8 @@ A conexão com o Netlify fica para antes da Fase 3, porque cada build consome cr
 ### Fase 3 — Formulários e presentes (dias 7–9)
 
 1. Formulário de confirmação com o campo condicional de quantidade de pessoas, a data limite e a mensagem de agradecimento.
-2. Cards de cotas e modal de "Presentear" com registro no Netlify Forms e redirecionamento ao pagamento.
-3. Configuração dos e-mails de notificação no painel do Netlify.
+2. Cards de cotas e modal de "Presentear" com registro na planilha e redirecionamento ao pagamento.
+3. Planilha Google e script (Apps Script): gravação das respostas, e-mails de aviso, aba de resumo e compartilhamento com os noivos.
 
 Se a opção de pagamento for o Mercado Pago, esta fase precisa de mais dias, que saem da fase de animações.
 
@@ -211,26 +226,26 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 
 ### Decisões tomadas
 
-| Tema                    | Decisão                                                      |
-| ----------------------- | ------------------------------------------------------------ |
-| Confirmação de presença | Formulário aberto no Netlify Forms, com e-mail aos noivos    |
-| Lista de convidados     | Sem lista pré-cadastrada; acompanhamento manual pelos noivos |
-| Presentes               | Cotas em dinheiro, com Pix e cartão de crédito               |
-| Hospedagem              | Netlify                                                      |
-| Front-end               | React + Vite + TypeScript                                    |
-| Estilização             | CSS Modules + variáveis CSS                                  |
-| Fontes                  | Servidas pelo próprio site (Fontsource)                      |
-| Paleta                  | B · Marinho clássico, tema escuro imersivo                   |
-| Tipografia              | Playfair Display + Montserrat + Great Vibes                  |
-| 3D                      | Three.js com React Three Fiber, carregado depois do conteúdo |
-| Animações e rolagem     | GSAP + Lenis                                                 |
-| Fotos                   | Pasta no Google Drive compartilhada pelos noivos             |
-| Data do casamento       | 23/02/2027 (horários e locais a definir)                     |
-| Cronograma              | Início em 18/11/2026; entrega em 02/12/2026                  |
-| Prévias para os noivos  | Localhost por Google Meet; Netlify conectado antes da Fase 3 |
+| Tema                    | Decisão                                                                  |
+| ----------------------- | ------------------------------------------------------------------------ |
+| Confirmação de presença | Formulário aberto; respostas numa planilha Google, com e-mail aos noivos |
+| Lista de convidados     | Sem lista pré-cadastrada; acompanhamento manual pelos noivos             |
+| Presentes               | Cotas em dinheiro, com Pix e cartão de crédito                           |
+| Hospedagem              | Vercel (plano Hobby)                                                     |
+| Front-end               | React + Vite + TypeScript                                                |
+| Estilização             | CSS Modules + variáveis CSS                                              |
+| Fontes                  | Servidas pelo próprio site (Fontsource)                                  |
+| Paleta                  | B · Marinho clássico, tema escuro imersivo                               |
+| Tipografia              | Playfair Display + Montserrat + Great Vibes                              |
+| 3D                      | Three.js com React Three Fiber, carregado depois do conteúdo             |
+| Animações e rolagem     | GSAP + Lenis                                                             |
+| Área administrativa     | Planilha Google numa conta do projeto, noivos como editores              |
+| Fotos                   | Pasta no Google Drive compartilhada pelos noivos                         |
+| Data do casamento       | 23/02/2027 (horários e locais a definir)                                 |
+| Cronograma              | Início em 18/11/2026; entrega em 02/12/2026                              |
+| Prévias para os noivos  | Localhost por Google Meet ou link de prévia do Vercel                    |
 
 ### Pendências
 
 - [ ] Escolher a solução de pagamento: links InfinitePay ou Mercado Pago Checkout Pro
-- [ ] Definir se o painel do Netlify basta ou se haverá painel próprio
 - [ ] Definir se haverá domínio próprio (ex.: nomedosnoivos.com.br)

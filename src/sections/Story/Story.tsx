@@ -1,9 +1,16 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { Section } from '@/components/Section/Section'
-import { moments, sectionTexts, TO_BE_DEFINED } from '@/content'
+import { moments, sectionTexts, TO_BE_DEFINED, type Image } from '@/content'
 import { formatCalendarDate } from '@/lib/date'
 import { EASE_OUT, gsap, prefersReducedMotion, useGSAP } from '@/motion/gsap'
 import styles from './Story.module.css'
+
+/** Foto do momento; se não houver arquivo ou ele falhar, mostra um quadro vazio discreto. */
+function MomentPhoto({ photo }: { photo?: Image }) {
+  const [failed, setFailed] = useState(false)
+  if (!photo?.src || failed) return <span className={styles.placeholder} aria-hidden="true" />
+  return <img src={photo.src} alt={photo.alt} loading="lazy" onError={() => setFailed(true)} />
+}
 
 /**
  * RF02 + RF03 — Nossa história: momentos do casal em linha do tempo,
@@ -45,11 +52,7 @@ export function Story() {
         {moments.map((moment) => (
           <li key={moment.title} className={styles.moment} data-moment>
             <div className={styles.frame} data-frame>
-              {moment.photo?.src ? (
-                <img src={moment.photo.src} alt={moment.photo.alt} loading="lazy" />
-              ) : (
-                <span className={styles.placeholder} aria-hidden="true" />
-              )}
+              <MomentPhoto photo={moment.photo} />
             </div>
             <div className={styles.text} data-text>
               <p className={styles.date}>

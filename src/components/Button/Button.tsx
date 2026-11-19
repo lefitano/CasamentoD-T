@@ -9,12 +9,20 @@ type ButtonAsButton = {
   variant?: Variant
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
+type ButtonProps = ButtonAsLink | ButtonAsButton
+
+/** Verificação explícita: com `href` é link; funciona em qualquer versão do TypeScript. */
+function isLink(props: ButtonProps): props is ButtonAsLink {
+  return typeof props.href === 'string'
+}
+
 /** Botão do site. Com `href` vira link (ex.: âncora, WhatsApp, rota); sem `href`, é um botão. */
-export function Button(props: ButtonAsLink | ButtonAsButton) {
-  if (props.href !== undefined) {
+export function Button(props: ButtonProps) {
+  if (isLink(props)) {
     const { variant = 'primary', className, ...rest } = props
     return <a data-variant={variant} className={cx(styles.button, className)} {...rest} />
   }
+
   const { variant = 'primary', type = 'button', className, ...rest } = props
   return (
     <button data-variant={variant} type={type} className={cx(styles.button, className)} {...rest} />
