@@ -4,7 +4,11 @@
   font-style: italic;
   font-size: var(--text-lg);
   color: var(--color-text-muted);
-  text-transform: capitalize;
+}
+
+/* "terça-feira" → "Terça-feira": só a primeira letra (capitalize faria "Terça-Feira") */
+.weekday::first-letter {
+  text-transform: uppercase;
 }
 
 /* Informações em linhas tipográficas separadas por traços finos, sem cards */
