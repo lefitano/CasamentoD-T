@@ -1,6 +1,6 @@
 import type { Couple } from './types'
 
-// PROVISÓRIO: citação e WhatsApp a confirmar com os noivos. Nomes confirmados em 23/11.
+// PROVISÓRIO: citação a confirmar com a noiva. Nomes e contatos confirmados em 23/11.
 export const couple: Couple = {
   partner1: 'Danilo',
   partner2: 'Tereza',
@@ -23,9 +23,17 @@ export const couple: Couple = {
     text: 'Para que todos vejam, e saibam, e considerem, e juntamente entendam que a mão do Senhor fez isto.',
     source: 'Isaías 41:20',
   },
-  whatsapp: {
-    phone: '5500000000000',
-    message: 'Olá! Vi o site do casamento e queria falar com vocês.',
-  },
+  contacts: [
+    {
+      name: 'Danilo',
+      phone: '5585996617652',
+      message: 'Olá, Danilo! Vi o site do casamento e queria falar com você.',
+    },
+    {
+      name: 'Tereza',
+      phone: '5585996957590',
+      message: 'Olá, Tereza! Vi o site do casamento e queria falar com você.',
+    },
+  ],
   closingMessage: 'Mal podemos esperar para celebrar esse dia com você.',
 }

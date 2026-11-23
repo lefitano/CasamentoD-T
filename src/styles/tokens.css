@@ -28,8 +28,13 @@
   --font-display: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
   --font-body: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
   --font-script: 'Great Vibes', cursive;
-  /* Nomes dos noivos na Home (ver fonts.css); cai para a Playfair sem o arquivo */
-  --font-names: 'Perandory', 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
+  /* Nomes dos noivos na Home: Marcellus, alternativa gratuita à Perandory que a noiva usou no Canva */
+  --font-names: 'Marcellus', 'Playfair Display Variable', Georgia, serif;
+  --text-names: clamp(
+    2.75rem,
+    2rem + 3.6vw,
+    5.5rem
+  ); /* 44 → 88px: maiúsculas ocupam mais largura */
 
   /* Escala fluida: cresce suavemente de 360px a 1440px de largura de tela */
   --text-xs: clamp(0.6875rem, 0.66rem + 0.12vw, 0.75rem); /* 11 → 12px: rótulos em caixa alta */

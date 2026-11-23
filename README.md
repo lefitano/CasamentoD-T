@@ -33,16 +33,16 @@ A documentação completa está em [docs/Site de Casamento — Documentação do
 
 O site tem um menu que leva a cada seção. A ordem pode mudar conforme a referência visual da noiva.
 
-| ID   | Seção                 | O que o convidado faz ou vê                                                                            |
-| ---- | --------------------- | ------------------------------------------------------------------------------------------------------ |
-| RF01 | Home                  | Nomes dos noivos, monograma, data e chamada para confirmar presença                                    |
-| RF02 | Nossa história        | Momentos do casal em linha do tempo: data específica, foto e breve descrição                           |
-| RF03 | ~~Galeria~~           | Unida à Nossa história a pedido da noiva: cada momento tem sua foto                                    |
-| RF04 | O grande dia          | Data, horários, endereços da cerimônia e da recepção e informações do dia (traje, estacionamento etc.) |
-| RF05 | Como chegar           | Mapa e botões "Abrir no Google Maps" e "Abrir no Waze", já com rota                                    |
-| RF06 | Confirme sua presença | Formulário de confirmação, com data limite visível                                                     |
-| RF07 | Lista de presentes    | Cards de cotas com nome, imagem, valor e botão "Presentear"                                            |
-| RF08 | Rodapé                | Contato dos noivos por link de WhatsApp e mensagem final                                               |
+| ID   | Seção                 | O que o convidado faz ou vê                                                                                               |
+| ---- | --------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| RF01 | Home                  | Nomes dos noivos, data, citação, contagem regressiva e um único convite para percorrer o site ("Entre na nossa história") |
+| RF02 | Nossa história        | Momentos do casal em linha do tempo: data específica, foto e breve descrição                                              |
+| RF03 | ~~Galeria~~           | Unida à Nossa história a pedido da noiva: cada momento tem sua foto                                                       |
+| RF04 | O grande dia          | Data, horários, endereços da cerimônia e da recepção e informações do dia (traje, estacionamento etc.)                    |
+| RF05 | Como chegar           | Mapa e botões "Abrir no Google Maps" e "Abrir no Waze", já com rota                                                       |
+| RF06 | Confirme sua presença | Formulário de confirmação, com data limite visível                                                                        |
+| RF07 | Lista de presentes    | Cards de cotas com nome, imagem, valor e botão "Presentear"                                                               |
+| RF08 | Rodapé                | Mensagem final, monograma e "Falar com os noivos": abre a escolha entre Danilo e Tereza, cada um no seu WhatsApp          |
 
 Os links de rota abrem direto no aplicativo quando o convidado está no celular:
 
@@ -159,7 +159,7 @@ No VS Code, instale a extensão recomendada **TypeScript (Native Preview)**: ela
 
 - **Direção:** site imersivo, com rolagem fluida, fundo 3D contínuo e animações com profundidade no carregamento e no surgimento dos itens. Evitar o visual de template: nada de grade de cards e seções em faixas de cores alternadas.
 - **Cores (paleta B · Marinho clássico, tema escuro):** `#0A1222` fundo profundo, `#14213D` marinho, `#2E4A7D` azul real (botões), `#6C8EBF` azul aço (destaques), `#E6EEF7` gelo, `#FBFAF7` marfim (texto). Definidas em `src/styles/tokens.css`.
-- **Tipografia:** Playfair Display nos títulos, Montserrat no texto e Great Vibes como cursiva de detalhe, servidas via Fontsource. Os nomes dos noivos na Home usam a **Perandory**, escolhida pela noiva (arquivo em `public/fonts/`; sem ele, cai para a Playfair).
+- **Tipografia:** Playfair Display nos títulos, Montserrat no texto e Great Vibes como cursiva de detalhe, servidas via Fontsource. Os nomes dos noivos na Home usam a **Marcellus** em maiúsculas: alternativa gratuita (OFL) à Perandory que a noiva usou no Canva, que é gratuita só para uso pessoal.
 - **Monograma:** recebido em 23/11 (T e D entrelaçados, azul sobre branco); convertido para marfim com fundo transparente. Aparece no menu e no rodapé.
 - **Foto da Home:** a igreja do casamento ao entardecer (recebida em 23/11), vertical. No celular ocupa a tela inteira; no computador, um painel à direita com a borda esquerda suave, e o texto fica à esquerda sobre o marinho. Recebe um tratamento leve de cor (menos saturação no céu, véu azul suave) para combinar com a paleta. Ponto de foco: a torre com a cruz.
 - **Referência da Home (recebida):** foto em tela cheia com os noivos, menu discreto em caixa alta, data em destaque, nomes em serifada grande, citação em itálico, contagem regressiva e dois botões ("Confirmar presença" e "Ver informações"). Serve de base, não para copiar.
@@ -219,14 +219,14 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 - [ ] Citação da Home: proposta por nós e aprovada pela noiva na primeira prévia
 - [ ] Momentos da história: data específica, uma foto e uma descrição breve (até ~200 caracteres) de cada um
 - [x] Data do casamento: 23/02/2027
-- [x] Nomes: Danilo & Tereza (23/11), na fonte Perandory
+- [x] Nomes: Danilo & Tereza (23/11)
 - [x] Local da cerimônia: Igreja de São Pedro Apóstolo, com link do Google Maps (23/11). Endereço por escrito a confirmar
 - [ ] Horários da cerimônia e da recepção; local da recepção
 - [ ] Informações específicas do dia (traje, estacionamento, observações)
 - [ ] Data limite para confirmação de presença
 - [ ] E-mails pessoais dos noivos (acesso à planilha e avisos de confirmações e presentes)
 - [ ] Lista de cotas: nome, valor e imagem de cada uma
-- [ ] Telefone para o botão de WhatsApp
+- [x] Telefones do WhatsApp: Danilo e Tereza (23/11)
 
 ## Decisões e pendências
 
@@ -248,7 +248,7 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 | Área administrativa     | Planilha Google numa conta do projeto, noivos como editores              |
 | Home no computador      | Foto vertical em painel lateral à direita; texto à esquerda              |
 | Tratamento de cor       | Leve, para aproximar as fotos da paleta (saturação 72%, véu azul)        |
-| Nomes na Home           | Danilo & Tereza, na fonte Perandory (pedido da noiva)                    |
+| Nomes na Home           | Danilo & Tereza, em Marcellus (no lugar da Perandory)                    |
 | Prévia do link          | Cartão com o monograma (Open Graph), 1200×630                            |
 | Fotos                   | Pasta no Google Drive compartilhada pelos noivos                         |
 | Data do casamento       | 23/02/2027 (horários e locais a definir)                                 |
@@ -259,5 +259,5 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 
 - [ ] Escolher a solução de pagamento: links InfinitePay ou Mercado Pago Checkout Pro
 - [ ] Definir se haverá domínio próprio (ex.: nomedosnoivos.com.br)
-- [ ] Fonte Perandory: obter o arquivo (OTF/TTF) e confirmar a licença (gratuita só para uso pessoal; comercial na Kulture Foundry)
+- [ ] Noiva confirmar a fonte dos nomes: Marcellus (em uso, gratuita) ou outra da comparação; a Perandory exige comprar a licença
 - [ ] Confirmar com os noivos o endereço por escrito da igreja (hoje: Av. Almirante Barroso, 1091 — Praia de Iracema)

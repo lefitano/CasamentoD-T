@@ -43,12 +43,15 @@ export interface Couple {
     /** Autor ou referência, ex.: 'Rute 1:16' */
     source?: string
   }
-  whatsapp: {
-    /** Só dígitos, com DDI e DDD, ex.: '5511999999999' */
+  /** Contatos no WhatsApp: o convidado escolhe com quem falar */
+  contacts: {
+    /** Nome no botão, ex.: 'Danilo' */
+    name: string
+    /** Só dígitos, com DDI e DDD, ex.: '5585999999999' */
     phone: string
     /** Mensagem que já vem escrita ao abrir a conversa */
     message: string
-  }
+  }[]
   closingMessage: string
 }
 

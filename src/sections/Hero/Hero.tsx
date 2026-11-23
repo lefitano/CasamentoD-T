@@ -109,21 +109,17 @@ export function Hero() {
             {/* Até o horário ser definido, conta até o início do dia */}
             <Countdown target={event.ceremony.startsAt ?? event.date} />
           </div>
+          {/* Um só convite, com contorno para não cobrir a foto: leva ao próximo capítulo */}
           <div className={styles.actions} data-intro>
-            <Button href="#confirmar" variant="light">
-              {sectionTexts.hero.primaryCta}
-            </Button>
-            <Button href="#evento" variant="secondary">
-              {sectionTexts.hero.secondaryCta}
+            <Button href="#historia" variant="secondary" className={styles.cta}>
+              {sectionTexts.hero.cta}
+              <span className={styles.ctaArrow} aria-hidden="true">
+                ↓
+              </span>
             </Button>
           </div>
         </div>
       </div>
-
-      <a href="#historia" className={styles.scrollCue} data-intro>
-        <span className="visually-hidden">Rolar para a próxima seção</span>
-        <span className={styles.scrollLine} aria-hidden="true" />
-      </a>
     </section>
   )
 }

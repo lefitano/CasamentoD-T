@@ -3,8 +3,8 @@
 @import '@fontsource-variable/playfair-display/wght-italic.css';
 @import '@fontsource-variable/montserrat/wght.css';
 @import '@fontsource/great-vibes/latin-400.css';
+@import '@fontsource/marcellus/latin-400.css';
 
-@import './fonts.css';
 @import './tokens.css';
 @import './reset.css';
 @import './global.css';

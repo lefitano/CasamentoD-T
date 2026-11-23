@@ -2,8 +2,8 @@
 export const sectionTexts = {
   hero: {
     lead: 'Estamos contando os dias para celebrar esse momento com você.',
-    primaryCta: 'Confirmar presença',
-    secondaryCta: 'Ver informações',
+    // Único botão da Home: convida a percorrer o site (e não a pular direto para uma seção)
+    cta: 'Entre na nossa história',
   },
   story: { eyebrow: 'Nossa história', title: 'Nossos momentos' },
   event: { eyebrow: 'O grande dia' },
@@ -15,5 +15,8 @@ export const sectionTexts = {
     intro:
       'Sua presença é o nosso maior presente. Se quiser nos presentear, escolha uma cota abaixo.',
   },
-  footer: { whatsappCta: 'Falar com os noivos no WhatsApp' },
+  footer: {
+    contactCta: 'Falar com os noivos',
+    contactHint: 'Com quem você quer falar?',
+  },
 } as const

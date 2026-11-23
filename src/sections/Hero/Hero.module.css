@@ -77,11 +77,12 @@
 
 .names {
   margin-block: var(--space-4) var(--space-6);
-  font-family: var(--font-names); /* Perandory, escolhida pela noiva */
+  font-family: var(--font-names); /* Marcellus, em maiúsculas como a Perandory do Canva */
   font-weight: 400;
-  font-size: var(--text-display);
-  line-height: var(--leading-tight);
-  letter-spacing: -0.01em;
+  font-size: var(--text-names);
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
 /* Cada nome (e o "& Tereza") fica inteiro: a quebra só acontece entre eles */
@@ -132,52 +133,35 @@
   gap: var(--space-3);
 }
 
-/* ---------- Indicação de rolagem ---------- */
-.scrollCue {
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  width: var(--tap-min);
-  height: var(--space-12);
-  translate: -50% 0;
+/* ---------- Convite para rolar ---------- */
+/* `.actions .cta` vence o estilo base do botão secundário sem !important */
+.actions .cta {
+  align-self: flex-start; /* largura do texto: cobre pouco da foto */
+  /* leve fundo escuro translúcido: o contorno fica legível sobre o céu claro */
+  background: rgb(10 18 34 / 0.25);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  border-color: rgb(251 250 247 / 0.6);
 }
 
-.scrollLine {
-  position: relative;
-  width: 1px;
-  height: 100%;
-  overflow: hidden;
-  background: var(--color-line);
+/* A seta "desce" devagar, convidando a rolar */
+.ctaArrow {
+  display: inline-block;
+  font-size: 1.1em;
+  animation: cta-arrow 2.4s var(--ease-in-out) infinite;
 }
 
-.scrollLine::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--color-text);
-  animation: scroll-cue 2.4s var(--ease-in-out) infinite;
-}
-
-@keyframes scroll-cue {
-  0% {
-    transform: translateY(-100%);
-  }
-  60%,
+@keyframes cta-arrow {
+  0%,
   100% {
-    transform: translateY(100%);
+    transform: translateY(-1px);
+  }
+  50% {
+    transform: translateY(3px);
   }
 }
 
 /* ---------- Telas maiores ---------- */
-@media (min-width: 40rem) {
-  .actions {
-    flex-direction: row;
-  }
-}
-
 /* Computador: texto à esquerda sobre o marinho, foto em painel vertical à direita */
 @media (min-width: 64rem) {
   .photo {
@@ -210,10 +194,5 @@
 
   .top {
     max-width: 44rem;
-  }
-
-  /* indicação de rolagem no centro da área do texto, fora do painel da foto */
-  .scrollCue {
-    left: 29%;
   }
 }
