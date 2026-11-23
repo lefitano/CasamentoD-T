@@ -5,11 +5,18 @@ export const couple: Couple = {
   partner1: 'D',
   partner2: 'T',
   initials: 'D&T',
-  // PROVISÓRIO: foto de banco gratuito (Unsplash via picsum.photos) até a foto dos noivos chegar.
+  // Monograma enviado pelos noivos, convertido para marfim com fundo transparente (npm run fotos)
+  monogram: { src: '/images/monograma.webp', alt: 'Monograma de T e D entrelaçados' },
+  // Foto da igreja enviada pela noiva (23/11), com tratamento de cor para a paleta (npm run fotos)
   heroImage: {
-    landscape: '/images/provisorio/hero-horizontal.jpg',
-    portrait: '/images/provisorio/hero-vertical.jpg',
-    alt: 'Foto dos noivos',
+    sources: [
+      { src: '/images/home/igreja-640.webp', width: 640 },
+      { src: '/images/home/igreja-960.webp', width: 960 },
+      { src: '/images/home/igreja-1239.webp', width: 1239 },
+    ],
+    aspectRatio: 1239 / 2201,
+    alt: 'Igreja do casamento ao entardecer',
+    focus: { x: 0.62, y: 0.4 },
   },
   quote: {
     // Citação proposta por nós; a noiva aprova na primeira prévia.

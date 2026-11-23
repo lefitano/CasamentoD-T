@@ -8,6 +8,4 @@ export const scrollState = {
   progress: 0,
   /** 0 com a Home inteira na tela, 1 depois de rolar uma tela inteira */
   heroProgress: 0,
-  /** Velocidade da rolagem em px por quadro (positiva descendo) */
-  velocity: 0,
 }

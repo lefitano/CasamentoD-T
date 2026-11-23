@@ -5,7 +5,10 @@
   text-shadow: 0 1px 24px rgb(0 0 0 / 0.35); /* leitura sobre qualquer foto */
 }
 
-/* Foto em tela cheia, com o mesmo escurecimento aplicado na versão 3D */
+/*
+ * Foto: tela cheia no celular; painel lateral à direita no computador (a foto é vertical).
+ * O escurecimento e a borda suave são os mesmos aplicados na versão 3D (HeroPhoto).
+ */
 .photo {
   position: absolute;
   inset: 0;
@@ -23,12 +26,13 @@
   content: '';
   position: absolute;
   inset: 0;
+  /* Celular: topo mais escuro, porque data e nomes ficam sobre o céu claro da foto */
   background: linear-gradient(
     180deg,
-    rgb(0 0 0 / 0.37) 0%,
-    rgb(0 0 0 / 0.1) 25%,
-    rgb(0 0 0 / 0.1) 45%,
-    rgb(0 0 0 / 0.6) 100%
+    rgb(0 0 0 / 0.5) 0%,
+    rgb(0 0 0 / 0.32) 25%,
+    rgb(0 0 0 / 0.08) 50%,
+    rgb(0 0 0 / 0.55) 100%
   );
 }
 
@@ -168,14 +172,42 @@
   }
 }
 
-/* Computador: bloco único alinhado à esquerda e centralizado na altura, como na referência */
+/* Computador: texto à esquerda sobre o marinho, foto em painel vertical à direita */
 @media (min-width: 64rem) {
+  .photo {
+    inset: 0 0 0 auto;
+    width: 42%;
+    /* borda esquerda suave: a foto se funde ao fundo */
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 18%);
+    mask-image: linear-gradient(to right, transparent, #000 18%);
+  }
+
+  /* sem texto sobre a foto: escurecimento leve */
+  .photo::after {
+    background: linear-gradient(
+      180deg,
+      rgb(0 0 0 / 0.25) 0%,
+      rgb(0 0 0 / 0.05) 30%,
+      rgb(0 0 0 / 0.05) 70%,
+      rgb(0 0 0 / 0.3) 100%
+    );
+  }
+
   .content {
     justify-content: center;
     gap: var(--space-8);
+    max-width: none;
+    margin: 0;
+    padding-left: max(var(--gutter), calc((100vw - var(--content-max)) / 2));
+    padding-right: calc(42% + var(--space-12));
   }
 
   .top {
     max-width: 44rem;
+  }
+
+  /* indicação de rolagem no centro da área do texto, fora do painel da foto */
+  .scrollCue {
+    left: 29%;
   }
 }

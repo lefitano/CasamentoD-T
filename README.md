@@ -141,6 +141,7 @@ npm run dev      # servidor local; também mostra um endereço para abrir no cel
 npm run build    # checagem de tipos + build de produção em dist/
 npm run lint     # Oxlint
 npm run format   # Prettier
+npm run fotos    # otimiza as fotos de fotos-originais/ para public/images/ (WebP)
 ```
 
 No VS Code, instale a extensão recomendada **TypeScript (Native Preview)**: ela faz o editor usar o TypeScript 7 do projeto (o mesmo do build). Sem ela, o editor marca como erro opções que o build aceita, como `erasableSyntaxOnly`.
@@ -150,17 +151,19 @@ No VS Code, instale a extensão recomendada **TypeScript (Native Preview)**: ela
 - **Branches:** o trabalho do dia a dia vai na `dev`; cada push gera um link de prévia. A `main` é o site principal e só recebe merges nos marcos (aprovações, revisões, entrega).
 - **Configuração:** o Vercel reconhece o Vite sozinho (`npm run build`, pasta `dist`); Node 24 definido em `package.json` (`engines`).
 - **`vercel.json`:** cache longo para os arquivos de `assets/` e o cabeçalho `X-Robots-Tag: noindex`, que impede o Google de indexar o site antes da entrega. **Remover o `noindex` na publicação oficial.**
-- **Fotos provisórias:** ficam fora do Git (`public/images/provisorio/`); no Vercel o site aparece sem elas, com o fundo azul na Home e quadros vazios nos momentos.
+- **Fotos:** os originais dos noivos ficam em `fotos-originais/` (fora do Git); `npm run fotos` gera as versões otimizadas em `public/images/` (no Git). Para uma foto nova, acrescente uma entrada em `JOBS` no [script](scripts/optimize-images.mjs).
+- **Fotos provisórias dos momentos:** ficam fora do Git (`public/images/provisorio/`); no Vercel aparecem como quadros vazios até as fotos reais chegarem.
 
 ## Identidade visual
 
 - **Direção:** site imersivo, com rolagem fluida, fundo 3D contínuo e animações com profundidade no carregamento e no surgimento dos itens. Evitar o visual de template: nada de grade de cards e seções em faixas de cores alternadas.
 - **Cores (paleta B · Marinho clássico, tema escuro):** `#0A1222` fundo profundo, `#14213D` marinho, `#2E4A7D` azul real (botões), `#6C8EBF` azul aço (destaques), `#E6EEF7` gelo, `#FBFAF7` marfim (texto). Definidas em `src/styles/tokens.css`.
 - **Tipografia:** Playfair Display nos títulos, Montserrat no texto e Great Vibes como cursiva de detalhe. Servidas pelo próprio site via Fontsource.
-- **Monograma:** o monograma dos noivos (a receber) substitui o "D&T" em texto.
+- **Monograma:** recebido em 23/11 (T e D entrelaçados, azul sobre branco); convertido para marfim com fundo transparente. Aparece no menu e no rodapé.
+- **Foto da Home:** a igreja do casamento ao entardecer (recebida em 23/11), vertical. No celular ocupa a tela inteira; no computador, um painel à direita com a borda esquerda suave, e o texto fica à esquerda sobre o marinho. Recebe um tratamento leve de cor (menos saturação no céu, véu azul suave) para combinar com a paleta. Ponto de foco: a torre com a cruz.
 - **Referência da Home (recebida):** foto em tela cheia com os noivos, menu discreto em caixa alta, data em destaque, nomes em serifada grande, citação em itálico, contagem regressiva e dois botões ("Confirmar presença" e "Ver informações"). Serve de base, não para copiar.
-- **Rolagem com profundidade:** cena 3D contínua (Three.js) atrás do conteúdo; a câmera percorre a cena conforme a rolagem e cada seção é um "capítulo". Versão estática para aparelhos fracos e para quem desativa movimento.
-- **Animações de fundo:** elementos sutis (formas, brilhos ou ornamentos) que não disputem atenção com o conteúdo.
+- **Rolagem com profundidade:** a foto da Home é a protagonista: ondula de leve e, ao rolar, se dissolve de forma líquida sobre um véu azul fosco que ondula devagar ao fundo (WebGL, Three.js). Versão estática para aparelhos fracos e para quem desativa movimento.
+- **Surgimento ligado à rolagem:** títulos, textos, listas e fotos surgem e se recolhem nas bordas da tela, nos dois sentidos, com suavização; o meio da tela fica sempre nítido. Poucos efeitos, discretos: partículas e fundo em gradiente fluido foram testados e descartados por parecerem artificiais.
 
 ## Fluxo de implementação
 
@@ -172,16 +175,16 @@ Cinco fases em 15 dias, com duas aprovações dos noivos: o visual no dia 2 e a 
 2. ~~Montar a estrutura de pastas: um componente por seção em `src/sections/` e o conteúdo em `src/content/`.~~ ✅
 3. ~~Definir paleta, tipografia, espaçamentos e botões com área de toque grande.~~ ✅
 4. ~~Cena 3D base (React Three Fiber), rolagem fluida (Lenis) e GSAP.~~ ✅ Foto da Home viva (ondulação e dissolução líquida ao rolar) sobre um véu fosco e discreto.
-5. Home completa e seções encaixadas como capítulos sobre a cena, com o menu fixo.
+5. ~~Home completa e seções encaixadas como capítulos sobre a cena, com o menu fixo.~~ ✅
 
-**Aprovação 1:** visual aprovado pelos noivos, apresentado em localhost por chamada no Google Meet.
+**Aprovação 1:** visual apresentado aos noivos em 20/11 (um dia depois do previsto), pelo link do Vercel ou localhost.
 
 Hospedagem no Vercel: o plano gratuito não consome créditos por publicação, então o repositório pode ser conectado já, com prévias por branch para mostrar aos noivos.
 
 ### Fase 2 — Seções de conteúdo (dias 3–6)
 
 1. Home, Nossa história (momentos com data, foto e descrição), O grande dia e Como chegar.
-2. Script que converte as fotos do Google Drive para WebP em vários tamanhos, com carregamento sob demanda.
+2. ~~Script que converte as fotos do Google Drive para WebP em vários tamanhos, com carregamento sob demanda.~~ ✅ `npm run fotos`
 
 ### Fase 3 — Formulários e presentes (dias 7–9)
 
@@ -207,18 +210,18 @@ Se a opção de pagamento for o Mercado Pago, esta fase precisa de mais dias, qu
 
 Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelos noivos.
 
-- [ ] Pasta no Google Drive compartilhada com o Leonardo
+- [x] Pasta no Google Drive compartilhada com o Leonardo
 - [ ] Fotos dos noivos e dos locais
-- [ ] Monograma do casamento (de preferência em SVG ou PNG com fundo transparente)
+- [x] Monograma do casamento (recebido em JPG; convertido para marfim com fundo transparente)
 - [x] Print de referência da Home (recebido em 18/11; usar como base, sem copiar)
-- [ ] Foto de fundo da Home: arquivo original em alta resolução; de preferência uma versão horizontal (computador) e uma vertical (celular)
+- [x] Foto de fundo da Home: a igreja, vertical (recebida em 23/11)
 - [ ] Citação da Home: proposta por nós e aprovada pela noiva na primeira prévia
 - [ ] Momentos da história: data específica, uma foto e uma descrição breve (até ~200 caracteres) de cada um
 - [x] Data do casamento: 23/02/2027
 - [ ] Horários e endereços da cerimônia e da recepção
 - [ ] Informações específicas do dia (traje, estacionamento, observações)
 - [ ] Data limite para confirmação de presença
-- [ ] E-mail que vai receber as notificações
+- [ ] E-mails pessoais dos noivos (acesso à planilha e avisos de confirmações e presentes)
 - [ ] Lista de cotas: nome, valor e imagem de cada uma
 - [ ] Telefone para o botão de WhatsApp
 
@@ -240,6 +243,8 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 | 3D                      | Three.js com React Three Fiber, carregado depois do conteúdo             |
 | Animações e rolagem     | GSAP + Lenis                                                             |
 | Área administrativa     | Planilha Google numa conta do projeto, noivos como editores              |
+| Home no computador      | Foto vertical em painel lateral à direita; texto à esquerda              |
+| Tratamento de cor       | Leve, para aproximar as fotos da paleta (saturação 72%, véu azul)        |
 | Fotos                   | Pasta no Google Drive compartilhada pelos noivos                         |
 | Data do casamento       | 23/02/2027 (horários e locais a definir)                                 |
 | Cronograma              | Início em 18/11/2026; entrega em 02/12/2026                              |

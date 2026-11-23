@@ -31,3 +31,10 @@ Thumbs.db
 
 # Fotos provisórias de banco (não versionar)
 public/images/provisorio/
+
+
+#Fotos originais
+
+
+# Originais dos noivos (pesados): só as versões otimizadas vão para o Git
+fotos-originais/

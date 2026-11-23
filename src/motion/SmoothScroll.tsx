@@ -21,7 +21,6 @@ export function SmoothScroll() {
     lenis?.on('scroll', ScrollTrigger.update)
     registerLenis(lenis)
 
-    let lastY = window.scrollY
     const tick = (time: number) => {
       lenis?.raf(time * 1000)
 
@@ -29,8 +28,6 @@ export function SmoothScroll() {
       const max = document.documentElement.scrollHeight - window.innerHeight
       scrollState.progress = max > 0 ? Math.min(Math.max(y / max, 0), 1) : 0
       scrollState.heroProgress = Math.min(Math.max(y / window.innerHeight, 0), 1)
-      scrollState.velocity = lenis ? lenis.velocity : y - lastY
-      lastY = y
     }
 
     gsap.ticker.add(tick)

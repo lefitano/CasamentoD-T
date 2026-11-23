@@ -6,6 +6,8 @@ import { formatLongDate, formatTime } from '@/lib/date'
 import { EASE_OUT, gsap, prefersReducedMotion, SplitText, useGSAP } from '@/motion/gsap'
 import styles from './Hero.module.css'
 
+const { heroImage } = couple
+
 /** RF01 — Home: foto dos noivos, nomes, data, citação, contagem regressiva e chamadas. */
 export function Hero() {
   const root = useRef<HTMLElement>(null)
@@ -62,15 +64,18 @@ export function Hero() {
         Quando a cena 3D fica pronta, a versão viva (HeroPhoto) assume no mesmo lugar.
       */}
       {!photoFailed && (
-        <picture className={styles.photo}>
-          <source media="(orientation: portrait)" srcSet={couple.heroImage.portrait} />
+        <div className={styles.photo} data-hero-photo>
           <img
-            src={couple.heroImage.landscape}
-            alt={couple.heroImage.alt}
+            src={heroImage.sources[0].src}
+            srcSet={heroImage.sources.map((s) => `${s.src} ${s.width}w`).join(', ')}
+            // Celular: tela cheia; computador: painel lateral (ver Hero.module.css)
+            sizes="(min-width: 64rem) max(42vw, 56vh), max(100vw, 56vh)"
+            alt={heroImage.alt}
             fetchPriority="high"
+            style={{ objectPosition: `${heroImage.focus.x * 100}% ${heroImage.focus.y * 100}%` }}
             onError={() => setPhotoFailed(true)}
           />
-        </picture>
+        </div>
       )}
 
       <div className={styles.content}>

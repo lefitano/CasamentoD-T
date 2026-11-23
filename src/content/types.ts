@@ -25,11 +25,18 @@ export interface Couple {
   /** Iniciais usadas enquanto o monograma (imagem) não chega, ex.: 'D&T' */
   initials: string
   monogram?: Image
-  /** Foto de fundo da Home, em duas versões: horizontal (computador) e vertical (celular) */
+  /** Foto de fundo da Home (vertical: tela cheia no celular, painel lateral no computador) */
   heroImage: {
-    landscape: string
-    portrait: string
+    /** A mesma foto em larguras diferentes (gerada por `npm run fotos`) */
+    sources: { src: string; width: number }[]
+    /** Largura ÷ altura da foto (ex.: 1239 / 2201 para uma foto vertical) */
+    aspectRatio: number
     alt: string
+    /**
+     * Ponto que nunca pode ser cortado, de 0 a 1 a partir do canto superior esquerdo
+     * (ex.: a torre da igreja). Equivale ao object-position do CSS.
+     */
+    focus: { x: number; y: number }
   }
   quote: {
     text: string
