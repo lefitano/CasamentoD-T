@@ -1,0 +1,12 @@
+{
+  "name": "Danilo & Tereza · 23.02.2027",
+  "short_name": "Danilo & Tereza",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#0a1222",
+  "background_color": "#0a1222",
+  "display": "standalone",
+  "start_url": "/"
+}

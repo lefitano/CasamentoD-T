@@ -49,6 +49,17 @@ const JOBS = [
     input: 'monograma.webp',
     name: 'og-monograma',
   },
+  {
+    // Ícone da aba do navegador (favicon) e da tela inicial do celular.
+    kind: 'favicon',
+    input: 'monograma.webp',
+    sizes: [
+      { size: 32, file: 'favicon-32.png' },
+      { size: 180, file: 'apple-touch-icon.png' },
+      { size: 192, file: 'icon-192.png' },
+      { size: 512, file: 'icon-512.png' },
+    ],
+  },
 ]
 
 async function photo({ input, name, widths, grade }) {
@@ -145,7 +156,43 @@ async function social({ input, name }) {
   return [`${file} (${info.width}×${info.height}, ${Math.round(info.size / 1024)} KB)`]
 }
 
-const RUNNERS = { photo, monogram, social }
+/**
+ * Favicon: monograma marfim num quadrado marinho de cantos arredondados
+ * (marfim puro sumiria numa aba clara). Nos tamanhos pequenos, os traços finos
+ * são reforçados para não desaparecerem.
+ * Os arquivos vão para public/ (raiz do site), onde navegadores e celulares os procuram.
+ */
+async function favicon({ input, sizes }) {
+  const written = []
+  for (const { size, file } of sizes) {
+    const radius = Math.round(size * 0.22)
+    const tile = Buffer.from(
+      `<svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
+        <rect width="${size}" height="${size}" rx="${radius}" fill="#14213d"/>
+      </svg>`,
+    )
+    const markWidth = Math.round(size * (size <= 48 ? 0.9 : 0.82))
+    let mark = await sharp(path.join(OUTPUT, input))
+      .resize({ width: markWidth })
+      .raw()
+      .toBuffer({ resolveWithObject: true })
+    if (size <= 48) {
+      // reforça os traços: aumenta a opacidade das bordas suaves do desenho
+      const { data } = mark
+      for (let i = 3; i < data.length; i += 4) data[i] = Math.min(255, data[i] * 2.6)
+    }
+    const markPng = await sharp(mark.data, { raw: mark.info }).png().toBuffer()
+    const target = path.join('public', file)
+    const info = await sharp(tile)
+      .composite([{ input: markPng, gravity: 'center' }])
+      .png({ compressionLevel: 9 })
+      .toFile(target)
+    written.push(`${target} (${info.width}×${info.height}, ${Math.round(info.size / 1024)} KB)`)
+  }
+  return written
+}
+
+const RUNNERS = { photo, monogram, social, favicon }
 
 for (const job of JOBS) {
   const written = await RUNNERS[job.kind](job)
