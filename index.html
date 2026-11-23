@@ -3,12 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danilo &amp; Tereza · 23.02.2027</title>
     <meta
       name="description"
       content="Tudo sobre o nosso casamento: o grande dia, como chegar, confirmação de presença e lista de presentes."
     />
     <meta name="theme-color" content="#0a1222" />
-    <title>Casamento D&amp;T</title>
+
+    <!--
+      Prévia do link no WhatsApp e nas redes (Open Graph).
+      __SITE_URL__ é trocado pelo endereço do site no build (ver vite.config.ts):
+      o WhatsApp exige o endereço completo da imagem.
+      Nomes e data repetem src/content (couple.ts e event.ts): atualizar juntos.
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Danilo &amp; Tereza" />
+    <meta property="og:title" content="Danilo &amp; Tereza · 23 de fevereiro de 2027" />
+    <meta
+      property="og:description"
+      content="Tudo sobre o nosso casamento: o grande dia, como chegar, confirmação de presença e lista de presentes."
+    />
+    <meta property="og:url" content="__SITE_URL__/" />
+    <meta property="og:image" content="__SITE_URL__/images/og-monograma.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Monograma de Danilo e Tereza" />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
     <div id="root"></div>

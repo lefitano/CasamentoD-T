@@ -88,7 +88,11 @@ export function Hero() {
           </p>
 
           <h1 ref={names} id="inicio-titulo" className={styles.names}>
-            {couple.partner1} <span className={styles.amp}>&amp;</span> {couple.partner2}
+            {/* "& Tereza" não se separa: no celular a quebra fica "Danilo / & Tereza" */}
+            <span className={styles.nowrap}>{couple.partner1}</span>{' '}
+            <span className={styles.nowrap}>
+              <span className={styles.amp}>&amp;</span> {couple.partner2}
+            </span>
           </h1>
 
           <blockquote className={styles.quote} data-intro>

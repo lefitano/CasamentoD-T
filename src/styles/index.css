@@ -4,6 +4,7 @@
 @import '@fontsource-variable/montserrat/wght.css';
 @import '@fontsource/great-vibes/latin-400.css';
 
+@import './fonts.css';
 @import './tokens.css';
 @import './reset.css';
 @import './global.css';

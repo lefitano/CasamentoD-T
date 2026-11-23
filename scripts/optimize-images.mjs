@@ -7,6 +7,7 @@
  * - Fotos: WebP em várias larguras (o navegador baixa só a que a tela precisa),
  *   com tratamento de cor opcional e sem metadados (câmera, localização).
  * - Monograma: retira o fundo claro e pinta o traço de marfim, com fundo transparente.
+ * - Prévia do link (WhatsApp): cartão 1200×630 com o monograma sobre o marinho.
  */
 import { mkdir } from 'node:fs/promises'
 import path from 'node:path'
@@ -40,6 +41,13 @@ const JOBS = [
     input: 'monograma.JPG',
     name: 'monograma',
     width: 640,
+  },
+  {
+    // Imagem da prévia do link (WhatsApp, redes): monograma sobre o marinho.
+    // Usa o monograma gerado acima, por isso vem depois dele.
+    kind: 'social',
+    input: 'monograma.webp',
+    name: 'og-monograma',
   },
 ]
 
@@ -113,8 +121,34 @@ async function monogram({ input, name, width }) {
   return [`${file} (${info.width}×${info.height}, ${Math.round(info.size / 1024)} KB)`]
 }
 
+/**
+ * Cartão de prévia do link: 1200×630 (formato grande do WhatsApp), em JPG,
+ * com o monograma centralizado. O centro também funciona no recorte quadrado.
+ */
+async function social({ input, name }) {
+  const W = 1200
+  const H = 630
+  const background = Buffer.from(
+    `<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
+      <defs><radialGradient id="g" cx="50%" cy="50%" r="70%">
+        <stop offset="0%" stop-color="#1b2c4f"/><stop offset="100%" stop-color="${NAVY_950}"/>
+      </radialGradient></defs>
+      <rect width="100%" height="100%" fill="url(#g)"/>
+    </svg>`,
+  )
+  const mark = await sharp(path.join(OUTPUT, input)).resize({ height: 380 }).toBuffer()
+  const file = path.join(OUTPUT, `${name}.jpg`)
+  const info = await sharp(background)
+    .composite([{ input: mark, gravity: 'center' }])
+    .jpeg({ quality: 88, mozjpeg: true })
+    .toFile(file)
+  return [`${file} (${info.width}×${info.height}, ${Math.round(info.size / 1024)} KB)`]
+}
+
+const RUNNERS = { photo, monogram, social }
+
 for (const job of JOBS) {
-  const written = job.kind === 'photo' ? await photo(job) : await monogram(job)
+  const written = await RUNNERS[job.kind](job)
   console.log(`✓ ${job.input}`)
   for (const line of written) console.log(`   → ${line}`)
 }

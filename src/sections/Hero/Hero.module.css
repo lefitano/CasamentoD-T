@@ -77,14 +77,20 @@
 
 .names {
   margin-block: var(--space-4) var(--space-6);
+  font-family: var(--font-names); /* Perandory, escolhida pela noiva */
+  font-weight: 400;
   font-size: var(--text-display);
   line-height: var(--leading-tight);
   letter-spacing: -0.01em;
 }
 
+/* Cada nome (e o "& Tereza") fica inteiro: a quebra só acontece entre eles */
+.nowrap {
+  white-space: nowrap;
+}
+
+/* O "&" na mesma fonte dos nomes, em tom gelo para um leve destaque */
 .amp {
-  font-family: var(--font-script);
-  font-size: 0.95em;
   color: var(--ice-100);
   padding-inline: 0.05em;
 }

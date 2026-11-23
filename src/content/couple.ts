@@ -1,9 +1,9 @@
 import type { Couple } from './types'
 
-// PROVISÓRIO: nomes, citação e WhatsApp a confirmar com os noivos.
+// PROVISÓRIO: citação e WhatsApp a confirmar com os noivos. Nomes confirmados em 23/11.
 export const couple: Couple = {
-  partner1: 'D',
-  partner2: 'T',
+  partner1: 'Danilo',
+  partner2: 'Tereza',
   initials: 'D&T',
   // Monograma enviado pelos noivos, convertido para marfim com fundo transparente (npm run fotos)
   monogram: { src: '/images/monograma.webp', alt: 'Monograma de T e D entrelaçados' },
@@ -20,8 +20,8 @@ export const couple: Couple = {
   },
   quote: {
     // Citação proposta por nós; a noiva aprova na primeira prévia.
-    text: 'O amor é paciente, o amor é bondoso. Tudo sofre, tudo crê, tudo espera, tudo suporta.',
-    source: '1 Coríntios 13:4,7',
+    text: 'Para que todos vejam, e saibam, e considerem, e juntamente entendam que a mão do Senhor fez isto.',
+    source: 'Isaías 41:20',
   },
   whatsapp: {
     phone: '5500000000000',

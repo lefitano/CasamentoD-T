@@ -150,6 +150,7 @@ No VS Code, instale a extensão recomendada **TypeScript (Native Preview)**: ela
 
 - **Branches:** o trabalho do dia a dia vai na `dev`; cada push gera um link de prévia. A `main` é o site principal e só recebe merges nos marcos (aprovações, revisões, entrega).
 - **Configuração:** o Vercel reconhece o Vite sozinho (`npm run build`, pasta `dist`); Node 24 definido em `package.json` (`engines`).
+- **Prévia do link (WhatsApp):** tags Open Graph no `index.html` com o cartão `public/images/og-monograma.jpg` (monograma sobre o marinho, gerado por `npm run fotos`). O endereço completo da imagem é preenchido no build: no Vercel, automaticamente; com domínio próprio, definir a variável `SITE_URL` no Vercel. O WhatsApp guarda a prévia em cache: para testar uma mudança, envie o link com `?v=2` no fim.
 - **`vercel.json`:** cache longo para os arquivos de `assets/` e o cabeçalho `X-Robots-Tag: noindex`, que impede o Google de indexar o site antes da entrega. **Remover o `noindex` na publicação oficial.**
 - **Fotos:** os originais dos noivos ficam em `fotos-originais/` (fora do Git); `npm run fotos` gera as versões otimizadas em `public/images/` (no Git). Para uma foto nova, acrescente uma entrada em `JOBS` no [script](scripts/optimize-images.mjs).
 - **Fotos provisórias dos momentos:** ficam fora do Git (`public/images/provisorio/`); no Vercel aparecem como quadros vazios até as fotos reais chegarem.
@@ -158,7 +159,7 @@ No VS Code, instale a extensão recomendada **TypeScript (Native Preview)**: ela
 
 - **Direção:** site imersivo, com rolagem fluida, fundo 3D contínuo e animações com profundidade no carregamento e no surgimento dos itens. Evitar o visual de template: nada de grade de cards e seções em faixas de cores alternadas.
 - **Cores (paleta B · Marinho clássico, tema escuro):** `#0A1222` fundo profundo, `#14213D` marinho, `#2E4A7D` azul real (botões), `#6C8EBF` azul aço (destaques), `#E6EEF7` gelo, `#FBFAF7` marfim (texto). Definidas em `src/styles/tokens.css`.
-- **Tipografia:** Playfair Display nos títulos, Montserrat no texto e Great Vibes como cursiva de detalhe. Servidas pelo próprio site via Fontsource.
+- **Tipografia:** Playfair Display nos títulos, Montserrat no texto e Great Vibes como cursiva de detalhe, servidas via Fontsource. Os nomes dos noivos na Home usam a **Perandory**, escolhida pela noiva (arquivo em `public/fonts/`; sem ele, cai para a Playfair).
 - **Monograma:** recebido em 23/11 (T e D entrelaçados, azul sobre branco); convertido para marfim com fundo transparente. Aparece no menu e no rodapé.
 - **Foto da Home:** a igreja do casamento ao entardecer (recebida em 23/11), vertical. No celular ocupa a tela inteira; no computador, um painel à direita com a borda esquerda suave, e o texto fica à esquerda sobre o marinho. Recebe um tratamento leve de cor (menos saturação no céu, véu azul suave) para combinar com a paleta. Ponto de foco: a torre com a cruz.
 - **Referência da Home (recebida):** foto em tela cheia com os noivos, menu discreto em caixa alta, data em destaque, nomes em serifada grande, citação em itálico, contagem regressiva e dois botões ("Confirmar presença" e "Ver informações"). Serve de base, não para copiar.
@@ -218,7 +219,9 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 - [ ] Citação da Home: proposta por nós e aprovada pela noiva na primeira prévia
 - [ ] Momentos da história: data específica, uma foto e uma descrição breve (até ~200 caracteres) de cada um
 - [x] Data do casamento: 23/02/2027
-- [ ] Horários e endereços da cerimônia e da recepção
+- [x] Nomes: Danilo & Tereza (23/11), na fonte Perandory
+- [x] Local da cerimônia: Igreja de São Pedro Apóstolo, com link do Google Maps (23/11). Endereço por escrito a confirmar
+- [ ] Horários da cerimônia e da recepção; local da recepção
 - [ ] Informações específicas do dia (traje, estacionamento, observações)
 - [ ] Data limite para confirmação de presença
 - [ ] E-mails pessoais dos noivos (acesso à planilha e avisos de confirmações e presentes)
@@ -245,6 +248,8 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 | Área administrativa     | Planilha Google numa conta do projeto, noivos como editores              |
 | Home no computador      | Foto vertical em painel lateral à direita; texto à esquerda              |
 | Tratamento de cor       | Leve, para aproximar as fotos da paleta (saturação 72%, véu azul)        |
+| Nomes na Home           | Danilo & Tereza, na fonte Perandory (pedido da noiva)                    |
+| Prévia do link          | Cartão com o monograma (Open Graph), 1200×630                            |
 | Fotos                   | Pasta no Google Drive compartilhada pelos noivos                         |
 | Data do casamento       | 23/02/2027 (horários e locais a definir)                                 |
 | Cronograma              | Início em 18/11/2026; entrega em 02/12/2026                              |
@@ -254,3 +259,5 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 
 - [ ] Escolher a solução de pagamento: links InfinitePay ou Mercado Pago Checkout Pro
 - [ ] Definir se haverá domínio próprio (ex.: nomedosnoivos.com.br)
+- [ ] Fonte Perandory: obter o arquivo (OTF/TTF) e confirmar a licença (gratuita só para uso pessoal; comercial na Kulture Foundry)
+- [ ] Confirmar com os noivos o endereço por escrito da igreja (hoje: Av. Almirante Barroso, 1091 — Praia de Iracema)
