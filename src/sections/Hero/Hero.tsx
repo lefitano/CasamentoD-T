@@ -29,7 +29,12 @@ export function Hero() {
         gsap.set(names.current, { autoAlpha: 1 })
 
         gsap
-          .timeline({ defaults: { ease: EASE_OUT } })
+          .timeline({
+            defaults: { ease: EASE_OUT },
+            // Desfaz as máscaras das linhas ao final: elas cortariam a sombra das letras,
+            // deixando um retângulo escuro visível atrás dos nomes
+            onComplete: () => split.revert(),
+          })
           .from(split.lines, { yPercent: 110, duration: 1.5, stagger: 0.12 }, 0.15)
           .fromTo(
             items,
