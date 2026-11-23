@@ -19,7 +19,8 @@
 
 .row {
   display: grid;
-  grid-template-columns: 5.5rem 1fr;
+  grid-template-columns: 3rem 1fr;
+  align-items: start;
   gap: var(--space-6);
   padding-block: var(--space-6);
   border-top: 1px solid var(--color-line);
@@ -29,10 +30,15 @@
   border-bottom: 1px solid var(--color-line);
 }
 
+/* Coluna do ícone animado (EventIcons) */
+.icon {
+  padding-top: var(--space-1);
+}
+
+/* Horário ao lado do título: "CERIMÔNIA · 16h" */
 .time {
-  font-family: var(--font-display);
-  font-size: var(--text-xl);
-  line-height: 1.1;
+  font-weight: 500;
+  color: var(--color-text-muted);
 }
 
 .label {
@@ -67,15 +73,7 @@
 
 @media (min-width: 48rem) {
   .row {
-    grid-template-columns: 9rem 1fr;
+    grid-template-columns: 3.5rem 1fr;
+    gap: var(--space-8);
   }
-}
-
-/* Horário ainda não definido: texto pequeno no lugar do número */
-.timePending {
-  padding-top: 0.35em;
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-  color: var(--color-text-muted);
 }

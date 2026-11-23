@@ -6,7 +6,7 @@ export const sectionTexts = {
     cta: 'Entre na nossa história',
   },
   story: { eyebrow: 'Nossa história', title: 'Nossos momentos' },
-  event: { eyebrow: 'O grande dia' },
+  event: { eyebrow: 'O grande dia', timePending: 'horário a definir' },
   location: { eyebrow: 'Como chegar', title: 'O caminho até nós' },
   rsvp: { eyebrow: 'Convite', title: 'Confirme sua presença' },
   gifts: {

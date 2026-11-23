@@ -1,0 +1,127 @@
+.icon {
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  color: var(--color-accent);
+  overflow: visible;
+}
+
+/* Partes que se movem giram a partir do próprio desenho */
+.cross,
+.glassLeft,
+.glassRight,
+.dress,
+.suit,
+.sparkle {
+  transform-box: fill-box;
+}
+
+.sparkle {
+  opacity: 0;
+}
+
+/*
+ * Microanimações, uma vez, quando o ícone termina de se desenhar
+ * (data-played="true", ver useDrawIcons). Respeitam o "reduzir movimento" (global.css).
+ */
+
+/* Igreja: a cruz brilha */
+.icon[data-played='true'] .cross {
+  animation: icon-glow 1.6s var(--ease-in-out) 1;
+}
+
+@keyframes icon-glow {
+  0%,
+  100% {
+    filter: none;
+  }
+  40% {
+    filter: drop-shadow(0 0 3px var(--ice-100)) drop-shadow(0 0 6px var(--steel-400));
+  }
+}
+
+/* Taças: inclinam uma para a outra (brinde) e a faísca aparece */
+.glassLeft {
+  transform-origin: 50% 100%;
+}
+
+.glassRight {
+  transform-origin: 50% 100%;
+}
+
+.icon[data-played='true'] .glassLeft {
+  animation: toast-left 1.2s var(--ease-in-out) 1;
+}
+
+.icon[data-played='true'] .glassRight {
+  animation: toast-right 1.2s var(--ease-in-out) 1;
+}
+
+.icon[data-played='true'] .sparkle {
+  animation: sparkle 1.2s var(--ease-in-out) 1;
+}
+
+@keyframes toast-left {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  45% {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes toast-right {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  45% {
+    transform: rotate(-10deg);
+  }
+}
+
+@keyframes sparkle {
+  0%,
+  35%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Traje: vestido e terno balançam de leve, como pendurados */
+.dress,
+.suit {
+  transform-origin: 50% 0%;
+}
+
+.icon[data-played='true'] .dress {
+  animation: sway 1.4s var(--ease-in-out) 1;
+}
+
+.icon[data-played='true'] .suit {
+  animation: sway 1.4s var(--ease-in-out) 0.15s 1 reverse;
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  30% {
+    transform: rotate(4deg);
+  }
+  65% {
+    transform: rotate(-2deg);
+  }
+}
+
+@media (min-width: 48rem) {
+  .icon {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
