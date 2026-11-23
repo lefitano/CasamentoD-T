@@ -28,13 +28,13 @@
   --font-display: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
   --font-body: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
   --font-script: 'Great Vibes', cursive;
-  /* Nomes dos noivos na Home: Marcellus, alternativa gratuita à Perandory que a noiva usou no Canva */
-  --font-names: 'Marcellus', 'Playfair Display Variable', Georgia, serif;
-  --text-names: clamp(
-    2.75rem,
-    2rem + 3.6vw,
-    5.5rem
-  ); /* 44 → 88px: maiúsculas ocupam mais largura */
+  /*
+   * Nomes dos noivos na Home: Instrument Serif, alternativa gratuita (OFL) à Perandory
+   * que a noiva usou no Canva: também condensada (alta e estreita) e de alto contraste.
+   */
+  --font-names: 'Instrument Serif', 'Playfair Display Variable', Georgia, serif;
+  /* 56 → 120px: a fonte estreita permite nomes maiores */
+  --text-names: clamp(3.5rem, 2.5rem + 5vw, 7.5rem);
 
   /* Escala fluida: cresce suavemente de 360px a 1440px de largura de tela */
   --text-xs: clamp(0.6875rem, 0.66rem + 0.12vw, 0.75rem); /* 11 → 12px: rótulos em caixa alta */

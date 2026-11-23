@@ -159,7 +159,7 @@ No VS Code, instale a extensão recomendada **TypeScript (Native Preview)**: ela
 
 - **Direção:** site imersivo, com rolagem fluida, fundo 3D contínuo e animações com profundidade no carregamento e no surgimento dos itens. Evitar o visual de template: nada de grade de cards e seções em faixas de cores alternadas.
 - **Cores (paleta B · Marinho clássico, tema escuro):** `#0A1222` fundo profundo, `#14213D` marinho, `#2E4A7D` azul real (botões), `#6C8EBF` azul aço (destaques), `#E6EEF7` gelo, `#FBFAF7` marfim (texto). Definidas em `src/styles/tokens.css`.
-- **Tipografia:** Playfair Display nos títulos, Montserrat no texto e Great Vibes como cursiva de detalhe, servidas via Fontsource. Os nomes dos noivos na Home usam a **Marcellus** em maiúsculas: alternativa gratuita (OFL) à Perandory que a noiva usou no Canva, que é gratuita só para uso pessoal.
+- **Tipografia:** Playfair Display nos títulos, Montserrat no texto e Great Vibes como cursiva de detalhe, servidas via Fontsource. Os nomes dos noivos na Home usam a **Instrument Serif** em maiúsculas: alternativa gratuita (OFL) à Perandory que a noiva usou no Canva (gratuita só para uso pessoal), escolhida por ser também condensada e de alto contraste.
 - **Monograma:** recebido em 23/11 (T e D entrelaçados, azul sobre branco); convertido para marfim com fundo transparente. Aparece no menu e no rodapé.
 - **Foto da Home:** a igreja do casamento ao entardecer (recebida em 23/11), vertical. No celular ocupa a tela inteira; no computador, um painel à direita com a borda esquerda suave, e o texto fica à esquerda sobre o marinho. Recebe um tratamento leve de cor (menos saturação no céu, véu azul suave) para combinar com a paleta. Ponto de foco: a torre com a cruz.
 - **Referência da Home (recebida):** foto em tela cheia com os noivos, menu discreto em caixa alta, data em destaque, nomes em serifada grande, citação em itálico, contagem regressiva e dois botões ("Confirmar presença" e "Ver informações"). Serve de base, não para copiar.
@@ -249,7 +249,7 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 | Área administrativa     | Planilha Google numa conta do projeto, noivos como editores              |
 | Home no computador      | Foto vertical em painel lateral à direita; texto à esquerda              |
 | Tratamento de cor       | Leve, para aproximar as fotos da paleta (saturação 72%, véu azul)        |
-| Nomes na Home           | Danilo & Tereza, em Marcellus (no lugar da Perandory)                    |
+| Nomes na Home           | Danilo & Tereza, em Instrument Serif (no lugar da Perandory)             |
 | Prévia do link          | Cartão com o monograma (Open Graph), 1200×630                            |
 | Fotos                   | Pasta no Google Drive compartilhada pelos noivos                         |
 | Data do casamento       | 23/02/2027 (horários e locais a definir)                                 |
@@ -260,5 +260,5 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 
 - [ ] Escolher a solução de pagamento: links InfinitePay ou Mercado Pago Checkout Pro
 - [ ] Definir se haverá domínio próprio (ex.: nomedosnoivos.com.br)
-- [ ] Noiva confirmar a fonte dos nomes: Marcellus (em uso, gratuita) ou outra da comparação; a Perandory exige comprar a licença
+- [ ] Noiva confirmar a fonte dos nomes: Instrument Serif (em uso) ou Noto Serif Display condensada; a Perandory exige comprar a licença
 - [ ] Confirmar com os noivos o endereço por escrito da igreja (hoje: Av. Almirante Barroso, 1091 — Praia de Iracema)

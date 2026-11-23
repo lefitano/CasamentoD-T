@@ -77,11 +77,11 @@
 
 .names {
   margin-block: var(--space-4) var(--space-6);
-  font-family: var(--font-names); /* Marcellus, em maiúsculas como a Perandory do Canva */
+  font-family: var(--font-names); /* Instrument Serif, em maiúsculas como a Perandory do Canva */
   font-weight: 400;
   font-size: var(--text-names);
-  line-height: 1.1;
-  letter-spacing: 0.03em;
+  line-height: 1;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
 }
 
