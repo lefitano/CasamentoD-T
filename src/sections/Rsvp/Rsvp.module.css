@@ -15,19 +15,6 @@
   color: var(--color-text);
 }
 
-/* Espaço reservado para o formulário (Fase 3) */
-.placeholder {
-  display: grid;
-  place-items: center;
-  width: min(100%, 32rem);
-  min-height: 12rem;
-  border: 1px dashed var(--color-line);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-}
-
 .notice {
   max-width: 44ch;
   font-size: var(--text-sm);

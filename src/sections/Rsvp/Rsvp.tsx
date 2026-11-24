@@ -1,9 +1,10 @@
 import { Section } from '@/components/Section/Section'
 import { rsvp, sectionTexts } from '@/content'
 import { formatLongDate, isPast } from '@/lib/date'
+import { RsvpForm } from './RsvpForm'
 import styles from './Rsvp.module.css'
 
-/** RF06 — Confirme sua presença. O formulário (Netlify Forms) entra na Fase 3. */
+/** RF06 — Confirme sua presença: formulário enviado à planilha dos noivos (ver lib/forms). */
 export function Rsvp() {
   const closed = rsvp.deadline ? isPast(rsvp.deadline) : false
 
@@ -19,7 +20,7 @@ export function Rsvp() {
               Confirme até <strong>{formatLongDate(rsvp.deadline)}</strong>
             </p>
           )}
-          <p className={styles.placeholder}>Formulário em construção</p>
+          <RsvpForm />
           <p className={styles.notice}>{rsvp.privacyNotice}</p>
         </>
       )}

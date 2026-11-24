@@ -90,12 +90,37 @@ export interface Moment {
 }
 
 export interface RsvpConfig {
-  /** Último momento para confirmar; depois disso o formulário fecha. Vazio = a definir */
+  /**
+   * Último momento para confirmar; depois disso o formulário fecha. Vazio = a definir.
+   * Atenção: o script da planilha tem a própria DATA_LIMITE (docs/guia-planilha.md); manter iguais.
+   */
   deadline?: IsoDateTime
+  /** Máximo de pessoas por resposta, contando quem responde (igual a MAX_PESSOAS no script) */
+  maxGuests: number
   intro: string
   privacyNotice: string
-  successMessage: string
   closedMessage: string
+  /** Textos do formulário */
+  form: {
+    name: string
+    phone: string
+    attending: string
+    yes: string
+    no: string
+    guests: string
+    companions: string
+    companionsHint: string
+    message: string
+    submit: string
+    sending: string
+  }
+  /** Agradecimento depois do envio, conforme a resposta */
+  successYes: string
+  successNo: string
+  errorMessage: string
+  answerAgain: string
+  /** Aviso para quem já respondeu neste aparelho */
+  alreadyAnswered: string
 }
 
 export interface Gift {

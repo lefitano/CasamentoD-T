@@ -23,6 +23,8 @@
   --color-primary-contrast: var(--ivory-50);
   --color-line: rgb(230 238 247 / 0.2);
   --color-focus: var(--ice-100);
+  /* Erros de formulário: coral suave, legível sobre o marinho */
+  --color-error: #f2b8b5;
 
   /* ---------- Tipografia ---------- */
   --font-display: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
