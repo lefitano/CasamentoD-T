@@ -2,8 +2,10 @@ import type { RsvpConfig } from './types'
 
 // Data limite a definir com os noivos (precisa ser antes de 23/02/2027).
 export const rsvp: RsvpConfig = {
-  maxGuests: 6,
   intro: 'Sua presença é muito importante para nós. Por favor, confirme assim que puder.',
+  // Pedido dos noivos (24/11): cada convidado confirma a própria presença
+  individualNote:
+    'A confirmação é individual: se você vier com alguém, peça que essa pessoa também confirme por aqui.',
   privacyNotice:
     'Usamos seu telefone só para identificar sua resposta. As respostas ficam visíveis apenas para os noivos.',
   closedMessage:
@@ -14,9 +16,6 @@ export const rsvp: RsvpConfig = {
     attending: 'Você vai comparecer?',
     yes: 'Sim, estarei lá',
     no: 'Não poderei ir',
-    guests: 'Quantas pessoas, contando com você?',
-    companions: 'Nomes dos acompanhantes',
-    companionsHint: 'Separe os nomes por vírgula',
     message: 'Recado para os noivos (opcional)',
     submit: 'Confirmar',
     sending: 'Enviando…',

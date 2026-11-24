@@ -69,8 +69,6 @@ export function RsvpForm() {
   const ids = {
     name: `${uid}-nome`,
     phone: `${uid}-telefone`,
-    guests: `${uid}-pessoas`,
-    companions: `${uid}-acompanhantes`,
     message: `${uid}-recado`,
     attending: `${uid}-comparece`,
   }
@@ -78,8 +76,6 @@ export function RsvpForm() {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [attending, setAttending] = useState<Attending | null>(null)
-  const [guests, setGuests] = useState(1)
-  const [companions, setCompanions] = useState('')
   const [message, setMessage] = useState('')
   const [trap, setTrap] = useState('')
   const [errors, setErrors] = useState<Partial<Record<Field, string>>>({})
@@ -138,8 +134,8 @@ export function RsvpForm() {
         nome: name.trim(),
         telefone: phoneDigits(phone),
         comparece: attending as Attending,
-        pessoas: attending === 'sim' ? guests : 0,
-        acompanhantes: attending === 'sim' && guests > 1 ? companions.trim() : '',
+        // Confirmação individual: sempre 1 pessoa (mantido para o script antigo continuar aceitando)
+        pessoas: attending === 'sim' ? 1 : 0,
         recado: message.trim(),
         website: trap,
       })
@@ -178,6 +174,7 @@ export function RsvpForm() {
         </div>
       ) : (
         <form className={styles.form} noValidate onSubmit={handleSubmit}>
+          <p className={styles.note}>{rsvp.individualNote}</p>
           {answeredBefore && <p className={styles.note}>{rsvp.alreadyAnswered}</p>}
 
           <FieldBox id={ids.name} label={rsvp.form.name} error={errors.name}>
@@ -247,57 +244,6 @@ export function RsvpForm() {
               </p>
             )}
           </fieldset>
-
-          {attending === 'sim' && (
-            <>
-              <div className={styles.field}>
-                <p id={ids.guests} className={styles.label}>
-                  {rsvp.form.guests}
-                </p>
-                <div className={styles.stepper} role="group" aria-labelledby={ids.guests}>
-                  <button
-                    type="button"
-                    className={styles.stepButton}
-                    onClick={() => setGuests((n) => Math.max(1, n - 1))}
-                    disabled={guests <= 1}
-                    aria-label="Menos uma pessoa"
-                  >
-                    −
-                  </button>
-                  <output className={styles.stepValue} aria-live="polite">
-                    {guests}
-                  </output>
-                  <button
-                    type="button"
-                    className={styles.stepButton}
-                    onClick={() => setGuests((n) => Math.min(rsvp.maxGuests, n + 1))}
-                    disabled={guests >= rsvp.maxGuests}
-                    aria-label="Mais uma pessoa"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-
-              {guests > 1 && (
-                <FieldBox
-                  id={ids.companions}
-                  label={rsvp.form.companions}
-                  hint={rsvp.form.companionsHint}
-                >
-                  <input
-                    id={ids.companions}
-                    className={styles.input}
-                    type="text"
-                    maxLength={500}
-                    value={companions}
-                    onChange={(e) => setCompanions(e.target.value)}
-                    aria-describedby={`${ids.companions}-dica`}
-                  />
-                </FieldBox>
-              )}
-            </>
-          )}
 
           <FieldBox id={ids.message} label={rsvp.form.message}>
             <textarea

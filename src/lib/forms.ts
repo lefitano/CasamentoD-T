@@ -9,8 +9,8 @@ export type FormPayload =
       nome: string
       telefone: string
       comparece: 'sim' | 'nao'
+      /** Confirmação individual: 1 se vai, 0 se não vai */
       pessoas: number
-      acompanhantes: string
       recado: string
       /** campo-armadilha: só robôs preenchem */
       website: string

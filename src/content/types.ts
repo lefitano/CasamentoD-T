@@ -95,9 +95,9 @@ export interface RsvpConfig {
    * Atenção: o script da planilha tem a própria DATA_LIMITE (docs/guia-planilha.md); manter iguais.
    */
   deadline?: IsoDateTime
-  /** Máximo de pessoas por resposta, contando quem responde (igual a MAX_PESSOAS no script) */
-  maxGuests: number
   intro: string
+  /** Aviso de que cada convidado confirma por si (sem acompanhantes no mesmo formulário) */
+  individualNote: string
   privacyNotice: string
   closedMessage: string
   /** Textos do formulário */
@@ -107,9 +107,6 @@ export interface RsvpConfig {
     attending: string
     yes: string
     no: string
-    guests: string
-    companions: string
-    companionsHint: string
     message: string
     submit: string
     sending: string

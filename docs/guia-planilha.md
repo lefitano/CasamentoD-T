@@ -27,7 +27,7 @@ Monta o "lado do Google" dos formulários do site (confirmação de presença e 
 1. No Apps Script, escolha **`testarConfirmacao`** → **Executar**.
 2. Confira:
    - a aba **Confirmações** ganhou a linha "Teste do Leonardo";
-   - a aba **Resumo** mostra 1 resposta e 2 pessoas;
+   - a aba **Resumo** mostra 1 resposta recebida e 1 em "Vão comparecer";
    - chegou um e-mail "✅ Teste do Leonardo confirmou presença" na conta do projeto.
 3. Apague a linha de teste da aba **Confirmações** (a linha inteira).
 

@@ -11,6 +11,8 @@
  *   AVISAR_EMAILS  e-mails que recebem os avisos, separados por vírgula
  *   DATA_LIMITE    último momento para confirmar, ex.: 2027-01-31T23:59:59-03:00 (vazio = sem limite)
  *
+ * Confirmação individual: cada convidado responde por si (sem acompanhantes no mesmo envio).
+ *
  * Passo a passo de instalação: docs/guia-planilha.md
  * Este arquivo é a fonte: depois de alterar aqui, copie de novo para o editor do Apps Script
  * e publique uma nova versão (Implantar → Gerenciar implantações → editar → Nova versão).
@@ -32,8 +34,6 @@ const COLUNAS_CONFIRMACOES = [
   { titulo: 'Nome', largura: 230 },
   { titulo: 'Telefone', largura: 140, formato: '@' }, // texto: não vira número
   { titulo: 'Vai comparecer?', largura: 140, centro: true },
-  { titulo: 'Pessoas', largura: 90, centro: true },
-  { titulo: 'Acompanhantes', largura: 260, quebra: true },
   { titulo: 'Recado', largura: 340, quebra: true },
   { titulo: 'Anotações dos noivos', largura: 280, quebra: true },
 ]
@@ -57,9 +57,6 @@ const CORES = {
   naoFundo: '#fbe7e6',
   naoTexto: '#9c2f2a',
 }
-
-/** Máximo de pessoas por resposta (contando quem responde) */
-const MAX_PESSOAS = 6
 
 // ---------------------------------------------------------------------------
 // Entrada: o site envia para cá
@@ -101,21 +98,19 @@ function receberConfirmacao(dados) {
 
   const nome = texto(dados.nome, 120)
   const telefone = normalizarTelefone(dados.telefone)
+  // Confirmação individual (pedido dos noivos): cada convidado responde por si
   const vai = dados.comparece === 'sim'
-  const pessoas = vai ? Math.round(Number(dados.pessoas)) : 0
-  const acompanhantes = vai ? texto(dados.acompanhantes, 500) : ''
   const recado = texto(dados.recado, 1000)
 
   if (nome.length < 2) return { ok: false, erro: 'nome' }
   if (!telefone) return { ok: false, erro: 'telefone' }
   if (dados.comparece !== 'sim' && dados.comparece !== 'nao')
     return { ok: false, erro: 'comparece' }
-  if (vai && !(pessoas >= 1 && pessoas <= MAX_PESSOAS)) return { ok: false, erro: 'pessoas' }
 
   const aba = planilha().getSheetByName(ABAS.confirmacoes)
   const agora = new Date()
   const linhaExistente = procurarTelefone(aba, telefone)
-  const valores = [nome, telefone, vai ? 'Sim' : 'Não', pessoas, acompanhantes, recado].map(seguro)
+  const valores = [nome, telefone, vai ? 'Sim' : 'Não', recado].map(seguro)
 
   if (linhaExistente) {
     // Mesmo telefone: atualiza a resposta (mantém "Recebido em" e as anotações dos noivos)
@@ -129,8 +124,6 @@ function receberConfirmacao(dados) {
     nome,
     telefone,
     vai,
-    pessoas,
-    acompanhantes,
     recado,
     atualizou: !!linhaExistente,
   })
@@ -139,16 +132,14 @@ function receberConfirmacao(dados) {
 
 function avisarConfirmacao(r) {
   const assunto = r.atualizou
-    ? `🔁 ${r.nome} atualizou a resposta: ${r.vai ? `vai (${r.pessoas})` : 'não vai'}`
+    ? `🔁 ${r.nome} atualizou a resposta: ${r.vai ? 'vai' : 'não vai'}`
     : r.vai
-      ? `✅ ${r.nome} confirmou presença (${r.pessoas} ${r.pessoas === 1 ? 'pessoa' : 'pessoas'})`
+      ? `✅ ${r.nome} confirmou presença`
       : `❌ ${r.nome} não poderá ir`
   const linhas = [
     `Nome: ${r.nome}`,
     `Telefone: ${formatarTelefone(r.telefone)}`,
     `Vai comparecer? ${r.vai ? 'Sim' : 'Não'}`,
-    r.vai ? `Pessoas: ${r.pessoas}` : null,
-    r.acompanhantes ? `Acompanhantes: ${r.acompanhantes}` : null,
     r.recado ? `\nRecado:\n${r.recado}` : null,
     `\nPlanilha completa: ${planilha().getUrl()}`,
   ]
@@ -217,9 +208,8 @@ function configurar() {
   resumo.setRowHeight(1, 44)
   const itens = [
     ['Respostas recebidas', `=COUNTA(${c}!C2:C)`],
-    ['Vão comparecer (respostas)', `=COUNTIF(${c}!E2:E${sep}"Sim")`],
+    ['Vão comparecer', `=COUNTIF(${c}!E2:E${sep}"Sim")`],
     ['Não poderão ir', `=COUNTIF(${c}!E2:E${sep}"Não")`],
-    ['Total de pessoas confirmadas', `=SUM(${c}!F2:F)`],
     ['Presentes registrados', `=COUNTA(${p}!B2:B)`],
     ['Valor dos presentes registrados (intenção)', `=SUM(${p}!D2:D)`],
   ]
@@ -231,7 +221,7 @@ function configurar() {
     .setFontWeight('bold')
     .setFontColor(CORES.marinho)
     .setHorizontalAlignment('right')
-  resumo.getRange(8, 2).setNumberFormat('"R$" #,##0.00')
+  resumo.getRange(3 + itens.length - 1, 2).setNumberFormat('"R$" #,##0.00') // valor, a última linha
   for (let linha = 3; linha < 3 + itens.length; linha++) resumo.setRowHeight(linha, 32)
   resumo.getBandings().forEach((b) => b.remove())
   resumo
@@ -274,8 +264,6 @@ function testarConfirmacao() {
         nome: 'Teste do Leonardo',
         telefone: '85900000000',
         comparece: 'sim',
-        pessoas: 2,
-        acompanhantes: 'Pessoa de teste',
         recado: 'Mensagem de teste — pode apagar esta linha.',
       }),
     },
@@ -302,11 +290,30 @@ function propriedade(chave) {
 function prepararAba(ss, nome, colunas) {
   const aba = ss.getSheetByName(nome) || ss.insertSheet(nome)
   const total = colunas.length
+  const titulos = colunas.map((c) => c.titulo)
+
+  // Estrutura de colunas mudou? Se a aba ainda não tem respostas, recomeça do zero;
+  // se tem, para aqui, para nunca embaralhar dados reais.
+  const atuais = aba
+    .getRange(1, 1, 1, aba.getMaxColumns())
+    .getValues()[0]
+    .filter((v) => v !== '')
+  const mudou = atuais.length > 0 && atuais.join('|') !== titulos.join('|')
+  if (mudou && aba.getLastRow() > 1) {
+    throw new Error(
+      `A aba "${nome}" tem respostas e as colunas mudaram. Faça uma cópia da aba, apague as respostas e rode configurar de novo.`,
+    )
+  }
+  if (mudou) {
+    aba.showColumns(1, aba.getMaxColumns())
+    aba.clear()
+    aba.clearConditionalFormatRules()
+  }
   const linhas = aba.getMaxRows()
 
   aba
     .getRange(1, 1, 1, total)
-    .setValues([colunas.map((c) => c.titulo)])
+    .setValues([titulos])
     .setFontWeight('bold')
     .setFontSize(11)
     .setFontColor(CORES.marfim)

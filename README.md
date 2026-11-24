@@ -51,16 +51,14 @@ Os links de rota abrem direto no aplicativo quando o convidado está no celular:
 
 ### Confirmação de presença
 
-Formulário aberto, sem lista pré-cadastrada de convidados. Cada resposta é gravada numa planilha Google e gera um e-mail para os noivos (ver [Formulários e área administrativa](#formulários-e-área-administrativa)).
+Formulário aberto, sem lista pré-cadastrada de convidados. **A confirmação é individual** (pedido dos noivos em 24/11): cada convidado responde por si; não há campo de acompanhantes. Cada resposta é gravada numa planilha Google e gera um e-mail para os noivos (ver [Formulários e área administrativa](#formulários-e-área-administrativa)).
 
-| Campo                   | Tipo        | Obrigatório            |
-| ----------------------- | ----------- | ---------------------- |
-| Nome completo           | Texto       | Sim                    |
-| Telefone (WhatsApp)     | Telefone    | Sim                    |
-| Vai comparecer?         | Sim / Não   | Sim                    |
-| Quantidade de pessoas   | Número      | Sim, se for comparecer |
-| Nomes dos acompanhantes | Texto       | Não                    |
-| Recado para os noivos   | Texto longo | Não                    |
+| Campo                 | Tipo        | Obrigatório |
+| --------------------- | ----------- | ----------- |
+| Nome completo         | Texto       | Sim         |
+| Telefone (WhatsApp)   | Telefone    | Sim         |
+| Vai comparecer?       | Sim / Não   | Sim         |
+| Recado para os noivos | Texto longo | Não         |
 
 Regras:
 
@@ -95,16 +93,15 @@ Não há painel próprio: a área administrativa é uma **planilha Google** comp
 - **Proteção:** a aba de respostas é travada (só o script escreve nela); os noivos têm uma coluna livre para anotações e uma aba de resumo com os totais.
 - **Limite:** cerca de 100 e-mails por dia numa conta Google comum, suficiente para um casamento.
 - **Mesmo telefone respondendo de novo:** atualiza a resposta anterior na mesma linha (coluna "Atualizado em").
-- **Limite:** até 6 pessoas por resposta (`maxGuests` em `src/content/rsvp.ts` e `MAX_PESSOAS` no script).
 - **Instalação:** [docs/guia-planilha.md](docs/guia-planilha.md); o código do script fica em [`apps-script/Codigo.gs`](apps-script/Codigo.gs).
 - **Depois do casamento:** transferir a planilha para os noivos ou apagar os dados dos convidados (LGPD).
 
-| Necessidade                | Como fica atendida                                                                  |
-| -------------------------- | ----------------------------------------------------------------------------------- |
-| Ver confirmações e recusas | E-mail a cada resposta e a lista completa na planilha                               |
-| Ver quem presenteou        | E-mail a cada registro e a aba de presentes, mais a conferência no app de pagamento |
-| Contar o total de pessoas  | Aba de resumo, calculada automaticamente                                            |
-| Saber quem não respondeu   | Manual, comparando com a lista dos noivos (coluna de anotações)                     |
+| Necessidade                | Como fica atendida                                                                      |
+| -------------------------- | --------------------------------------------------------------------------------------- |
+| Ver confirmações e recusas | E-mail a cada resposta e a lista completa na planilha                                   |
+| Ver quem presenteou        | E-mail a cada registro e a aba de presentes, mais a conferência no app de pagamento     |
+| Contar quantos vêm         | Aba de resumo ("Vão comparecer"), calculada automaticamente; cada resposta é uma pessoa |
+| Saber quem não respondeu   | Manual, comparando com a lista dos noivos (coluna de anotações)                         |
 
 ## Requisitos não funcionais
 
@@ -237,29 +234,30 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 
 ### Decisões tomadas
 
-| Tema                      | Decisão                                                                  |
-| ------------------------- | ------------------------------------------------------------------------ |
-| Confirmação de presença   | Formulário aberto; respostas numa planilha Google, com e-mail aos noivos |
-| Lista de convidados       | Sem lista pré-cadastrada; acompanhamento manual pelos noivos             |
-| Presentes                 | Cotas em dinheiro, com Pix e cartão de crédito                           |
-| Hospedagem                | Vercel (plano Hobby)                                                     |
-| Front-end                 | React + Vite + TypeScript                                                |
-| Estilização               | CSS Modules + variáveis CSS                                              |
-| Fontes                    | Servidas pelo próprio site (Fontsource)                                  |
-| Paleta                    | B · Marinho clássico, tema escuro imersivo                               |
-| Tipografia                | Playfair Display + Montserrat + Great Vibes                              |
-| 3D                        | Three.js com React Three Fiber, carregado depois do conteúdo             |
-| Animações e rolagem       | GSAP + Lenis                                                             |
-| Área administrativa       | Planilha Google numa conta do projeto, noivos como editores              |
-| Home no computador        | Foto vertical em painel lateral à direita; texto à esquerda              |
-| Tratamento de cor         | Leve, para aproximar as fotos da paleta (saturação 72%, véu azul)        |
-| Nomes na Home             | Danilo & Tereza, em Instrument Serif (no lugar da Perandory)             |
-| Prévia do link            | Cartão com o monograma (Open Graph), 1200×630                            |
-| Data limite (confirmação) | Sem limite: o formulário fica aberto até o casamento                     |
-| Fotos                     | Pasta no Google Drive compartilhada pelos noivos                         |
-| Data do casamento         | 23/02/2027 (horários e locais a definir)                                 |
-| Cronograma                | Início em 18/11/2026; entrega em 02/12/2026                              |
-| Prévias para os noivos    | Localhost por Google Meet ou link de prévia do Vercel                    |
+| Tema                      | Decisão                                                                     |
+| ------------------------- | --------------------------------------------------------------------------- |
+| Confirmação de presença   | Formulário aberto; respostas numa planilha Google, com e-mail aos noivos    |
+| Lista de convidados       | Sem lista pré-cadastrada; acompanhamento manual pelos noivos                |
+| Presentes                 | Cotas em dinheiro, com Pix e cartão de crédito                              |
+| Hospedagem                | Vercel (plano Hobby)                                                        |
+| Front-end                 | React + Vite + TypeScript                                                   |
+| Estilização               | CSS Modules + variáveis CSS                                                 |
+| Fontes                    | Servidas pelo próprio site (Fontsource)                                     |
+| Paleta                    | B · Marinho clássico, tema escuro imersivo                                  |
+| Tipografia                | Playfair Display + Montserrat + Great Vibes                                 |
+| 3D                        | Three.js com React Three Fiber, carregado depois do conteúdo                |
+| Animações e rolagem       | GSAP + Lenis                                                                |
+| Área administrativa       | Planilha Google numa conta do projeto, noivos como editores                 |
+| Home no computador        | Foto vertical em painel lateral à direita; texto à esquerda                 |
+| Tratamento de cor         | Leve, para aproximar as fotos da paleta (saturação 72%, véu azul)           |
+| Nomes na Home             | Danilo & Tereza, em Instrument Serif (no lugar da Perandory)                |
+| Prévia do link            | Cartão com o monograma (Open Graph), 1200×630                               |
+| Confirmação individual    | Cada convidado confirma por si; sem quantidade de pessoas nem acompanhantes |
+| Data limite (confirmação) | Sem limite: o formulário fica aberto até o casamento                        |
+| Fotos                     | Pasta no Google Drive compartilhada pelos noivos                            |
+| Data do casamento         | 23/02/2027 (horários e locais a definir)                                    |
+| Cronograma                | Início em 18/11/2026; entrega em 02/12/2026                                 |
+| Prévias para os noivos    | Localhost por Google Meet ou link de prévia do Vercel                       |
 
 ### Pendências
 
