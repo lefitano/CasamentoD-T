@@ -110,6 +110,12 @@
   font-style: italic;
   font-size: var(--text-lg);
   line-height: var(--leading-snug);
+  /* Mesmo reforço da referência (abaixo), a pedido da noiva: leitura sobre a fachada clara */
+  font-weight: 500;
+  color: var(--color-text);
+  text-shadow:
+    0 1px 2px rgb(0 0 0 / 0.6),
+    0 0 10px rgb(0 0 0 / 0.45);
 }
 
 .quote cite {
