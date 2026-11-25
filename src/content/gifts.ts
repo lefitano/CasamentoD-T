@@ -3,7 +3,7 @@ import type { Gift } from './types'
 /*
  * Lista de presentes (cotas): título, legenda, valor e foto, enviados pelos noivos (25/11).
  * Fotos: coloque em fotos-originais/presentes/<id>.jpg e rode `npm run fotos`;
- * a versão otimizada vai para public/images/presentes/<id>.webp (caminho abaixo).
+ * a versão otimizada vai para public/fotos-originais/presentes/<id>.png (caminho abaixo).
  * O `id` também identifica o presente no Pix: use letras sem acento, números e hífen.
  *
  * ORDEM MISTURADA DE PROPÓSITO (pedido da noiva): os valores não ficam em ordem crescente,
@@ -19,7 +19,7 @@ export const gifts: Gift[] = [
     description:
       'Para os noivos matarem a vontade de comer um Pastel de Belém sem precisar vender a aliança.',
     amount: 50,
-    image: { src: '/images/presentes/pastel.webp', alt: 'Pastel de Belém' },
+    image: { src: '/fotos-originais/presentes/pastelBelem.png', alt: 'Pastel de Belém' },
   },
   {
     id: 'cachorro',
@@ -27,7 +27,7 @@ export const gifts: Gift[] = [
     description:
       'Porque filho único também sente falta de companhia. Ajude a aumentar a família de quatro patas!',
     amount: 250,
-    image: { src: '/images/presentes/cachorro.webp', alt: 'Um filhote de yorkshire' },
+    image: { src: '/fotos-originais/presentes/yorkshire.png', alt: 'Um filhote de yorkshire' },
   },
   {
     id: 'fogao',
@@ -35,7 +35,7 @@ export const gifts: Gift[] = [
     description:
       'Um fogão para Tereza preparar o tão esperado feijão de Danilo. Porque amor é lindo, mas homem feliz também precisa comer.',
     amount: 500,
-    image: { src: '/images/presentes/fogao.webp', alt: 'Um fogão' },
+    image: { src: '/fotos-originais/presentes/fogao.png', alt: 'Um fogão' },
   },
   {
     id: 'terno',
@@ -43,7 +43,7 @@ export const gifts: Gift[] = [
     description:
       'Um terno para Danilo finalmente se vestir à altura da mulher que conquistou. Ou pelo menos tentar.',
     amount: 300,
-    image: { src: '/images/presentes/terno.webp', alt: 'Um terno para o noivo' },
+    image: { src: '/fotos-originais/presentes/terno.png', alt: 'Um terno para o noivo' },
   },
   {
     id: 'geladeira',
@@ -51,15 +51,15 @@ export const gifts: Gift[] = [
     description:
       'Uma geladeira para guardar o restante do delivery, porque cozinhar todos os dias é uma promessa que não pretendemos cumprir.',
     amount: 1500,
-    image: { src: '/images/presentes/geladeira.webp', alt: 'Uma geladeira' },
+    image: { src: '/fotos-originais/presentes/geladeira.png', alt: 'Uma geladeira' },
   },
   {
     id: 'combustivel',
     name: 'Combustível do amor',
     description:
-      'Um tanque de gasolina para Danilo continuar levando Tereza aos lugares, porque amor não move carro, mas dinheiro move.',
+      'Um tanque de gasolina para Danilo continuar levando Tereza aos lugares, porque amor não move carro e moto, mas dinheiro move.',
     amount: 100,
-    image: { src: '/images/presentes/combustivel.webp', alt: 'Um tanque de gasolina' },
+    image: { src: '/fotos-originais/presentes/combustivel.png', alt: 'Um tanque de gasolina' },
   },
   {
     id: 'jantar-lisboa',
@@ -68,7 +68,7 @@ export const gifts: Gift[] = [
       'Um jantar em Lisboa, com vista para o Tejo, porque boleto a gente paga depois, mas o amor merece uma vista bonita.',
     amount: 650,
     image: {
-      src: '/images/presentes/jantar-lisboa.webp',
+      src: '/fotos-originais/presentes/jantar.png',
       alt: 'Jantar em Lisboa com vista para o Tejo',
     },
   },
@@ -78,7 +78,7 @@ export const gifts: Gift[] = [
     description:
       'Maquiagem completa para Tereza estar impecável até nos dias em que Danilo disser que ela está pronta há duas horas.',
     amount: 220,
-    image: { src: '/images/presentes/maquiagem.webp', alt: 'Um kit de maquiagem' },
+    image: { src: '/fotos-originais/presentes/maquiagem.png', alt: 'Um kit de maquiagem' },
   },
   {
     id: 'viagem-europa',
@@ -86,7 +86,7 @@ export const gifts: Gift[] = [
     description:
       'Uma viagem para a Europa, porque o casal precisa passar frio junto e descobrir que perrengue internacional é muito mais elegante.',
     amount: 3000,
-    image: { src: '/images/presentes/viagem-europa.webp', alt: 'Viagem para a Europa' },
+    image: { src: '/fotos-originais/presentes/viagem.png', alt: 'Viagem para a Europa' },
   },
   {
     id: 'sofa-sheik',
@@ -94,7 +94,7 @@ export const gifts: Gift[] = [
     description:
       'Um sofá exclusivo para o Sheik dormir com todo o conforto que merece. Afinal, quem manda na casa é ele.',
     amount: 400,
-    image: { src: '/images/presentes/sofa-sheik.webp', alt: 'Um sofá para o Sheik' },
+    image: { src: '/fotos-originais/presentes/sofa.png', alt: 'Um sofá para o Sheik' },
   },
   {
     id: 'harmonizacao',
@@ -102,7 +102,7 @@ export const gifts: Gift[] = [
     description:
       'Uma harmonização facial para Tereza continuar linda até quando estiver cobrando a louça lavada.',
     amount: 150,
-    image: { src: '/images/presentes/harmonizacao.webp', alt: 'Harmonização facial' },
+    image: { src: '/fotos-originais/presentes/harmonizacao.png', alt: 'Harmonização facial' },
   },
   {
     // Título e legenda enviados pelos noivos; o presente em si ainda está em aberto
@@ -111,24 +111,24 @@ export const gifts: Gift[] = [
     description:
       'Para cobrir os primeiros imprevistos do casamento, como a primeira discussão sobre quem vai lavar a louça.',
     amount: 1000,
-    image: { src: '/images/presentes/fundo-emergencia.webp', alt: 'Fundo de emergência do casal' },
+    image: { src: '/fotos-originais/presentes/emergencia.png', alt: 'Fundo de emergência do casal' },
   },
   {
     id: 'cruzeiro',
-    name: 'Lua de mel em alto-mar',
+    name: 'Viagem em cruzeiro',
     description:
-      'Um cruzeiro pela Europa para os noivos descobrirem que passar perrengue em alto-mar também pode ser romântico.',
+      'Um cruzeiro para os noivos descobrirem que passar perrengue em alto-mar também pode ser romântico.',
     amount: 800,
-    image: { src: '/images/presentes/cruzeiro.webp', alt: 'Um cruzeiro pela Europa' },
+    image: { src: '/fotos-originais/presentes/cruzeiro.png', alt: 'Um cruzeiro pela Europa' },
   },
   {
     // Título e legenda enviados pelos noivos; o presente em si ainda está em aberto
-    id: 'lua-de-mel',
-    name: 'Patrocínio oficial da lua de mel',
+    id: 'sao-paulo',
+    name: 'Patrocínio para um retorno para SP',
     description:
-      'Uma contribuição para os noivos viverem dias de luxo e esquecerem temporariamente que a vida adulta existe.',
+      'Uma contribuição para os noivos assistirem um jogo do Corinthians, além de reviverem as noites de São Paulo.',
     amount: 2000,
-    image: { src: '/images/presentes/lua-de-mel.webp', alt: 'Lua de mel' },
+    image: { src: '/fotos-originais/presentes/sp.png', alt: 'Lua de mel' },
   },
   {
     // Título e legenda enviados pelos noivos; o presente em si ainda está em aberto
@@ -137,7 +137,7 @@ export const gifts: Gift[] = [
     description:
       'Porque a vida a dois exige diálogo, paciência e, às vezes, um profissional para decidir quem está certo.',
     amount: 1200,
-    image: { src: '/images/presentes/terapia.webp', alt: 'Terapia de casal' },
+    image: { src: '/fotos-originais/presentes/terapia.png', alt: 'Terapia de casal' },
   },
 
   {
@@ -146,6 +146,6 @@ export const gifts: Gift[] = [
     description: 
       'O noivo tem poucos luxos, um deles é poder tomar seu gin nos finais de semana para lembrar o quanto uma ressaca é boa.',
     amount: 420 ,
-    image: {src: '/images/presentes/gin.webp', alt:'Gin' },
+    image: {src: '/fotos-originais/presentes/gin.png', alt:'Gin' },
   },
 ]
