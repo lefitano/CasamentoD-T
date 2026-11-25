@@ -121,14 +121,40 @@ export interface RsvpConfig {
 }
 
 export interface Gift {
+  /** Identificador sem acentos nem espaços; também é o nome da foto (fotos-originais/presentes/<id>.jpg) */
   id: string
   name: string
-  description?: string
+  /** Descrição breve (1 ou 2 linhas no celular) */
+  description: string
   /** Valor em reais, ex.: 150 */
   amount: number
   image?: Image
-  /** Link de pagamento (InfinitePay ou Mercado Pago, a definir) */
-  paymentUrl?: string
+  /** Link de pagamento com cartão deste presente (a definir); sem ele, o cartão aparece como "em breve" */
+  cardUrl?: string
+}
+
+export interface PaymentConfig {
+  /** Dados do Pix dos noivos: o código "copia e cola" de cada presente é gerado com o valor dele */
+  pix: {
+    /** Chave Pix (e-mail, telefone com +55, CPF ou chave aleatória). Vazia = Pix "em breve" */
+    key: string
+    /** Nome de quem recebe (até 25 caracteres) */
+    receiverName: string
+    /** Cidade de quem recebe (até 15 caracteres) */
+    city: string
+  }
+  texts: {
+    give: string
+    close: string
+    pixTitle: string
+    pixHint: string
+    copy: string
+    copied: string
+    copyFailed: string
+    pixSoon: string
+    card: string
+    cardSoon: string
+  }
 }
 
 export type SectionId = 'inicio' | 'historia' | 'evento' | 'local' | 'confirmar' | 'presentes'

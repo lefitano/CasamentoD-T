@@ -8,8 +8,9 @@
  *   com tratamento de cor opcional e sem metadados (câmera, localização).
  * - Monograma: retira o fundo claro e pinta o traço de marfim, com fundo transparente.
  * - Prévia do link (WhatsApp): cartão 1200×630 com o monograma sobre o marinho.
+ * - Presentes: fotos-originais/presentes/<id>.jpg → public/images/presentes/<id>.webp (4:5).
  */
-import { mkdir } from 'node:fs/promises'
+import { mkdir, readdir } from 'node:fs/promises'
 import path from 'node:path'
 import sharp from 'sharp'
 
@@ -198,4 +199,42 @@ for (const job of JOBS) {
   const written = await RUNNERS[job.kind](job)
   console.log(`✓ ${job.input}`)
   for (const line of written) console.log(`   → ${line}`)
+}
+
+/**
+ * Fotos dos presentes: tudo o que estiver em fotos-originais/presentes/ vira
+ * public/images/presentes/<nome>.webp, recortado no formato da vitrine (4:5).
+ * O nome do arquivo deve ser o id do presente em src/content/gifts.ts (ex.: pastel.jpg).
+ */
+const GIFTS_SOURCE = path.join(SOURCE, 'presentes')
+const GIFTS_OUTPUT = path.join(OUTPUT, 'presentes')
+const GIFT_SIZE = { width: 640, height: 800 }
+
+const giftFiles = await readdir(GIFTS_SOURCE).catch(() => [])
+const giftPhotos = giftFiles.filter((f) => /\.(jpe?g|png|webp|tiff?)$/i.test(f))
+const ignored = giftFiles.filter((f) => !giftPhotos.includes(f) && !f.startsWith('.'))
+
+if (giftPhotos.length > 0) {
+  await mkdir(GIFTS_OUTPUT, { recursive: true })
+  console.log(`✓ presentes (${giftPhotos.length})`)
+  for (const file of giftPhotos) {
+    const id = path
+      .parse(file)
+      .name.toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9-]+/g, '-')
+    const target = path.join(GIFTS_OUTPUT, `${id}.webp`)
+    const info = await sharp(path.join(GIFTS_SOURCE, file))
+      .rotate() // respeita a orientação da foto do celular
+      .resize({ ...GIFT_SIZE, fit: 'cover', position: sharp.strategy.attention })
+      .webp({ quality: 80, effort: 6 })
+      .toFile(target)
+    console.log(`   → ${target} (${info.width}×${info.height}, ${Math.round(info.size / 1024)} KB)`)
+  }
+}
+for (const file of ignored) {
+  console.log(
+    `   ! ignorado: presentes/${file} (use JPG, PNG ou WebP; fotos HEIC do iPhone: exporte como JPG)`,
+  )
 }

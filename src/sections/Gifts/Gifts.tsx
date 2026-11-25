@@ -1,21 +1,28 @@
-import { Button } from '@/components/Button/Button'
+import { useState } from 'react'
 import { Section } from '@/components/Section/Section'
 import { gifts, sectionTexts } from '@/content'
-import { formatBRL } from '@/lib/currency'
+import { GiftCard } from './GiftCard'
 import styles from './Gifts.module.css'
 
-/** RF07 — Lista de presentes em cotas. O modal de registro e o pagamento entram na Fase 3. */
+/**
+ * RF07 — Lista de presentes: vitrine em 2 colunas, como numa loja, com todos os
+ * presentes à mostra. "Presentear" abre o Pix copia e cola e a opção de cartão.
+ */
 export function Gifts() {
+  // Um presente aberto por vez, para a vitrine não virar uma lista de painéis
+  const [openId, setOpenId] = useState<string | null>(null)
+
   return (
     <Section id="presentes" eyebrow={sectionTexts.gifts.eyebrow} title={sectionTexts.gifts.title}>
       <p className={styles.intro}>{sectionTexts.gifts.intro}</p>
-      <ul role="list" className={styles.list} data-reveal-children>
+      <ul role="list" className={styles.grid} data-reveal-children>
         {gifts.map((gift) => (
-          <li key={gift.id} className={styles.item}>
-            <h3 className={styles.name}>{gift.name}</h3>
-            <p className={styles.amount}>{formatBRL(gift.amount)}</p>
-            <Button variant="secondary">Presentear</Button>
-          </li>
+          <GiftCard
+            key={gift.id}
+            gift={gift}
+            open={openId === gift.id}
+            onToggle={() => setOpenId((current) => (current === gift.id ? null : gift.id))}
+          />
         ))}
       </ul>
     </Section>

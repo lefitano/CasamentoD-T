@@ -41,7 +41,7 @@ O site tem um menu que leva a cada seção. A ordem pode mudar conforme a refer�
 | RF04 | O grande dia          | Data, horários, endereços da cerimônia e da recepção e informações do dia (traje, estacionamento etc.)                    |
 | RF05 | Como chegar           | Mapa e botões "Abrir no Google Maps" e "Abrir no Waze", já com rota                                                       |
 | RF06 | Confirme sua presença | Formulário de confirmação, com data limite visível                                                                        |
-| RF07 | Lista de presentes    | Cards de cotas com nome, imagem, valor e botão "Presentear"                                                               |
+| RF07 | Lista de presentes    | Vitrine em 2 colunas (foto, nome, descrição, valor); "Presentear" abre o Pix copia e cola com o valor e a opção de cartão |
 | RF08 | Rodapé                | Mensagem final, monograma e "Falar com os noivos": abre a escolha entre Danilo e Tereza, cada um no seu WhatsApp          |
 
 Os links de rota abrem direto no aplicativo quando o convidado está no celular:
@@ -72,9 +72,15 @@ O acompanhamento de quem não respondeu é manual: perto do evento, os noivos re
 
 ### Lista de presentes
 
-Cotas em dinheiro (ex.: "Jantar na lua de mel – R$ 150"), pagas com Pix ou cartão de crédito. Cada cota tem nome, imagem, valor e botão "Presentear".
+Cotas em dinheiro (ex.: "Jantar na lua de mel – R$ 150"), pagas com Pix ou cartão de crédito.
 
-Ao clicar em "Presentear", um modal pede nome e recado, grava o registro na planilha (aba de presentes) e, depois da confirmação do envio, redireciona para o pagamento na mesma aba. Os noivos recebem o registro por e-mail. O registro indica a intenção de presentear, não o pagamento confirmado.
+- **Vitrine (25/11):** 2 presentes por linha, como numa loja, inclusive no celular, com todos à mostra (sem "mostrar mais"). Cada presente tem **foto, nome, descrição e valor** (`src/content/gifts.ts`). A descrição aparece inteira; nome, descrição, valor e botão ficam alinhados com o vizinho da linha (CSS subgrid).
+- **Ordem misturada (pedido da noiva):** os valores não seguem ordem crescente; ao incluir um presente, manter a alternância.
+- **"Presentear" se estende** ali mesmo (um presente aberto por vez) com:
+  - **Pix copia e cola** com o **valor do presente já preenchido** (BR Code do Banco Central, gerado em `src/lib/pix.ts` a partir da chave dos noivos em `src/content/payment.ts`) e um botão para copiar;
+  - **"Pagar com cartão"**: abre o link de pagamento do presente (`cardUrl`), quando existir; até lá, avisa que estará disponível em breve.
+- **Fotos dos presentes:** salve em `fotos-originais/presentes/<id>.jpg` (o `id` do presente) e rode `npm run fotos`; saem em `public/images/presentes/<id>.webp`, recortadas em 4:5. Sem foto, aparece um ícone de presente.
+- O registro de "quem presenteou" na planilha (aba Presentes) já existe no script, mas não está no fluxo atual; pode voltar se os noivos quiserem.
 
 A solução de pagamento ainda será escolhida:
 
@@ -227,7 +233,10 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 - [ ] Informações específicas do dia (traje, estacionamento, observações)
 - [x] Data limite para confirmação de presença: sem limite (decisão dos noivos, 24/11)
 - [x] E-mail dos avisos: a própria conta Gmail do projeto, entregue aos noivos (24/11)
-- [ ] Lista de cotas: nome, valor e imagem de cada uma
+- [x] Lista de cotas: 15 presentes com título, legenda e valor (25/11), em ordem misturada a pedido da noiva
+- [ ] Fotos dos presentes; e o que serão de fato as cotas de R$ 1.000, R$ 1.200 e R$ 2.000 (título e legenda já definidos)
+- [ ] Pix dos noivos: chave, nome de quem recebe e cidade (`src/content/payment.ts`)
+- [ ] Pagamento com cartão: link de cada cota (`cardUrl` em `src/content/gifts.ts`), quando a solução for escolhida
 - [x] Telefones do WhatsApp: Danilo e Tereza (23/11)
 
 ## Decisões e pendências
