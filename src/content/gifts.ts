@@ -128,7 +128,7 @@ export const gifts: Gift[] = [
     description:
       'Uma contribuição para os noivos assistirem um jogo do Corinthians, além de reviverem as noites de São Paulo.',
     amount: 2000,
-    image: { src: '/images/presentes/sp.webp', alt: 'Lua de mel' },
+    image: { src: '/images/presentes/paulista.webp', alt: 'Lua de mel' },
   },
   {
     // Título e legenda enviados pelos noivos; o presente em si ainda está em aberto
