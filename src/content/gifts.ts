@@ -24,8 +24,7 @@ export const gifts: Gift[] = [
   {
     id: 'cachorro',
     name: 'Um irmão para o Sheik',
-    description:
-      'Porque filho único também sente falta de companhia. Ajude a aumentar a família de quatro patas!',
+    description: 'Porque filho único também sente falta de companhia. Ajude a aumentar a família!',
     amount: 250,
     image: { src: '/images/presentes/yorkshire.webp', alt: 'Um filhote de yorkshire' },
   },
@@ -33,7 +32,7 @@ export const gifts: Gift[] = [
     id: 'fogao',
     name: 'O verdadeiro dote do casamento',
     description:
-      'Um fogão para Tereza preparar o tão esperado feijão de Danilo. Porque amor é lindo, mas homem feliz também precisa comer.',
+      'Um fogão para Tereza preparar o feijão do Danilo. Porque amor é lindo, mas homem feliz também precisa comer.',
     amount: 500,
     image: { src: '/images/presentes/fogao.webp', alt: 'Um fogão' },
   },
@@ -41,7 +40,7 @@ export const gifts: Gift[] = [
     id: 'terno',
     name: 'Elegância do noivo',
     description:
-      'Um terno para Danilo finalmente se vestir à altura da mulher que conquistou. Ou pelo menos tentar.',
+      'Um terno para Danilo se vestir à altura da mulher que conquistou. Ou pelo menos tentar.',
     amount: 300,
     image: { src: '/images/presentes/terno.webp', alt: 'Um terno para o noivo' },
   },
@@ -73,12 +72,12 @@ export const gifts: Gift[] = [
     },
   },
   {
-    id: 'maquiagem',
-    name: 'Kit sobrevivência da noiva',
+    id: 'show',
+    name: 'Vaquinha Meteoro da Paixão',
     description:
-      'Maquiagem completa para Tereza estar impecável até nos dias em que Danilo disser que ela está pronta há duas horas.',
+      'Todo mundo sabe que a noiva é fã de carteirinha. Ajude a levar Tereza ao show do Luan Santana. O noivo promete pelo menos segurar a bolsa.',
     amount: 220,
-    image: { src: '/images/presentes/maquiagem.webp', alt: 'Um kit de maquiagem' },
+    image: { src: '/images/presentes/luan.webp', alt: 'Show do Luan Santana' },
   },
   {
     id: 'viagem-europa',
