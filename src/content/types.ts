@@ -163,3 +163,19 @@ export interface NavItem {
   id: SectionId
   label: string
 }
+
+/** Música de fundo: só toca quando o convidado pede (botão no menu) */
+export interface MusicConfig {
+  /** Caminho do arquivo em public/ (ex.: '/audio/turning-page.m4a'). Vazio: o botão não aparece */
+  src: string
+  title: string
+  artist: string
+  /** Volume final do fade-in, de 0 a 1 */
+  volume: number
+  texts: {
+    /** Convite ao lado do botão, só na Home e só até o primeiro toque */
+    invite: string
+    play: string
+    pause: string
+  }
+}

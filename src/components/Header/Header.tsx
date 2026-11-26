@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Monogram } from '@/components/Monogram/Monogram'
+import { MusicToggle } from '@/components/MusicToggle/MusicToggle'
 import { navigation, type SectionId } from '@/content'
 import { lockScroll, unlockScroll } from '@/motion/scrollLock'
 import styles from './Header.module.css'
@@ -88,6 +89,8 @@ export function Header() {
       <a href="#inicio" className={styles.brand} aria-label="Voltar ao início" onClick={close}>
         <Monogram />
       </a>
+
+      <MusicToggle onHero={!pastHero} className={styles.music} />
 
       <button
         ref={toggleRef}
