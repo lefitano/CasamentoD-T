@@ -97,7 +97,8 @@ A solução de pagamento ainda será escolhida:
 - **Botão no menu fixo**, disponível no site inteiro: quatro traços finos que ondulam quando a música toca. Na Home, um convite escrito ("Ouça nossa música") aparece ao lado até o primeiro toque.
 - **Ao tocar:** a música entra aos poucos (fade-in) e se repete; pausa sozinha quando o convidado troca de aba ou bloqueia o celular e volta ao retornar. No iPhone, o volume não pode ser controlado por código, então lá não há fade.
 - **Leve:** o arquivo só é baixado no primeiro toque (`src/components/MusicToggle/`).
-- **Arquivo:** comprar a faixa (ex.: iTunes Store), salvar em `public/audio/turning-page.m4a` e preencher `src` em `src/content/music.ts`. Sem `src`, o botão não aparece. Não baixar do YouTube.
+- **Arquivo:** `public/audio/musica.aac`, com `src: '/audio/musica.aac'` em `src/content/music.ts`. O caminho começa em `/audio`, **sem `public`**: o que está em `public/` é publicado na raiz do site. Sem `src`, o botão não aparece.
+- **Convite:** aparece a cada visita, na Home, até o primeiro toque. Se o arquivo não carregar, o botão some.
 
 ### Formulários e área administrativa
 
@@ -249,7 +250,7 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 - [ ] Pagamento com cartão: link de cada cota (`cardUrl` em `src/content/gifts.ts`), quando a solução for escolhida
 - [x] Telefones do WhatsApp: Danilo e Tereza (23/11)
 - [x] Música: Turning Page (Instrumental), de Sleeping At Last (26/11)
-- [ ] Arquivo da música comprado (`public/audio/turning-page.m4a`)
+- [x] Arquivo da música (`public/audio/musica.aac`, 26/11)
 
 ## Decisões e pendências
 

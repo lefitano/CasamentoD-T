@@ -4,23 +4,6 @@ import styles from './MusicToggle.module.css'
 
 const FADE_IN_MS = 2500
 const FADE_OUT_MS = 800
-const INVITE_SEEN_KEY = 'musica:convite-visto'
-
-function readInviteSeen(): boolean {
-  try {
-    return localStorage.getItem(INVITE_SEEN_KEY) === '1'
-  } catch {
-    return false
-  }
-}
-
-function saveInviteSeen() {
-  try {
-    localStorage.setItem(INVITE_SEEN_KEY, '1')
-  } catch {
-    /* sem armazenamento (aba anônima etc.): o convite volta na próxima visita */
-  }
-}
 
 /**
  * Leva o volume até `to` aos poucos. No iPhone o volume não pode ser mudado por código
@@ -58,7 +41,8 @@ export function MusicToggle({ onHero, className }: MusicToggleProps) {
   const cancelFadeRef = useRef<() => void>(() => {})
   const [playing, setPlaying] = useState(false)
   const [failed, setFailed] = useState(false)
-  const [inviteSeen, setInviteSeen] = useState(readInviteSeen)
+  // O convite aparece a cada visita, enquanto a Home está na tela, até o primeiro toque
+  const [inviteSeen, setInviteSeen] = useState(false)
 
   // Pausa quando o convidado troca de aba ou bloqueia o celular; volta ao retornar
   useEffect(() => {
@@ -106,10 +90,7 @@ export function MusicToggle({ onHero, className }: MusicToggleProps) {
     const audio = getAudio()
     cancelFadeRef.current()
 
-    if (!inviteSeen) {
-      setInviteSeen(true)
-      saveInviteSeen()
-    }
+    setInviteSeen(true)
 
     if (playing) {
       setPlaying(false)
