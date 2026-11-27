@@ -9,6 +9,7 @@ export const sectionTexts = {
   event: { eyebrow: 'O grande dia', timePending: 'horário a definir' },
   location: { eyebrow: 'Como chegar', title: 'O caminho até nós' },
   rsvp: { eyebrow: 'Convite', title: 'Confirme sua presença' },
+  manual: { eyebrow: 'Para os convidados', title: 'Manual dos convidados' },
   gifts: {
     eyebrow: 'Lista de presentes',
     title: 'Presenteie os noivos',

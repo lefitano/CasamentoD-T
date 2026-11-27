@@ -6,5 +6,6 @@ export const navigation: NavItem[] = [
   { id: 'evento', label: 'Evento' },
   { id: 'local', label: 'Local' },
   { id: 'confirmar', label: 'Confirmar' },
+  { id: 'manual', label: 'Manual' },
   { id: 'presentes', label: 'Lista de Presentes' },
 ]

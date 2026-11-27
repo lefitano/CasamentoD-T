@@ -18,6 +18,7 @@ export const payment: PaymentConfig = {
     copyFailed: 'Não foi possível copiar. Toque e segure no código para copiar.',
     pixSoon: 'O Pix estará disponível em breve.',
     card: 'Pagar com cartão',
+    cardHint: 'Abre o pagamento seguro da InfinitePay em outra aba; o valor já vem preenchido.',
     cardSoon: 'O pagamento com cartão estará disponível em breve.',
   },
 }

@@ -105,3 +105,10 @@
     color: var(--color-text);
   }
 }
+
+/* Computador com o menu inteiro à vista: o convite escrito só cabe em telas largas */
+@media (min-width: 64rem) and (max-width: 99.99rem) {
+  .invite {
+    display: none;
+  }
+}

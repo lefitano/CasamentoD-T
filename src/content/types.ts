@@ -153,11 +153,14 @@ export interface PaymentConfig {
     copyFailed: string
     pixSoon: string
     card: string
+    /** Aviso sob o botão do cartão: o pagamento abre no site da InfinitePay */
+    cardHint: string
     cardSoon: string
   }
 }
 
-export type SectionId = 'inicio' | 'historia' | 'evento' | 'local' | 'confirmar' | 'presentes'
+export type SectionId =
+  'inicio' | 'historia' | 'evento' | 'local' | 'confirmar' | 'manual' | 'presentes'
 
 export interface NavItem {
   id: SectionId
@@ -178,4 +181,17 @@ export interface MusicConfig {
     play: string
     pause: string
   }
+}
+
+/** Uma recomendação do Manual dos convidados */
+export interface GuestTip {
+  title: string
+  text: string
+}
+
+export interface GuestManualConfig {
+  intro: string
+  /** Recomendações dos noivos. Vazia: a seção mostra o aviso "Em construção" */
+  tips: GuestTip[]
+  pending: { label: string; message: string }
 }

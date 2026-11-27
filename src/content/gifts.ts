@@ -2,15 +2,17 @@ import type { Gift } from './types'
 
 /*
  * Lista de presentes (cotas): título, legenda, valor e foto, enviados pelos noivos (25/11).
- * Fotos: coloque em fotos-originais/presentes/<id>.jpg e rode `npm run fotos`;
- * a versão otimizada vai para public/fotos-originais/presentes/<id>.png (caminho abaixo).
  * O `id` também identifica o presente no Pix: use letras sem acento, números e hífen.
+ *
+ * FOTOS: salve o original em fotos-originais/presentes/<nome>.jpg e rode `npm run fotos`;
+ * no `src` use o arquivo gerado: '/images/presentes/<nome>.webp' (nunca /fotos-originais).
+ *
+ * CARTÃO (InfinitePay): cole em `cardUrl` o link de pagamento que os noivos criaram no app
+ * para aquele presente (começa com https://). Vazio: o site avisa que o cartão vem em breve.
  *
  * ORDEM MISTURADA DE PROPÓSITO (pedido da noiva): os valores não ficam em ordem crescente,
  * para o convidado percorrer a vitrine procurando o valor que pode dar. Em cada linha
  * (2 presentes), um valor menor e um maior se alternam. Ao incluir um presente, mantenha isso.
- *
- * PROVISÓRIO: fotos ainda vão vir.
  */
 export const gifts: Gift[] = [
   {
@@ -19,6 +21,7 @@ export const gifts: Gift[] = [
     description:
       'Para os noivos matarem a vontade de comer um Pastel de Belém sem precisar vender a aliança.',
     amount: 50,
+    cardUrl: '', // link InfinitePay de R$ 50
     image: { src: '/images/presentes/pastelbelem.webp', alt: 'Pastel de Belém' },
   },
   {
@@ -26,6 +29,7 @@ export const gifts: Gift[] = [
     name: 'Um irmão para o Sheik',
     description: 'Porque filho único também sente falta de companhia. Ajude a aumentar a família!',
     amount: 250,
+    cardUrl: '', // link InfinitePay de R$ 250
     image: { src: '/images/presentes/yorkshire.webp', alt: 'Um filhote de yorkshire' },
   },
   {
@@ -34,6 +38,7 @@ export const gifts: Gift[] = [
     description:
       'Um fogão para Tereza preparar o feijão do Danilo. Porque amor é lindo, mas homem feliz também precisa comer.',
     amount: 500,
+    cardUrl: '', // link InfinitePay de R$ 500
     image: { src: '/images/presentes/fogao.webp', alt: 'Um fogão' },
   },
   {
@@ -42,6 +47,7 @@ export const gifts: Gift[] = [
     description:
       'Um terno para Danilo se vestir à altura da mulher que conquistou. Ou pelo menos tentar.',
     amount: 300,
+    cardUrl: '', // link InfinitePay de R$ 300
     image: { src: '/images/presentes/terno.webp', alt: 'Um terno para o noivo' },
   },
   {
@@ -50,6 +56,7 @@ export const gifts: Gift[] = [
     description:
       'Uma geladeira para guardar o restante do delivery, porque cozinhar todos os dias é uma promessa que não pretendemos cumprir.',
     amount: 1500,
+    cardUrl: '', // link InfinitePay de R$ 1500
     image: { src: '/images/presentes/geladeira.webp', alt: 'Uma geladeira' },
   },
   {
@@ -58,6 +65,7 @@ export const gifts: Gift[] = [
     description:
       'Um tanque de gasolina para Danilo continuar levando Tereza aos lugares, porque amor não move carro e moto, mas dinheiro move.',
     amount: 100,
+    cardUrl: '', // link InfinitePay de R$ 100
     image: { src: '/images/presentes/combustivel.webp', alt: 'Um tanque de gasolina' },
   },
   {
@@ -66,6 +74,7 @@ export const gifts: Gift[] = [
     description:
       'Um jantar em Lisboa, com vista para o Tejo, porque boleto a gente paga depois, mas o amor merece uma vista bonita.',
     amount: 650,
+    cardUrl: '', // link InfinitePay de R$ 650
     image: {
       src: '/images/presentes/jantar.webp',
       alt: 'Jantar em Lisboa com vista para o Tejo',
@@ -77,6 +86,7 @@ export const gifts: Gift[] = [
     description:
       'Todo mundo sabe que a noiva é fã de carteirinha. Ajude a levar Tereza ao show do Luan Santana. O noivo promete pelo menos segurar a bolsa.',
     amount: 220,
+    cardUrl: '', // link InfinitePay de R$ 220
     image: { src: '/images/presentes/luan.webp', alt: 'Show do Luan Santana' },
   },
   {
@@ -85,6 +95,7 @@ export const gifts: Gift[] = [
     description:
       'Uma viagem para a Europa, porque o casal precisa passar frio junto e descobrir que perrengue internacional é muito mais elegante.',
     amount: 3000,
+    cardUrl: '', // link InfinitePay de R$ 3000
     image: { src: '/images/presentes/viagem.webp', alt: 'Viagem para a Europa' },
   },
   {
@@ -93,6 +104,7 @@ export const gifts: Gift[] = [
     description:
       'Um sofá exclusivo para o Sheik dormir com todo o conforto que merece. Afinal, quem manda na casa é ele.',
     amount: 400,
+    cardUrl: '', // link InfinitePay de R$ 400
     image: { src: '/images/presentes/sofa.webp', alt: 'Um sofá para o Sheik' },
   },
   {
@@ -101,6 +113,7 @@ export const gifts: Gift[] = [
     description:
       'Uma harmonização facial para Tereza continuar linda até quando estiver cobrando a louça lavada.',
     amount: 150,
+    cardUrl: '', // link InfinitePay de R$ 150
     image: { src: '/images/presentes/harmonizacao.webp', alt: 'Harmonização facial' },
   },
   {
@@ -110,6 +123,7 @@ export const gifts: Gift[] = [
     description:
       'Para cobrir os primeiros imprevistos do casamento, como a primeira discussão sobre quem vai lavar a louça.',
     amount: 1000,
+    cardUrl: '', // link InfinitePay de R$ 1000
     image: { src: '/images/presentes/emergencia.webp', alt: 'Fundo de emergência do casal' },
   },
   {
@@ -118,6 +132,7 @@ export const gifts: Gift[] = [
     description:
       'Um cruzeiro para os noivos descobrirem que passar perrengue em alto-mar também pode ser romântico.',
     amount: 800,
+    cardUrl: '', // link InfinitePay de R$ 800
     image: { src: '/images/presentes/cruzeiro.webp', alt: 'Um cruzeiro pela Europa' },
   },
   {
@@ -127,6 +142,7 @@ export const gifts: Gift[] = [
     description:
       'Uma contribuição para os noivos assistirem um jogo do Corinthians, além de reviverem as noites de São Paulo.',
     amount: 2000,
+    cardUrl: '', // link InfinitePay de R$ 2000
     image: { src: '/images/presentes/paulista.webp', alt: 'Lua de mel' },
   },
   {
@@ -136,6 +152,7 @@ export const gifts: Gift[] = [
     description:
       'Porque a vida a dois exige diálogo, paciência e, às vezes, um profissional para decidir quem está certo.',
     amount: 1200,
+    cardUrl: '', // link InfinitePay de R$ 1200
     image: { src: '/images/presentes/terapia.webp', alt: 'Terapia de casal' },
   },
 
@@ -145,6 +162,7 @@ export const gifts: Gift[] = [
     description:
       'O noivo tem poucos luxos, um deles é poder tomar seu gin nos finais de semana para lembrar o quanto uma ressaca é boa.',
     amount: 420,
+    cardUrl: '', // link InfinitePay de R$ 420
     image: { src: '/images/presentes/gin.webp', alt: 'Gin' },
   },
 ]

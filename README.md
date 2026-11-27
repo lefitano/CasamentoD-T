@@ -41,6 +41,7 @@ O site tem um menu que leva a cada seção. A ordem pode mudar conforme a refer�
 | RF04 | O grande dia          | Data, horários, endereços da cerimônia e da recepção e informações do dia (traje, estacionamento etc.)                    |
 | RF05 | Como chegar           | Mapa e botões "Abrir no Google Maps" e "Abrir no Waze", já com rota                                                       |
 | RF06 | Confirme sua presença | Formulário de confirmação, com data limite visível                                                                        |
+| RF09 | Manual dos convidados | Recomendações dos noivos para o dia, depois da confirmação; "Em construção" até chegarem (`src/content/guestManual.ts`)   |
 | RF07 | Lista de presentes    | Vitrine em 2 colunas (foto, nome, descrição, valor); "Presentear" abre o Pix copia e cola com o valor e a opção de cartão |
 | RF08 | Rodapé                | Mensagem final, monograma e "Falar com os noivos": abre a escolha entre Danilo e Tereza, cada um no seu WhatsApp          |
 
@@ -78,11 +79,11 @@ Cotas em dinheiro (ex.: "Jantar na lua de mel – R$ 150"), pagas com Pix ou car
 - **Ordem misturada (pedido da noiva):** os valores não seguem ordem crescente; ao incluir um presente, manter a alternância.
 - **"Presentear" se estende** ali mesmo (um presente aberto por vez) com:
   - **Pix copia e cola** com o **valor do presente já preenchido** (BR Code do Banco Central, gerado em `src/lib/pix.ts` a partir da chave dos noivos em `src/content/payment.ts`) e um botão para copiar;
-  - **"Pagar com cartão"**: abre o link de pagamento do presente (`cardUrl`), quando existir; até lá, avisa que estará disponível em breve.
+  - **"Pagar com cartão"**: abre, em outra aba, o link de pagamento **InfinitePay** do presente (`cardUrl` em `src/content/gifts.ts`; cada presente já tem o campo vazio). Só vale link completo começando com `https://`; sem link, avisa que o cartão estará disponível em breve.
 - **Fotos dos presentes:** salve em `fotos-originais/presentes/<id>.jpg` (o `id` do presente) e rode `npm run fotos`; saem em `public/images/presentes/<id>.webp`, recortadas em 4:5. Sem foto, aparece um ícone de presente.
 - O registro de "quem presenteou" na planilha (aba Presentes) já existe no script, mas não está no fluxo atual; pode voltar se os noivos quiserem.
 
-A solução de pagamento ainda será escolhida:
+**Solução de pagamento (27/11): links InfinitePay por cota.** Os noivos criam no app um link para cada presente, com o valor da cota, e o Leonardo cola em `cardUrl`. Comparação feita antes da escolha:
 
 | Opção                      | Como funciona                                                      | Prós                                                                                         | Contras                                                                    |
 | -------------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
@@ -142,7 +143,7 @@ Site estático em React hospedado no Vercel, sem backend próprio: os formulári
 | Animações                  | GSAP (ScrollTrigger, SplitText) + Lenis | Rolagem suave, parallax e profundidade                                 |
 | Hospedagem                 | Vercel (plano Hobby, gratuito)          | Deploy contínuo a partir do GitHub, HTTPS, prévia por branch           |
 | Formulários                | Planilha Google + Apps Script           | Confirmação de presença e registro de presentes, com e-mail aos noivos |
-| Pagamento                  | A definir (InfinitePay ou Mercado Pago) | Página de pagamento externa e segura                                   |
+| Pagamento                  | Pix copia e cola + links InfinitePay    | Pix gerado no site; cartão na página de pagamento da InfinitePay       |
 | Mapas                      | Links do Google Maps e do Waze          | Rota aberta direto no aplicativo                                       |
 | Backend (só se necessário) | Vercel Functions (Node.js)              | Webhook de pagamento, caso o Mercado Pago seja escolhido               |
 
@@ -247,7 +248,8 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 - [x] Lista de cotas: 15 presentes com título, legenda e valor (25/11), em ordem misturada a pedido da noiva
 - [ ] Fotos dos presentes; e o que serão de fato as cotas de R$ 1.000, R$ 1.200 e R$ 2.000 (título e legenda já definidos)
 - [ ] Pix dos noivos: chave, nome de quem recebe e cidade (`src/content/payment.ts`)
-- [ ] Pagamento com cartão: link de cada cota (`cardUrl` em `src/content/gifts.ts`), quando a solução for escolhida
+- [ ] Pagamento com cartão: link InfinitePay de cada cota (`cardUrl` em `src/content/gifts.ts`)
+- [ ] Manual dos convidados: as recomendações (`src/content/guestManual.ts`)
 - [x] Telefones do WhatsApp: Danilo e Tereza (23/11)
 - [x] Música: Turning Page (Instrumental), de Sleeping At Last (26/11)
 - [x] Arquivo da música (`public/audio/musica.aac`, 26/11)
@@ -279,12 +281,13 @@ Fotos e arquivos visuais chegam por uma pasta no Google Drive compartilhada pelo
 | Fotos                     | Pasta no Google Drive compartilhada pelos noivos                            |
 | Data do casamento         | 23/02/2027 (horários e locais a definir)                                    |
 | Cronograma                | Início em 18/11/2026; entrega em 02/12/2026                                 |
+| Pagamento com cartão      | Links InfinitePay, um por presente (27/11)                                  |
+| Manual dos convidados     | Seção depois da confirmação; "Em construção" até chegarem os textos (27/11) |
 | Música                    | Só toca quando o convidado pede: botão no menu, convite na Home             |
 | Prévias para os noivos    | Localhost por Google Meet ou link de prévia do Vercel                       |
 
 ### Pendências
 
-- [ ] Escolher a solução de pagamento: links InfinitePay ou Mercado Pago Checkout Pro
 - [ ] Definir se haverá domínio próprio (ex.: nomedosnoivos.com.br)
 - [ ] Noiva confirmar a fonte dos nomes: Instrument Serif (em uso) ou Noto Serif Display condensada; a Perandory exige comprar a licença
 - [ ] Confirmar com os noivos o endereço por escrito da igreja (hoje: Av. Almirante Barroso, 1091 — Praia de Iracema)

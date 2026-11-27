@@ -65,6 +65,8 @@ export function GiftCard({ gift, open, onToggle }: GiftCardProps) {
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'failed'>('idle')
   const [showCardNote, setShowCardNote] = useState(false)
   const { texts, pix } = payment
+  // Só aceita link https completo: um link colado pela metade não vira botão quebrado
+  const cardUrl = gift.cardUrl?.trim().startsWith('https://') ? gift.cardUrl.trim() : ''
 
   const pixCode = useMemo(
     () =>
@@ -149,16 +151,19 @@ export function GiftCard({ gift, open, onToggle }: GiftCardProps) {
             )}
 
             <div className={styles.option}>
-              {gift.cardUrl ? (
-                <Button
-                  href={gift.cardUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="secondary"
-                  className={styles.optionButton}
-                >
-                  {texts.card}
-                </Button>
+              {cardUrl ? (
+                <>
+                  <Button
+                    href={cardUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant="secondary"
+                    className={styles.optionButton}
+                  >
+                    {texts.card}
+                  </Button>
+                  <p className={styles.hint}>{texts.cardHint}</p>
+                </>
               ) : (
                 <>
                   <Button
