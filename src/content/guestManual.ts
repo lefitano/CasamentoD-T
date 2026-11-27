@@ -11,6 +11,6 @@ export const guestManual: GuestManualConfig = {
   tips: [],
   pending: {
     label: 'Em construção',
-    message: 'Os noivos estão preparando este manual com carinho. Volte em breve!',
+    message: '',
   },
 }
