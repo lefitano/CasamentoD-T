@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { Section } from '@/components/Section/Section'
 import { moments, sectionTexts, TO_BE_DEFINED, type Image } from '@/content'
-import { formatCalendarDate } from '@/lib/date'
+import { formatCalendarDate, machineDate } from '@/lib/date'
 import { edgeReveal, fadeSlide } from '@/motion/edgeReveal'
 import { gsap, prefersReducedMotion, useGSAP } from '@/motion/gsap'
 import styles from './Story.module.css'
@@ -57,7 +57,7 @@ export function Story() {
             <div className={styles.text} data-text>
               <p className={styles.date}>
                 {moment.date ? (
-                  <time dateTime={moment.date}>{formatCalendarDate(moment.date)}</time>
+                  <time dateTime={machineDate(moment.date)}>{formatCalendarDate(moment.date)}</time>
                 ) : (
                   `Data ${TO_BE_DEFINED.toLowerCase()}`
                 )}

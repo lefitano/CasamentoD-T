@@ -76,7 +76,9 @@ export interface EventInfo {
   notes: string[]
 }
 
-/** Data sem horário, no formato AAAA-MM-DD, ex.: '2019-03-14' */
+/**
+ * Data sem horário: dia ('2019-03-14'), mês ('2019-03'), ano ('2019') ou período ('2018-2019')
+ */
 export type IsoDate = string
 
 /** Um momento da história dos noivos: data, foto e breve descrição. */
