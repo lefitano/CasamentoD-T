@@ -8,10 +8,12 @@
  *   com tratamento de cor opcional e sem metadados (câmera, localização).
  * - Monograma: retira o fundo claro e pinta o traço de marfim, com fundo transparente.
  * - Prévia do link (WhatsApp): cartão 1200×630 com o monograma sobre o marinho.
- * - Presentes: fotos-originais/presentes/<id>.jpg → public/images/presentes/<id>.webp (4:5).
+ * - Presentes e história: fotos-originais/<pasta>/<nome>.jpg → public/images/<pasta>/<nome>.webp (4:5).
+ *   Aceita JPG, PNG, WebP e HEIC (fotos do iPhone), convertido antes por heic-convert.
  */
-import { mkdir, readdir } from 'node:fs/promises'
+import { mkdir, readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
+import heicConvert from 'heic-convert'
 import sharp from 'sharp'
 
 const SOURCE = 'fotos-originais'
@@ -202,39 +204,59 @@ for (const job of JOBS) {
 }
 
 /**
- * Fotos dos presentes: tudo o que estiver em fotos-originais/presentes/ vira
- * public/images/presentes/<nome>.webp, recortado no formato da vitrine (4:5).
- * O nome do arquivo deve ser o id do presente em src/content/gifts.ts (ex.: pastel.jpg).
+ * Pastas processadas automaticamente: tudo o que estiver em fotos-originais/<pasta>/
+ * vira public/images/<pasta>/<nome>.webp, recortado no formato usado no site (4:5).
+ * O nome sai do nome do arquivo, em minúsculas e sem acentos (ex.: "Pedido.JPG" → pedido.webp).
+ * - presentes: o nome deve bater com o `src` em src/content/gifts.ts
+ * - historia: fotos dos momentos (src/content/moments.ts); maiores, porque aparecem grandes
  */
-const GIFTS_SOURCE = path.join(SOURCE, 'presentes')
-const GIFTS_OUTPUT = path.join(OUTPUT, 'presentes')
-const GIFT_SIZE = { width: 640, height: 800 }
+const FOLDERS = [
+  { folder: 'presentes', width: 640, height: 800 },
+  { folder: 'historia', width: 800, height: 1000 },
+]
 
-const giftFiles = await readdir(GIFTS_SOURCE).catch(() => [])
-const giftPhotos = giftFiles.filter((f) => /\.(jpe?g|png|webp|tiff?)$/i.test(f))
-const ignored = giftFiles.filter((f) => !giftPhotos.includes(f) && !f.startsWith('.'))
-
-if (giftPhotos.length > 0) {
-  await mkdir(GIFTS_OUTPUT, { recursive: true })
-  console.log(`✓ presentes (${giftPhotos.length})`)
-  for (const file of giftPhotos) {
-    const id = path
-      .parse(file)
-      .name.toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9-]+/g, '-')
-    const target = path.join(GIFTS_OUTPUT, `${id}.webp`)
-    const info = await sharp(path.join(GIFTS_SOURCE, file))
-      .rotate() // respeita a orientação da foto do celular
-      .resize({ ...GIFT_SIZE, fit: 'cover', position: sharp.strategy.attention })
-      .webp({ quality: 80, effort: 6 })
-      .toFile(target)
-    console.log(`   → ${target} (${info.width}×${info.height}, ${Math.round(info.size / 1024)} KB)`)
-  }
+function slug(file) {
+  return path
+    .parse(file)
+    .name.toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '') // tira os acentos
+    .replace(/[^a-z0-9-]+/g, '-')
 }
-for (const file of ignored) {
-  console.log(
-    `   ! ignorado: presentes/${file} (use JPG, PNG ou WebP; fotos HEIC do iPhone: exporte como JPG)`,
-  )
+
+/**
+ * O sharp não lê HEIC (formato padrão das fotos do iPhone): convertemos antes para JPEG
+ * em qualidade máxima, e o resto do processo segue igual. A orientação já vem aplicada.
+ */
+async function readPhoto(file) {
+  if (!/\.hei[cf]$/i.test(file)) return file
+  const jpeg = await heicConvert({ buffer: await readFile(file), format: 'JPEG', quality: 1 })
+  return Buffer.from(jpeg)
+}
+
+for (const { folder, width, height } of FOLDERS) {
+  const sourceDir = path.join(SOURCE, folder)
+  const outputDir = path.join(OUTPUT, folder)
+  const files = await readdir(sourceDir).catch(() => [])
+  const photos = files.filter((f) => /\.(jpe?g|png|webp|tiff?|hei[cf])$/i.test(f))
+  const ignored = files.filter((f) => !photos.includes(f) && !f.startsWith('.'))
+
+  if (photos.length > 0) {
+    await mkdir(outputDir, { recursive: true })
+    console.log(`✓ ${folder} (${photos.length})`)
+    for (const file of photos) {
+      const target = path.join(outputDir, `${slug(file)}.webp`)
+      const info = await sharp(await readPhoto(path.join(sourceDir, file)))
+        .rotate() // respeita a orientação da foto do celular
+        .resize({ width, height, fit: 'cover', position: sharp.strategy.attention })
+        .webp({ quality: 80, effort: 6 })
+        .toFile(target)
+      console.log(
+        `   → ${target} (${info.width}×${info.height}, ${Math.round(info.size / 1024)} KB)`,
+      )
+    }
+  }
+  for (const file of ignored) {
+    console.log(`   ! ignorado: ${folder}/${file} (use JPG, PNG, WebP ou HEIC)`)
+  }
 }

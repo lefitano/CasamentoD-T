@@ -159,7 +159,7 @@ npm run dev      # servidor local; também mostra um endereço para abrir no cel
 npm run build    # checagem de tipos + build de produção em dist/
 npm run lint     # Oxlint
 npm run format   # Prettier
-npm run fotos    # otimiza as fotos de fotos-originais/ para public/images/ (WebP)
+npm run fotos    # otimiza as fotos de fotos-originais/ para public/images/ (WebP); aceita HEIC do iPhone
 ```
 
 No VS Code, instale a extensão recomendada **TypeScript (Native Preview)**: ela faz o editor usar o TypeScript 7 do projeto (o mesmo do build). Sem ela, o editor marca como erro opções que o build aceita, como `erasableSyntaxOnly`.
@@ -172,7 +172,7 @@ No VS Code, instale a extensão recomendada **TypeScript (Native Preview)**: ela
 - **Ícone do site (favicon):** monograma marfim num quadrado marinho de cantos arredondados, na aba do navegador e na tela inicial do celular (`public/favicon-32.png`, `apple-touch-icon.png`, `icon-192/512.png` e `site.webmanifest`), gerados por `npm run fotos`.
 - **`vercel.json`:** cache longo para os arquivos de `assets/` e o cabeçalho `X-Robots-Tag: noindex`, que impede o Google de indexar o site antes da entrega. **Remover o `noindex` na publicação oficial.**
 - **Fotos:** os originais dos noivos ficam em `fotos-originais/` (fora do Git); `npm run fotos` gera as versões otimizadas em `public/images/` (no Git). Para uma foto nova, acrescente uma entrada em `JOBS` no [script](scripts/optimize-images.mjs).
-- **Fotos provisórias dos momentos:** ficam fora do Git (`public/images/provisorio/`); no Vercel aparecem como quadros vazios até as fotos reais chegarem.
+- **Fotos dos momentos (Nossa história):** originais em `fotos-originais/historia/`; `npm run fotos` gera `public/images/historia/<nome>.webp` (800×1000, 4:5), e o `src` em `src/content/moments.ts` aponta para elas. As provisórias de banco (`public/images/provisorio/`) ficam fora do Git.
 
 ## Identidade visual
 
